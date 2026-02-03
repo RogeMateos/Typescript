@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Type Inference - TypeScript</title>
+    <title>Any Type - TypeScript</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
         <div class="max-w-4xl mx-auto">
             <!-- Header -->
             <div class="mb-8">
-                <a href="../index.html" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4">
+                <a href="../../index.html" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Back to index</span>
                 </a>
@@ -32,10 +32,10 @@
             <!-- Content -->
             <div class="animate-in">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
-                        <i class="fa-solid fa-lightbulb text-3xl"></i>
+                    <div class="p-4 bg-orange-600 text-white rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-exclamation-triangle text-3xl"></i>
                     </div>
-                    <h1 class="text-4xl font-extrabold text-gray-900">Type Inference</h1>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Any Type</h1>
                 </div>
 
                 <div class="grid gap-8">
@@ -45,24 +45,24 @@
                             <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-triangle-exclamation"></i> Problem
                             </h3>
-                            <p class="text-red-900">Do I have to manually write the type of every variable? It seems repetitive and tedious.</p>
+                            <p class="text-red-900">Sometimes I don't know what type a variable will have (API data, untyped libraries, migration from JS).</p>
                         </div>
                         <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
                             <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-circle-check"></i> Solution
                             </h3>
-                            <p class="text-green-900">TypeScript can infer (deduce) the type automatically based on the initial value. You don't always need to write it!</p>
+                            <p class="text-green-900">The <code>any</code> type disables type checking, allowing any value. It's a temporary "escape hatch".</p>
                         </div>
                     </div>
 
                     <!-- Analogy -->
-                    <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
-                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
-                            <i class="fa-solid fa-brain"></i>
+                    <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl flex items-center gap-6">
+                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-orange-600 hidden sm:block">
+                            <i class="fa-solid fa-unlock"></i>
                         </div>
                         <div>
-                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Visual Analogy</h3>
-                            <p class="text-blue-900 text-lg italic leading-relaxed">"If I give you an apple, you don't need to say 'this is a fruit'. I already know because I can see it. TypeScript works the same way: if you assign a number, it knows it's a number."</p>
+                            <h3 class="text-orange-800 font-bold uppercase text-xs tracking-widest mb-1">⚠️ Warning</h3>
+                            <p class="text-orange-900 text-lg italic leading-relaxed">"Any is like a wildcard: it accepts everything, but you lose TypeScript's protection. Use it only when necessary!"</p>
                         </div>
                     </div>
 
@@ -70,25 +70,32 @@
                     <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
                         <div class="flex border-b border-gray-800 bg-[#252526]">
                             <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
-                                Automatic Inference
+                                Using Any
                             </button>
                             <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
-                                Explicit Type
+                                Alternative: Unknown
                             </button>
                         </div>
                         <div class="p-6">
-                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// TypeScript infers automatically
-let age = 25; // TS knows it's 'number'
-let name = "Anna"; // TS knows it's 'string'
-let active = true; // TS knows it's 'boolean'
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// Any accepts any type
+let data: any = "text";
+data = 123; // ✅ OK
+data = true; // ✅ OK
+data = { name: "Anna" }; // ✅ OK
 
-// age = "thirty"; // ❌ Error: you can't assign string</code></pre>
-                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// You can also be explicit (optional)
-let age: number = 25;
-let name: string = "Anna";
-let active: boolean = true;
+// Danger: no type checking
+let x: any = "hello";
+x.toFixed(); // ❌ Runtime error, but TS doesn't warn</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// Better alternative: unknown (safer)
+let data: unknown = "text";
+data = 123; // ✅ OK
 
-// Both forms are valid, choose based on context</code></pre>
+// But you can't use it without checking first
+// data.toFixed(); // ❌ Compilation error
+
+if (typeof data === "number") {
+  data.toFixed(); // ✅ Now it's OK, because you verified
+}</code></pre>
                         </div>
                     </div>
 
@@ -99,16 +106,20 @@ let active: boolean = true;
                         </h3>
                         <ul class="text-purple-900 space-y-2">
                             <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
-                                <span>Let TypeScript infer when the type is obvious from the initial value</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
-                                <span>Use explicit annotations for function parameters and public APIs</span>
-                            </li>
-                            <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-xmark text-red-600 mt-1"></i>
-                                <span>Avoid writing redundant types: <code>let x: number = 5</code> is unnecessary</span>
+                                <span>Avoid <code>any</code> whenever possible - it defeats TypeScript's purpose</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Prefer <code>unknown</code> if you need flexibility with safety</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Use <code>any</code> only temporarily in JS → TS migrations</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-600 mt-1"></i>
+                                <span>Enable <code>noImplicitAny</code> in tsconfig.json to avoid accidental any</span>
                             </li>
                         </ul>
                     </div>
@@ -118,11 +129,11 @@ let active: boolean = true;
                         <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-microphone-lines"></i> Interview Prep
                         </h3>
-                        <p class="text-xl font-bold text-gray-900 mb-6">Q: What is type inference in TypeScript?</p>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: When should you use the any type?</p>
                         <div id="answer-container">
                             <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Show Answer</button>
                             <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
-                                <span class="font-black text-amber-500">A: </span>It is TypeScript's ability to automatically deduce the type of a variable based on its initial value, without requiring explicit annotations. It reduces repetitive code while maintaining type safety.
+                                <span class="font-black text-amber-500">A: </span>Only in specific cases: gradual JavaScript migration, integration with untyped libraries, or when the type is genuinely impossible to determine. In most cases, <code>unknown</code> is safer because it forces you to verify the type before using it.
                             </div>
                         </div>
                     </div>

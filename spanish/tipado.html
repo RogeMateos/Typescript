@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -67,8 +70,11 @@
 
                     <!-- Tipos Básicos -->
                     <div>
-                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Tipos Básicos</h3>
-                        <ul class="space-y-1">
+                        <button onclick="toggleSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
                             <li>
                                 <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-lightbulb w-5"></i>
@@ -187,12 +193,12 @@
                             </button>
                         </div>
                         <div class="p-6">
-                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// JavaScript (Peligroso)
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-javascript">// JavaScript (Peligroso)
 function sumar(a, b) {
   return a + b;
 }
 console.log(sumar('5', 5)); // Resultado: '55'</code></pre>
-                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// TypeScript (Seguro)
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">// TypeScript (Seguro)
 function sumar(a: number, b: number): number {
   return a + b;
 }
@@ -248,6 +254,17 @@ function sumar(a: number, b: number): number {
         function toggleAnswer() {
             document.getElementById('answer').classList.toggle('hidden');
         }
+
+        function toggleSection(sectionId) {
+            const list = document.getElementById('list-' + sectionId);
+            const icon = document.getElementById('icon-' + sectionId);
+
+            list.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Inicializar highlight.js
+        hljs.highlightAll();
     </script>
 </body>
 </html>

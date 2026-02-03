@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -65,13 +68,13 @@
                         </ul>
                     </div>
 
-                    <!-- Tipos Básicos - Collapsible -->
+                    <!-- Tipos Básicos -->
                     <div>
-                        <button onclick="toggleBasicTypes()" class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider hover:text-gray-700 transition-colors">
+                        <button onclick="toggleSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
                             <span>Tipos Básicos</span>
-                            <i id="toggle-icon" class="fa-solid fa-chevron-down w-4 transition-transform duration-300 rotate-180"></i>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
                         </button>
-                        <ul id="basic-types-list" class="space-y-1 mt-3">
+                        <ul id="list-tipos-basicos" class="space-y-1">
                             <li>
                                 <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-lightbulb w-5"></i>
@@ -190,10 +193,10 @@
                             </button>
                         </div>
                         <div class="p-6">
-                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>let id: string | number;
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">let id: string | number;
 id = 123; // OK
 id = 'abc'; // OK</code></pre>
-                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>id = true; // ERROR: Boolean no está permitido</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">id = true; // ERROR: Boolean no está permitido</code></pre>
                         </div>
                     </div>
 
@@ -223,9 +226,10 @@ id = 'abc'; // OK</code></pre>
             sidebar.classList.toggle('-translate-x-full');
         }
 
-        function toggleBasicTypes() {
-            const list = document.getElementById('basic-types-list');
-            const icon = document.getElementById('toggle-icon');
+        function toggleSection(sectionId) {
+            const list = document.getElementById('list-' + sectionId);
+            const icon = document.getElementById('icon-' + sectionId);
+
             list.classList.toggle('hidden');
             icon.classList.toggle('rotate-180');
         }
@@ -252,6 +256,9 @@ id = 'abc'; // OK</code></pre>
         function toggleAnswer() {
             document.getElementById('answer').classList.toggle('hidden');
         }
+
+        // Inicializar highlight.js
+        hljs.highlightAll();
     </script>
 </body>
 </html>

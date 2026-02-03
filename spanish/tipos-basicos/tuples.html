@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>String Type - TypeScript</title>
+    <title>Tuples: Arrays con Estructura Fija - TypeScript</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -23,9 +23,9 @@
         <div class="max-w-4xl mx-auto">
             <!-- Header -->
             <div class="mb-8">
-                <a href="../index.html" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4">
+                <a href="../../index.html" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4">
                     <i class="fa-solid fa-arrow-left"></i>
-                    <span>Back to index</span>
+                    <span>Volver al índice</span>
                 </a>
             </div>
 
@@ -33,9 +33,9 @@
             <div class="animate-in">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
-                        <i class="fa-solid fa-quote-left text-3xl"></i>
+                        <i class="fa-solid fa-layer-group text-3xl"></i>
                     </div>
-                    <h1 class="text-4xl font-extrabold text-gray-900">String Type</h1>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Tuples: Arrays con Estructura Fija</h1>
                 </div>
 
                 <div class="grid gap-8">
@@ -43,26 +43,26 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
                             <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-triangle-exclamation"></i> Problem
+                                <i class="fa-solid fa-triangle-exclamation"></i> Problema
                             </h3>
-                            <p class="text-red-900">In JavaScript, you can assign any value to a variable that contained text, causing hard-to-track errors.</p>
+                            <p class="text-red-900">Los arrays permiten cualquier cantidad de elementos del mismo tipo, pero a veces necesitas un número fijo de elementos con tipos específicos en cada posición.</p>
                         </div>
                         <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
                             <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check"></i> Solution
+                                <i class="fa-solid fa-circle-check"></i> Solución
                             </h3>
-                            <p class="text-green-900">The <code>string</code> type in TypeScript ensures a variable only contains text, preventing type errors.</p>
+                            <p class="text-green-900">Las Tuples son arrays con un número fijo de elementos donde cada posición tiene un tipo específico predefinido.</p>
                         </div>
                     </div>
 
                     <!-- Analogy -->
                     <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
                         <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
-                            <i class="fa-solid fa-font"></i>
+                            <i class="fa-solid fa-compass"></i>
                         </div>
                         <div>
-                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Visual Analogy</h3>
-                            <p class="text-blue-900 text-lg italic leading-relaxed">"A mailbox only accepts letters, not large packages. A string only accepts text, not numbers or objects."</p>
+                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Analogía Visual</h3>
+                            <p class="text-blue-900 text-lg italic leading-relaxed">"Como coordenadas GPS: siempre son dos números en orden fijo [latitud, longitud]. No puedes invertirlos o añadir un tercer valor sin cambiar su significado."</p>
                         </div>
                     </div>
 
@@ -70,64 +70,67 @@
                     <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
                         <div class="flex border-b border-gray-800 bg-[#252526]">
                             <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
-                                Basic Usage
+                                Código Base
                             </button>
                             <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
-                                Template Literals
+                                Resultado TS
                             </button>
                         </div>
                         <div class="p-6">
-                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// String declarations
-let message: string = "Hello TypeScript";
-let name: string = 'John'; // Single quotes also work
-let multiline: string = `This is
-a multiline
-string`;
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// Definiendo una Tuple
+let usuario: [string, number, boolean];
 
-// message = 123; // ❌ Error: Type 'number' is not 'string'</code></pre>
-                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// Template literals (backticks)
-let name = "Anna";
-let age = 25;
+// Asignación correcta
+usuario = ["Ana", 25, true];
 
-let greeting = `Hello, I'm ${name} and I'm ${age} years old`;
-// Result: "Hello, I'm Anna and I'm 25 years old"
+// ❌ Error: el orden importa
+// usuario = [25, "Ana", true];
 
-// Calculations inside templates
-let price = `Total: ${10 + 5} euros`; // "Total: 15 euros"</code></pre>
+// Acceso por índice (con tipos correctos)
+let nombre: string = usuario[0];   // ✅ OK
+let edad: number = usuario[1];     // ✅ OK
+let activo: boolean = usuario[2];  // ✅ OK</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// Caso de uso real: Respuesta de API
+type ApiResponse = [number, string, any];
+
+function fetchData(): ApiResponse {
+  return [200, "OK", { datos: "..." }];
+}
+
+const [codigo, mensaje, datos] = fetchData();
+// codigo es number
+// mensaje es string
+// datos es any
+
+// Tuple con etiquetas (TS 4.0+)
+type Coordenadas = [lat: number, lng: number];
+let posicion: Coordenadas = [40.7128, -74.0060];</code></pre>
                         </div>
                     </div>
 
                     <!-- Best Practices -->
                     <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
                         <h3 class="text-purple-800 font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-star"></i> Best Practices
+                            <i class="fa-solid fa-star"></i> Buenas Prácticas
                         </h3>
                         <ul class="text-purple-900 space-y-2">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
-                                <span>Use template literals (`) to concatenate strings with variables</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
-                                <span>Prefer double quotes " for consistency (or single ', but pick one)</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-xmark text-red-600 mt-1"></i>
-                                <span>Avoid concatenating with +: use `Hello ${name}` instead of "Hello " + name</span>
-                            </li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>Usa tuples para valores relacionados con orden fijo (como coordenadas o RGB)</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>Limita las tuples a 2-3 elementos; para más, usa interfaces</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>Usa <code>readonly</code> para tuples inmutables: <code>readonly [string, number]</code></span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>Añade etiquetas para mayor claridad: <code>[nombre: string, edad: number]</code></span></li>
                         </ul>
                     </div>
 
                     <!-- Interview Question -->
                     <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
                         <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-microphone-lines"></i> Interview Prep
+                            <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
                         </h3>
-                        <p class="text-xl font-bold text-gray-900 mb-6">Q: What is the difference between strings with quotes and backticks?</p>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuál es la diferencia entre una Tuple y un Array en TypeScript?</p>
                         <div id="answer-container">
-                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Show Answer</button>
+                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
                             <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
-                                <span class="font-black text-amber-500">A: </span>Backticks (`) allow creating template literals with variable interpolation using ${} and multiline strings. Single or double quotes only create literal strings without these features.
+                                <span class="font-black text-amber-500">A: </span>Un Array tiene longitud variable y todos los elementos son del mismo tipo (<code>number[]</code>). Una Tuple tiene longitud fija y cada posición puede tener un tipo diferente (<code>[string, number]</code>). Las tuples son ideales cuando el orden y el número de elementos tienen significado semántico.
                             </div>
                         </div>
                     </div>

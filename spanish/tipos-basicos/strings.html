@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tipo Any - TypeScript</title>
+    <title>Strings - TypeScript</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -24,7 +27,7 @@
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
             <div class="p-6">
                 <div class="flex items-center justify-between mb-8">
-                    <a href="../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
                         <i class="fa-solid fa-arrow-left"></i>
                         <span class="font-semibold">Volver</span>
                     </a>
@@ -39,25 +42,25 @@
                         <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
                         <ul class="space-y-1">
                             <li>
-                                <a href="tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="../tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-shield-halved w-5"></i>
                                     <span>Tipado</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="../interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-file-contract w-5"></i>
                                     <span>Interfaces</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="../tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-layer-group w-5"></i>
                                     <span>Tipos de Unión</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="../enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-list-ol w-5"></i>
                                     <span>Enums</span>
                                 </a>
@@ -67,8 +70,11 @@
 
                     <!-- Tipos Básicos -->
                     <div>
-                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Tipos Básicos</h3>
-                        <ul class="space-y-1">
+                        <button onclick="toggleSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
                             <li>
                                 <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-lightbulb w-5"></i>
@@ -76,13 +82,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
                                     <i class="fa-solid fa-quote-left w-5"></i>
                                     <span>Strings</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-exclamation-triangle w-5"></i>
                                     <span>Tipo Any</span>
                                 </a>
@@ -130,7 +136,7 @@
                 <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
-                <a href="../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
                     Volver al índice
                 </a>
             </div>
@@ -142,10 +148,10 @@
                         <!-- Content -->
                         <div class="animate-in">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="p-4 bg-orange-600 text-white rounded-2xl shadow-lg">
-                        <i class="fa-solid fa-exclamation-triangle text-3xl"></i>
+                    <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-quote-left text-3xl"></i>
                     </div>
-                    <h1 class="text-4xl font-extrabold text-gray-900">Tipo Any</h1>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Tipo String</h1>
                 </div>
 
                 <div class="grid gap-8">
@@ -155,24 +161,24 @@
                             <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-triangle-exclamation"></i> Problema
                             </h3>
-                            <p class="text-red-900">A veces no sé qué tipo tendrá una variable (datos de API, librerías sin tipos, migración desde JS).</p>
+                            <p class="text-red-900">En JavaScript, puedes asignar cualquier valor a una variable que contenía texto, causando errores difíciles de rastrear.</p>
                         </div>
                         <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
                             <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-circle-check"></i> Solución
                             </h3>
-                            <p class="text-green-900">El tipo <code>any</code> desactiva la verificación de tipos, permitiendo cualquier valor. Es una "escape hatch" temporal.</p>
+                            <p class="text-green-900">El tipo <code>string</code> en TypeScript garantiza que una variable solo contenga texto, previniendo errores de tipo.</p>
                         </div>
                     </div>
 
                     <!-- Analogy -->
-                    <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl flex items-center gap-6">
-                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-orange-600 hidden sm:block">
-                            <i class="fa-solid fa-unlock"></i>
+                    <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
+                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
+                            <i class="fa-solid fa-font"></i>
                         </div>
                         <div>
-                            <h3 class="text-orange-800 font-bold uppercase text-xs tracking-widest mb-1">⚠️ Advertencia</h3>
-                            <p class="text-orange-900 text-lg italic leading-relaxed">"Any es como un comodín: acepta todo, pero pierdes la protección de TypeScript. ¡Úsalo solo cuando sea necesario!"</p>
+                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Analogía Visual</h3>
+                            <p class="text-blue-900 text-lg italic leading-relaxed">"Un buzón de correo solo acepta cartas, no paquetes grandes. Un string solo acepta texto, no números ni objetos."</p>
                         </div>
                     </div>
 
@@ -180,32 +186,30 @@
                     <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
                         <div class="flex border-b border-gray-800 bg-[#252526]">
                             <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
-                                Uso de Any
+                                Uso Básico
                             </button>
                             <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
-                                Alternativa: Unknown
+                                Template Literals
                             </button>
                         </div>
                         <div class="p-6">
-                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// Any acepta cualquier tipo
-let dato: any = "texto";
-dato = 123; // ✅ OK
-dato = true; // ✅ OK
-dato = { nombre: "Ana" }; // ✅ OK
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">// Declaración de strings
+let mensaje: string = "Hola TypeScript";
+let nombre: string = 'Juan'; // Comillas simples también
+let multilinea: string = `Esto es
+una cadena
+multilínea`;
 
-// Peligro: no hay verificación
-let x: any = "hola";
-x.toFixed(); // ❌ Error en runtime, pero TS no avisa</code></pre>
-                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// Mejor alternativa: unknown (más seguro)
-let dato: unknown = "texto";
-dato = 123; // ✅ OK
+// mensaje = 123; // ❌ Error: Type 'number' no es 'string'</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">// Template literals (backticks)
+let nombre = "Ana";
+let edad = 25;
 
-// Pero no puedes usarlo sin verificar primero
-// dato.toFixed(); // ❌ Error de compilación
+let saludo = `Hola, soy ${nombre} y tengo ${edad} años`;
+// Resultado: "Hola, soy Ana y tengo 25 años"
 
-if (typeof dato === "number") {
-  dato.toFixed(); // ✅ Ahora sí, porque verificaste
-}</code></pre>
+// Cálculos dentro de templates
+let precio = `Total: ${10 + 5} euros`; // "Total: 15 euros"</code></pre>
                         </div>
                     </div>
 
@@ -216,20 +220,16 @@ if (typeof dato === "number") {
                         </h3>
                         <ul class="text-purple-900 space-y-2">
                             <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Usa template literals (`) para concatenar strings con variables</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Prefiere comillas dobles " para consistencia (o simples ', pero elige una)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
                                 <i class="fa-solid fa-xmark text-red-600 mt-1"></i>
-                                <span>Evita <code>any</code> siempre que sea posible - derrota el propósito de TypeScript</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
-                                <span>Prefiere <code>unknown</code> si necesitas flexibilidad con seguridad</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
-                                <span>Usa <code>any</code> solo temporalmente en migraciones JS → TS</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-lightbulb text-amber-600 mt-1"></i>
-                                <span>Activa <code>noImplicitAny</code> en tsconfig.json para evitar any accidentales</span>
+                                <span>Evita concatenar con +: usa `Hola ${nombre}` en lugar de "Hola " + nombre</span>
                             </li>
                         </ul>
                     </div>
@@ -239,20 +239,27 @@ if (typeof dato === "number") {
                         <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
                         </h3>
-                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuándo deberías usar el tipo any?</p>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuál es la diferencia entre strings con comillas y backticks?</p>
                         <div id="answer-container">
                             <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
                             <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
-                                <span class="font-black text-amber-500">A: </span>Solo en casos específicos: migración gradual de JavaScript, integración con librerías sin tipos, o cuando el tipo es genuinamente imposible de determinar. En la mayoría de casos, <code>unknown</code> es más seguro porque obliga a verificar el tipo antes de usarlo.
+                                <span class="font-black text-amber-500">A: </span>Los backticks (`) permiten crear template literals con interpolación de variables usando ${} y strings multilínea. Las comillas simples o dobles solo crean strings literales sin estas características.
                             </div>
                         </div>
                     </div>
                 </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
     <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+
         function showCode(type) {
             document.getElementById('code-original').classList.add('hidden');
             document.getElementById('code-result').classList.add('hidden');
@@ -275,6 +282,17 @@ if (typeof dato === "number") {
         function toggleAnswer() {
             document.getElementById('answer').classList.toggle('hidden');
         }
+
+        function toggleSection(sectionId) {
+            const list = document.getElementById('list-' + sectionId);
+            const icon = document.getElementById('icon-' + sectionId);
+
+            list.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Inicializar highlight.js
+        hljs.highlightAll();
     </script>
 </body>
 </html>

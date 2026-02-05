@@ -28,4 +28,4 @@ export const Sidebar = {
 
 // Expose to global scope for onclick handlers
 window.toggleSidebar = Sidebar.toggle;
-window.toggleSection = Sidebar.toggleSection;
+window.toggleSidebarSection = Sidebar.toggleSection;

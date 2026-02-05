@@ -15,6 +15,9 @@ function init() {
   // Initialize syntax highlighting
   initializeHighlighting();
 
+  // Page interactions are already exposed to global scope via the import
+  // This ensures the module is loaded
+
   console.log('TypeScript Tutorial App initialized');
 }
 

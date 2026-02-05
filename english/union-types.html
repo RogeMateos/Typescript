@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enums: Valores Fijos - TypeScript</title>
+    <title>Union Types - TypeScript</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -27,9 +27,9 @@
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
             <div class="p-6">
                 <div class="flex items-center justify-between mb-8">
-                    <a href="../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
                         <i class="fa-solid fa-arrow-left"></i>
-                        <span class="font-semibold">Volver</span>
+                        <span class="font-semibold">Back</span>
                     </a>
                     <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
                         <i class="fa-solid fa-times text-xl"></i>
@@ -37,14 +37,14 @@
                 </div>
 
                 <nav class="space-y-6">
-                    <!-- Conceptos Fundamentales -->
+                    <!-- Core Concepts -->
                     <div>
-                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Core Concepts</h3>
                         <ul class="space-y-1">
                             <li>
-                                <a href="tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="typing.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-shield-halved w-5"></i>
-                                    <span>Tipado</span>
+                                    <span>Typing</span>
                                 </a>
                             </li>
                             <li>
@@ -54,13 +54,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="union-types.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
                                     <i class="fa-solid fa-layer-group w-5"></i>
-                                    <span>Tipos de Unión</span>
+                                    <span>Union Types</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="enums.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                <a href="basics/enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-list-ol w-5"></i>
                                     <span>Enums</span>
                                 </a>
@@ -68,62 +68,77 @@
                         </ul>
                     </div>
 
-                    <!-- Tipos Básicos -->
+                    <!-- Basic Types -->
                     <div>
-                        <button onclick="toggleSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
-                            <span>Tipos Básicos</span>
-                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        <button onclick="toggleSection('basic-types')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Basic Types</span>
+                            <i id="icon-basic-types" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
                         </button>
-                        <ul id="list-tipos-basicos" class="space-y-1">
+                        <ul id="list-basic-types" class="space-y-1">
                             <li>
-                                <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/type-inference.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-lightbulb w-5"></i>
-                                    <span>Inferir Tipos</span>
+                                    <span>Type Inference</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-quote-left w-5"></i>
                                     <span>Strings</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/type-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-exclamation-triangle w-5"></i>
-                                    <span>Tipo Any</span>
+                                    <span>Any Type</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-list w-5"></i>
                                     <span>Arrays</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-layer-group w-5"></i>
                                     <span>Tuples</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/type-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-ban w-5"></i>
-                                    <span>Tipo Void</span>
+                                    <span>Void Type</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/type-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-infinity w-5"></i>
-                                    <span>Tipo Never</span>
+                                    <span>Never Type</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                <a href="basics/null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
                                     <i class="fa-solid fa-question w-5"></i>
                                     <span>Null vs Undefined</span>
                                 </a>
                             </li>
                         </ul>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Language</p>
+                        <div class="flex gap-2">
+                            <a href="../spanish/tipos-union.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <span>🇪🇸</span>
+                                <span>Español</span>
+                            </a>
+                            <a href="union-types.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </a>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -136,8 +151,8 @@
                 <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
-                <a href="../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
-                    Volver al índice
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Back to Index
                 </a>
             </div>
 
@@ -149,9 +164,9 @@
                         <div class="animate-in">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
-                        <i class="fa-solid fa-list-ol text-3xl"></i>
+                        <i class="fa-solid fa-layer-group text-3xl"></i>
                     </div>
-                    <h1 class="text-4xl font-extrabold text-gray-900">Enums: Valores Fijos</h1>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Union Types</h1>
                 </div>
 
                 <div class="grid gap-8">
@@ -159,26 +174,26 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
                             <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-triangle-exclamation"></i> Problema
+                                <i class="fa-solid fa-triangle-exclamation"></i> Problem
                             </h3>
-                            <p class="text-red-900">Usar strings mágicos como 'admin' o 'user' genera errores tipográficos (ej: 'admmin') difíciles de encontrar.</p>
+                            <p class="text-red-900">Sometimes a variable can be of several types (e.g., an ID that is number or text). JavaScript doesn't let us define this constraint.</p>
                         </div>
                         <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
                             <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-check"></i> Solución
+                                <i class="fa-solid fa-circle-check"></i> Solution
                             </h3>
-                            <p class="text-green-900">Los Enums crean un conjunto de constantes con nombre, facilitando la lectura y evitando errores.</p>
+                            <p class="text-green-900">TypeScript allows using the '|' operator to define unions of types.</p>
                         </div>
                     </div>
 
                     <!-- Analogy -->
                     <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
                         <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
-                            <i class="fa-solid fa-traffic-light"></i>
+                            <i class="fa-solid fa-user-secret"></i>
                         </div>
                         <div>
-                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Analogía Visual</h3>
-                            <p class="text-blue-900 text-lg italic leading-relaxed">"Como un semáforo. Solo tiene tres estados posibles: Rojo, Amarillo o Verde. No hay 'Azul'."</p>
+                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Visual Analogy</h3>
+                            <p class="text-blue-900 text-lg italic leading-relaxed">"Like a double agent. Can be civilian or spy, but nothing else. You decide which roles are allowed."</p>
                         </div>
                     </div>
 
@@ -186,32 +201,30 @@
                     <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
                         <div class="flex border-b border-gray-800 bg-[#252526]">
                             <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
-                                Código Base
+                                Base Code
                             </button>
                             <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
-                                Resultado TS
+                                TS Result
                             </button>
                         </div>
                         <div class="p-6">
-                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">enum Role {
-  Admin,
-  User,
-  Guest
-}</code></pre>
-                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">const myRole: Role = Role.Admin;</code></pre>
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">let id: string | number;
+id = 123; // OK
+id = 'abc'; // OK</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">id = true; // ERROR: Boolean is not allowed</code></pre>
                         </div>
                     </div>
 
                     <!-- Interview Question -->
                     <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
                         <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
+                            <i class="fa-solid fa-microphone-lines"></i> Interview Question
                         </h3>
-                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuándo usar un Enum?</p>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: What is a Union Type?</p>
                         <div id="answer-container">
-                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
+                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Show Answer</button>
                             <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
-                                <span class="font-black text-amber-500">A: </span>Cuando tienes un conjunto limitado de valores fijos y quieres evitar el uso de strings sueltos o números mágicos.
+                                <span class="font-black text-amber-500">A: </span>It allows a value to be one of several possible types, increasing flexibility without losing safety.
                             </div>
                         </div>
                     </div>
@@ -222,6 +235,6 @@
         </main>
     </div>
 
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../../js/main.js"></script>
 </body>
 </html>

@@ -222,45 +222,6 @@
         </main>
     </div>
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('-translate-x-full');
-        }
-
-        function showCode(type) {
-            document.getElementById('code-original').classList.add('hidden');
-            document.getElementById('code-result').classList.add('hidden');
-            document.getElementById('btn-original').classList.remove('text-blue-400', 'border-b-2', 'border-blue-400');
-            document.getElementById('btn-result').classList.remove('text-green-400', 'border-b-2', 'border-green-400');
-            document.getElementById('btn-original').classList.add('text-gray-500');
-            document.getElementById('btn-result').classList.add('text-gray-500');
-
-            if (type === 'original') {
-                document.getElementById('code-original').classList.remove('hidden');
-                document.getElementById('btn-original').classList.add('text-blue-400', 'border-b-2', 'border-blue-400');
-                document.getElementById('btn-original').classList.remove('text-gray-500');
-            } else {
-                document.getElementById('code-result').classList.remove('hidden');
-                document.getElementById('btn-result').classList.add('text-green-400', 'border-b-2', 'border-green-400');
-                document.getElementById('btn-result').classList.remove('text-gray-500');
-            }
-        }
-
-        function toggleAnswer() {
-            document.getElementById('answer').classList.toggle('hidden');
-        }
-
-        function toggleSection(sectionId) {
-            const list = document.getElementById('list-' + sectionId);
-            const icon = document.getElementById('icon-' + sectionId);
-
-            list.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-
-        // Inicializar highlight.js
-        hljs.highlightAll();
-    </script>
+    <script type="module" src="../js/main.js"></script>
 </body>
 </html>

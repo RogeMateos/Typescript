@@ -5,6 +5,7 @@
 
 import { Sidebar } from './components/sidebar.js';
 import { CodeTabs } from './components/code-tabs.js';
+import { PageInteractions } from './components/page-interactions.js';
 import { initializeHighlighting } from './utils/highlight-init.js';
 
 /**
@@ -25,4 +26,4 @@ if (document.readyState === 'loading') {
 }
 
 // Export for debugging purposes
-export { Sidebar, CodeTabs };
+export { Sidebar, CodeTabs, PageInteractions };

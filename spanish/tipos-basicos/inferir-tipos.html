@@ -1167,6 +1167,51 @@ export function TaskList({ initialTasks = [] }: TaskListProps) {
                         </div>
                         </div>
                     </div>
+
+                    <!-- Referencias Adicionales -->
+                    <div class="border-t-4 border-gray-600 pt-12 mt-12">
+                        <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+                            <h2 class="text-3xl font-extrabold mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-bookmark text-yellow-400 text-3xl"></i>
+                                Referencias y Recursos Adicionales
+                            </h2>
+                            <p class="text-gray-300 mb-6">
+                                Profundiza más en TypeScript con estos recursos oficiales y guías recomendadas:
+                            </p>
+                            <div class="grid gap-4">
+                                <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-blue-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-book text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-blue-300 transition-colors">TypeScript Handbook - Everyday Types</h3>
+                                        <p class="text-gray-400 text-sm">Documentación oficial sobre tipos comunes en TypeScript</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <a href="https://chatgpt.com/c/67aaa78d-f600-8008-bf7b-6de9b97278be" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-green-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">Conversación sobre TypeScript</h3>
+                                        <p class="text-gray-400 text-sm">Guía interactiva y ejemplos prácticos</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/69840549-429c-8391-b388-7faaf60f62d3" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-purple-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-robot text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">TypeScript GPT - Conversación Avanzada</h3>
+                                        <p class="text-gray-400 text-sm">Asistente especializado en TypeScript con ejemplos detallados</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                     </div>
                 </div>
@@ -1174,45 +1219,6 @@ export function TaskList({ initialTasks = [] }: TaskListProps) {
         </main>
     </div>
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('-translate-x-full');
-        }
-
-        function showCode(type) {
-            document.getElementById('code-original').classList.add('hidden');
-            document.getElementById('code-result').classList.add('hidden');
-            document.getElementById('btn-original').classList.remove('text-blue-400', 'border-b-2', 'border-blue-400');
-            document.getElementById('btn-result').classList.remove('text-green-400', 'border-b-2', 'border-green-400');
-            document.getElementById('btn-original').classList.add('text-gray-500');
-            document.getElementById('btn-result').classList.add('text-gray-500');
-
-            if (type === 'original') {
-                document.getElementById('code-original').classList.remove('hidden');
-                document.getElementById('btn-original').classList.add('text-blue-400', 'border-b-2', 'border-blue-400');
-                document.getElementById('btn-original').classList.remove('text-gray-500');
-            } else {
-                document.getElementById('code-result').classList.remove('hidden');
-                document.getElementById('btn-result').classList.add('text-green-400', 'border-b-2', 'border-green-400');
-                document.getElementById('btn-result').classList.remove('text-gray-500');
-            }
-        }
-
-        function toggleAnswer() {
-            document.getElementById('answer').classList.toggle('hidden');
-        }
-
-        function toggleSection(sectionId) {
-            const list = document.getElementById('list-' + sectionId);
-            const icon = document.getElementById('icon-' + sectionId);
-
-            list.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-
-        // Inicializar highlight.js
-        hljs.highlightAll();
-    </script>
+    <script type="module" src="../../js/main.js"></script>
 </body>
 </html>

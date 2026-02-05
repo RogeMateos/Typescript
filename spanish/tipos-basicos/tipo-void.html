@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -19,18 +22,146 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-    <div class="min-h-screen p-6 md:p-12">
-        <div class="max-w-4xl mx-auto">
-            <!-- Header -->
-            <div class="mb-8">
-                <a href="../../index.html" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>Volver al índice</span>
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Volver</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Conceptos Fundamentales -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="../tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Tipado</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tipos de Unión</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list-ol w-5"></i>
+                                    <span>Enums</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tipos Básicos -->
+                    <div>
+                        <button onclick="toggleSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
+                            <li>
+                                <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-lightbulb w-5"></i>
+                                    <span>Inferir Tipos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-quote-left w-5"></i>
+                                    <span>Strings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-triangle w-5"></i>
+                                    <span>Tipo Any</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list w-5"></i>
+                                    <span>Arrays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tuples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-ban w-5"></i>
+                                    <span>Tipo Void</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-infinity w-5"></i>
+                                    <span>Tipo Never</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question w-5"></i>
+                                    <span>Null vs Undefined</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Idioma</p>
+                        <div class="flex gap-2">
+                            <a href="tipo-void.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                                <span>🇪🇸</span>
+                                <span>Español</span>
+                            </a>
+                            <a href="../../english/basics/type-void.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Volver al índice
                 </a>
             </div>
 
-            <!-- Content -->
-            <div class="animate-in">
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Content -->
+                        <div class="animate-in">
                 <div class="flex items-center gap-4 mb-8">
                     <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
                         <i class="fa-solid fa-ban text-3xl"></i>
@@ -140,33 +271,12 @@ const procesar: Callback = (data) => {
                         </div>
                     </div>
                 </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
-    <script>
-        function showCode(type) {
-            document.getElementById('code-original').classList.add('hidden');
-            document.getElementById('code-result').classList.add('hidden');
-            document.getElementById('btn-original').classList.remove('text-blue-400', 'border-b-2', 'border-blue-400');
-            document.getElementById('btn-result').classList.remove('text-green-400', 'border-b-2', 'border-green-400');
-            document.getElementById('btn-original').classList.add('text-gray-500');
-            document.getElementById('btn-result').classList.add('text-gray-500');
-
-            if (type === 'original') {
-                document.getElementById('code-original').classList.remove('hidden');
-                document.getElementById('btn-original').classList.add('text-blue-400', 'border-b-2', 'border-blue-400');
-                document.getElementById('btn-original').classList.remove('text-gray-500');
-            } else {
-                document.getElementById('code-result').classList.remove('hidden');
-                document.getElementById('btn-result').classList.add('text-green-400', 'border-b-2', 'border-green-400');
-                document.getElementById('btn-result').classList.remove('text-gray-500');
-            }
-        }
-
-        function toggleAnswer() {
-            document.getElementById('answer').classList.toggle('hidden');
-        }
-    </script>
+    <script type="module" src="../../js/main.js"></script>
 </body>
 </html>

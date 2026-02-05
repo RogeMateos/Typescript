@@ -103,6 +103,459 @@ let users: { name: string; age: number }[] = [
                             </div>
                         </div>
                     </div>
+
+                    <!-- Comprehensive Tutorial Section -->
+                    <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-arrays')" class="w-full flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl hover:from-blue-100 hover:to-indigo-100 transition-all group">
+                            <div class="flex items-center gap-4">
+                                <div class="p-3 bg-blue-600 text-white rounded-xl group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-book-open text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-900">📘 Tutorial: Well-Typed Arrays from Scratch</h2>
+                            </div>
+                            <i id="icon-tutorial-arrays" class="fa-solid fa-chevron-down text-2xl text-blue-600 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-arrays" class="hidden mt-8 space-y-8">
+                            <!-- Section 1: The Real Problem in JS -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-red-500 to-orange-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-bug"></i>
+                                        1. The Real Problem in JavaScript
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">In plain JavaScript, arrays can contain anything:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// JavaScript - Chaos
+const mixed = [42, "text", true, null, { name: "Ana" }];
+const numbers = [1, 2, 3];
+numbers.push("oops"); // No error!
+
+// Then this crashes:
+const total = numbers.reduce((a, b) => a + b); // NaN 💥</code></pre>
+                                    </div>
+                                    <p class="text-red-600 font-semibold">⚠️ The error appears at runtime, not when writing code.</p>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Basic Typed Arrays -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                        2. Basic Typed Arrays in TypeScript
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">Two equivalent syntaxes (prefer the first):</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// ✅ Recommended: type[]
+let numbers: number[] = [1, 2, 3, 4, 5];
+let names: string[] = ["Ana", "Luis", "Carlos"];
+let flags: boolean[] = [true, false, true];
+
+// ✅ Alternative: Array&lt;type&gt; (less common)
+let ages: Array&lt;number&gt; = [25, 30, 35];
+
+// ❌ TypeScript protects you:
+numbers.push("text"); // Error: Argument of type 'string' is not assignable to parameter of type 'number'</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Type Inference -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-lightbulb"></i>
+                                        3. Type Inference: Let TypeScript Work for You
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">TypeScript automatically infers types from initial values:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// TypeScript infers number[]
+let scores = [10, 20, 30];
+
+// Infers string[]
+let cities = ["Madrid", "Barcelona", "Valencia"];
+
+// ⚠️ Be careful with empty arrays:
+let items = []; // type: any[] (not safe!)
+
+// ✅ Better: explicitly declare the type
+let items: string[] = [];
+items.push("item1"); // ✅ Now safe</code></pre>
+                                    </div>
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                                        <p class="text-blue-900"><strong>Rule:</strong> If you initialize empty, declare the type. If you initialize with values, let TS infer.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Arrays with Multiple Types -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                        4. Arrays with Multiple Types (Union Types)
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">Sometimes you need an array to accept multiple types:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// Array that can contain numbers OR strings
+let mixed: (number | string)[] = [1, "two", 3, "four"];
+
+// When using them, TypeScript requires type narrowing:
+mixed.forEach(item => {
+  if (typeof item === "string") {
+    console.log(item.toUpperCase()); // ✅ Here item is string
+  } else {
+    console.log(item.toFixed(2)); // ✅ Here item is number
+  }
+});
+
+// ⚠️ This doesn't work:
+// mixed[0].toUpperCase(); // Error: may be number</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 5: Tuples -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-indigo-500 to-blue-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-grip-vertical"></i>
+                                        5. Tuples: Fixed Position Types
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">A tuple is an array with a fixed number of elements where each position has a specific type:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// RGB color: [red, green, blue]
+let color: [number, number, number] = [255, 128, 0];
+
+// User: [id, username, isActive]
+let user: [number, string, boolean] = [1, "ana_dev", true];
+
+// ✅ TS knows the position:
+console.log(user[1].toUpperCase()); // "ANA_DEV"
+
+// ❌ Errors:
+user[0] = "text"; // Error: string is not assignable to number
+user = [1, "ana"]; // Error: missing third element</code></pre>
+                                    </div>
+                                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
+                                        <p class="text-amber-900"><strong>Real use case:</strong> React's <code>useState</code> returns a tuple: <code>[value, setter]</code></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 6: Arrays of Objects -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-teal-500 to-cyan-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-cube"></i>
+                                        6. Arrays of Objects (Most Common in Real Life)
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">Defining the structure of objects in an array:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// Define the type/interface
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  inStock: boolean;
+};
+
+// Use it in an array:
+let products: Product[] = [
+  { id: 1, name: "Laptop", price: 999, inStock: true },
+  { id: 2, name: "Mouse", price: 25, inStock: false },
+];
+
+// ✅ Autocomplete and type safety:
+products.forEach(p => {
+  console.log(p.name.toUpperCase());
+  console.log(p.price.toFixed(2));
+});
+
+// ❌ TS catches errors:
+products.push({ id: 3, name: "Keyboard" }); // Error: missing 'price' and 'inStock'</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 7: Array Methods -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-rose-500 to-pink-500 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                        7. Array Methods with Automatic Types
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">TypeScript infers types in callbacks:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>let numbers: number[] = [1, 2, 3, 4, 5];
+
+// map: transforms each element
+let doubled = numbers.map(n => n * 2); // number[]
+
+// filter: selects elements
+let evens = numbers.filter(n => n % 2 === 0); // number[]
+
+// find: finds first matching element
+let first = numbers.find(n => n > 3); // number | undefined
+
+// reduce: accumulates a value
+let sum = numbers.reduce((acc, n) => acc + n, 0); // number
+
+// ✅ TS knows 'n' is number in all cases, no annotation needed!</code></pre>
+                                    </div>
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                                        <p class="text-green-900"><strong>Magic:</strong> TypeScript automatically infers <code>n</code> is <code>number</code> because <code>numbers</code> is <code>number[]</code>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 8: readonly Arrays -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-gray-600 to-gray-800 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-solid fa-lock"></i>
+                                        8. Immutable Arrays: <code>readonly</code>
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">Prevent modifications to an array:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>// Original array (mutable)
+let mutableNumbers: number[] = [1, 2, 3];
+mutableNumbers.push(4); // ✅ OK
+
+// Immutable array
+let immutableNumbers: readonly number[] = [1, 2, 3];
+immutableNumbers.push(4); // ❌ Error: push doesn't exist on readonly
+immutableNumbers[0] = 10; // ❌ Error: cannot assign to readonly index
+
+// ✅ But you can read:
+console.log(immutableNumbers[0]); // 1
+let doubled = immutableNumbers.map(n => n * 2); // ✅ map is allowed (creates new array)</code></pre>
+                                    </div>
+                                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded">
+                                        <p class="text-purple-900"><strong>When to use:</strong> Function parameters where you shouldn't modify the array, or immutable data in React/Redux.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 9: React Connection -->
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                                <div class="bg-gradient-to-r from-cyan-500 to-blue-600 p-4">
+                                    <h3 class="text-white font-bold text-lg flex items-center gap-3">
+                                        <i class="fa-brands fa-react"></i>
+                                        9. Real Example: Lists in React with TypeScript
+                                    </h3>
+                                </div>
+                                <div class="p-6 space-y-4">
+                                    <p class="text-gray-700 leading-relaxed">How to use typed arrays in a React component:</p>
+                                    <div class="bg-gray-900 rounded-xl p-4">
+                                        <pre class="text-sm text-gray-300"><code>import { useState } from 'react';
+
+type Todo = {
+  id: number;
+  text: string;
+  completed: boolean;
+};
+
+function TodoApp() {
+  const [todos, setTodos] = useState&lt;Todo[]&gt;([]);
+
+  const addTodo = (text: string) => {
+    const newTodo: Todo = {
+      id: Date.now(),
+      text,
+      completed: false
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  const toggleTodo = (id: number) => {
+    setTodos(todos.map(todo =>
+      todo.id === id
+        ? { ...todo, completed: !todo.completed }
+        : todo
+    ));
+  };
+
+  return (
+    &lt;ul&gt;
+      {todos.map(todo => (
+        &lt;li key={todo.id} onClick={() => toggleTodo(todo.id)}&gt;
+          {todo.text}
+        &lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+                                    </div>
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                                        <p class="text-blue-900"><strong>Note:</strong> <code>useState&lt;Todo[]&gt;</code> tells React that <code>todos</code> is an array of <code>Todo</code>. TypeScript validates everything!</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Best Practices -->
+                            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border-2 border-emerald-500 rounded-2xl p-8">
+                                <h3 class="text-emerald-800 font-bold text-xl mb-6 flex items-center gap-3">
+                                    <i class="fa-solid fa-circle-check text-2xl"></i>
+                                    Best Practices Summary
+                                </h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <p class="font-semibold text-green-700 mb-2">✅ DO</p>
+                                        <ul class="space-y-2 text-sm text-gray-700">
+                                            <li>• Use <code>type[]</code> instead of <code>Array&lt;type&gt;</code></li>
+                                            <li>• Let TS infer types when initializing with values</li>
+                                            <li>• Declare type for empty arrays: <code>let x: string[] = []</code></li>
+                                            <li>• Use <code>readonly</code> when you don't want mutations</li>
+                                            <li>• Define <code>type</code> or <code>interface</code> for object arrays</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-4 shadow-sm">
+                                        <p class="font-semibold text-red-700 mb-2">❌ DON'T</p>
+                                        <ul class="space-y-2 text-sm text-gray-700">
+                                            <li>• Don't use <code>any[]</code> (loses type safety)</li>
+                                            <li>• Don't mix types without union types</li>
+                                            <li>• Don't forget to narrow types with unions</li>
+                                            <li>• Don't mutate <code>readonly</code> arrays</li>
+                                            <li>• Don't ignore TS errors in <code>.map()</code> / <code>.filter()</code></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Common Errors -->
+                            <div class="bg-red-50 border-2 border-red-300 rounded-2xl p-8">
+                                <h3 class="text-red-800 font-bold text-xl mb-6 flex items-center gap-3">
+                                    <i class="fa-solid fa-exclamation-triangle text-2xl"></i>
+                                    Common Errors and Solutions
+                                </h3>
+                                <div class="space-y-6">
+                                    <div class="bg-white rounded-lg p-5 shadow-sm">
+                                        <p class="font-bold text-gray-900 mb-2">❌ Error: "Type 'string' is not assignable to type 'number'"</p>
+                                        <div class="bg-gray-900 rounded p-3 mb-2">
+                                            <code class="text-red-400 text-sm">let nums: number[] = [1, 2, "3"]; // ❌</code>
+                                        </div>
+                                        <p class="text-green-700"><strong>Solution:</strong> All elements must be numbers:</p>
+                                        <div class="bg-gray-900 rounded p-3">
+                                            <code class="text-green-400 text-sm">let nums: number[] = [1, 2, 3]; // ✅</code>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg p-5 shadow-sm">
+                                        <p class="font-bold text-gray-900 mb-2">❌ Error: "Property 'toUpperCase' does not exist on type 'number | string'"</p>
+                                        <div class="bg-gray-900 rounded p-3 mb-2">
+                                            <code class="text-red-400 text-sm">let mixed: (number | string)[] = [1, "a"];<br>mixed[0].toUpperCase(); // ❌</code>
+                                        </div>
+                                        <p class="text-green-700"><strong>Solution:</strong> Use type narrowing:</p>
+                                        <div class="bg-gray-900 rounded p-3">
+                                            <code class="text-green-400 text-sm">if (typeof mixed[0] === "string") {<br>  mixed[0].toUpperCase(); // ✅<br>}</code>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-lg p-5 shadow-sm">
+                                        <p class="font-bold text-gray-900 mb-2">❌ Error: "Cannot assign to readonly array"</p>
+                                        <div class="bg-gray-900 rounded p-3 mb-2">
+                                            <code class="text-red-400 text-sm">let arr: readonly number[] = [1, 2];<br>arr.push(3); // ❌</code>
+                                        </div>
+                                        <p class="text-green-700"><strong>Solution:</strong> Create a new array:</p>
+                                        <div class="bg-gray-900 rounded p-3">
+                                            <code class="text-green-400 text-sm">arr = [...arr, 3]; // ✅</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mini Exercise -->
+                            <div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-2xl p-8 shadow-2xl">
+                                <h3 class="font-bold text-2xl mb-4 flex items-center gap-3">
+                                    <i class="fa-solid fa-dumbbell text-3xl"></i>
+                                    Mini Exercise
+                                </h3>
+                                <p class="mb-6 text-lg">Create a typed array of <code>Product</code> with 3 products, then:</p>
+                                <ol class="space-y-3 mb-6 text-lg">
+                                    <li>1. Filter products in stock (<code>inStock === true</code>)</li>
+                                    <li>2. Map to get only the names</li>
+                                    <li>3. Convert all names to UPPERCASE</li>
+                                </ol>
+                                <details class="bg-white/10 backdrop-blur rounded-xl p-4">
+                                    <summary class="cursor-pointer font-semibold text-lg hover:text-yellow-300 transition">💡 Click to see solution</summary>
+                                    <div class="bg-gray-900 rounded-lg p-4 mt-4">
+                                        <pre class="text-sm text-gray-300"><code>type Product = {
+  id: number;
+  name: string;
+  price: number;
+  inStock: boolean;
+};
+
+let products: Product[] = [
+  { id: 1, name: "Laptop", price: 999, inStock: true },
+  { id: 2, name: "Mouse", price: 25, inStock: false },
+  { id: 3, name: "Keyboard", price: 75, inStock: true },
+];
+
+let inStockNames = products
+  .filter(p => p.inStock)
+  .map(p => p.name)
+  .map(name => name.toUpperCase());
+
+console.log(inStockNames); // ["LAPTOP", "KEYBOARD"]</code></pre>
+                                    </div>
+                                </details>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- References and Additional Resources -->
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mt-8 shadow-2xl">
+                        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-book-bookmark text-3xl text-blue-400"></i>
+                            References and Additional Resources
+                        </h2>
+                        <p class="text-gray-300 mb-6">
+                            Dive deeper into Arrays with TypeScript with these recommended guides:
+                        </p>
+                        <div class="grid gap-4">
+                            <a href="https://chatgpt.com/c/6984bc5a-96bc-8389-92ab-40181d841023" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                <div class="bg-green-500 rounded-lg p-3">
+                                    <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">Conversation about TypeScript Arrays</h3>
+                                    <p class="text-gray-400 text-sm">Interactive guide and practical examples</p>
+                                </div>
+                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                            </a>
+                            <a href="https://chatgpt.com/c/67b261b6-bef0-8008-ad04-610fe79c6ced" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                <div class="bg-purple-500 rounded-lg p-3">
+                                    <i class="fa-solid fa-lightbulb text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">Additional Array Resources</h3>
+                                    <p class="text-gray-400 text-sm">Advanced concepts and common patterns</p>
+                                </div>
+                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

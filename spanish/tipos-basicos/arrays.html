@@ -241,6 +241,399 @@ let usuarios: { nombre: string; edad: number }[] = [
                             </div>
                         </div>
                     </div>
+
+                    <!-- Tutorial Completo -->
+                    <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-arrays')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-book text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">📘 Tutorial: Arrays bien tipados desde cero</h2>
+                                    <p class="text-gray-600 mt-1">Guía completa y profesional</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-arrays" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-arrays" class="hidden">
+
+                        <!-- Objetivo -->
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-8">
+                            <h3 class="text-blue-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> 🎯 Objetivo del tutorial
+                            </h3>
+                            <p class="text-blue-800 mb-4">Aprender a usar arrays en TypeScript de forma segura para:</p>
+                            <ul class="text-blue-900 space-y-2 ml-4">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Evitar bugs en producción</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Aprovechar el autocompletado</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Escribir código más claro</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Trabajar cómodo en React</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Sección 1: El problema real -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                El problema real en JavaScript
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">En JavaScript puedes hacer esto:</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const numbers = [1, 2, 3];
+numbers.push("four"); // JavaScript lo permite 😬</code></pre>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-red-900 font-semibold mb-2">Esto funciona… pero rompe tu lógica</p>
+                                <ul class="text-red-800 space-y-1 ml-4">
+                                    <li>👉 Esperabas números</li>
+                                    <li>👉 Acabas con strings dentro</li>
+                                    <li>👉 El bug aparece en runtime</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold">✅ Aquí entra TypeScript</p>
+                                <p class="text-green-800 mt-2">TypeScript NO cambia cómo se ejecuta JS. Solo añade seguridad antes de ejecutar.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: Arrays tipados básicos -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                Arrays tipados básicos
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">👉 Arreglo solo de números</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const numbers: number[] = [1, 2, 3, 4];
+numbers.push(5); // ✅ OK
+numbers.push("six"); // ❌ Error de TypeScript</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-6">
+                                <p class="text-green-900 font-semibold mb-2">✔ Qué está pasando</p>
+                                <p class="text-green-800">TypeScript garantiza que solo entren numbers y detecta errores antes de producción.</p>
+                            </div>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">👉 Arreglo solo de strings</h4>
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">const villains: string[] = ["Joker", "Doom", "Thanos"];</code></pre>
+                        </div>
+
+                        <!-- Sección 3: Inferencia -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Inferencia de tipos (cuando TS piensa por ti)
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const heroes = ["Batman", "Superman"];</code></pre>
+
+                            <p class="text-gray-700 mb-4">TypeScript infiere automáticamente: <code class="bg-gray-100 px-2 py-1 rounded">string[]</code></p>
+                            <p class="text-gray-700 mb-6">No hace falta tipar siempre.</p>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-yellow-900 font-semibold mb-2">⚠ Regla senior importante</p>
+                                <p class="text-yellow-800">Confía en inferencia cuando inicializas con valores:</p>
+                                <pre class="text-sm bg-white p-2 rounded mt-2"><code class="language-typescript">const names = ["Ana", "Luis"];</code></pre>
+                            </div>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold mb-2">💡 Tipa explícito cuando empiezas vacío:</p>
+                                <pre class="text-sm bg-white p-2 rounded mt-2"><code class="language-typescript">const names: string[] = [];
+names.push("Ana");</code></pre>
+                                <p class="text-blue-800 mt-2">(Si no, TS puede inferir mal o bloquearte)</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 4: Arrays con múltiples tipos -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                Arrays con múltiples tipos (uniones)
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const mixedArray: (number | string)[] = [1, "two", 3];</code></pre>
+
+                            <p class="text-gray-700 mb-4">Esto significa: cada posición puede ser <code>number</code> o <code>string</code></p>
+
+                            <p class="text-gray-700 mb-4">Pero no otros tipos:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-6"><code class="language-typescript">mixedArray.push(true); // ❌ Error</code></pre>
+
+                            <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-orange-900 font-semibold mb-2">⚠ Consecuencia importante (narrowing)</p>
+                                <p class="text-orange-800 mb-2">No puedes tratarlo como string directo:</p>
+                                <pre class="text-sm bg-white p-2 rounded"><code class="language-typescript">mixedArray.forEach(item => {
+  // item.toUpperCase() ❌ ERROR
+});</code></pre>
+                                <p class="text-orange-800 mt-2">Porque podría ser number.</p>
+                            </div>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">✔ Forma correcta</h4>
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">mixedArray.forEach(item => {
+  if (typeof item === "string") {
+    console.log(item.toUpperCase());
+  } else {
+    console.log(item.toFixed(2));
+  }
+});</code></pre>
+                        </div>
+
+                        <!-- Sección 5: Tuplas -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                Tuplas — cuando el orden importa
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">No es lo mismo que unión.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const point: [number, number] = [10, 20];</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold mb-2">Aquí:</p>
+                                <ul class="text-blue-800 space-y-1 ml-4">
+                                    <li>• posición 0 → number</li>
+                                    <li>• posición 1 → number</li>
+                                </ul>
+                                <p class="text-blue-900 font-semibold mt-3">Mucho más preciso que <code>(number | number)[]</code></p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 6: Arrays de objetos -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                Arrays de objetos (el caso real de apps)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Este es el más importante en proyectos reales.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">type Villain = {
+  id: string;
+  name: string;
+  threatLevel: number;
+};
+
+const villains: Villain[] = [
+  { id: "1", name: "Joker", threatLevel: 9 }
+];</code></pre>
+
+                            <p class="text-gray-700 mb-3">Si te equivocas:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">villains.push({ id: "2", name: "Doom" }); // ❌ falta threatLevel</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold">TypeScript te protege.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 7: Métodos de arrays -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">7</span>
+                                Métodos de arrays con tipos automáticos
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">forEach</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">villains.forEach(villain => {
+  console.log(villain.name.toUpperCase());
+});</code></pre>
+                            <p class="text-gray-700 mb-6">TypeScript sabe que es string.</p>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">map (muy usado)</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const names = villains.map(v => v.name); // string[]</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">filter</h4>
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">const strong = villains.filter(v => v.threatLevel > 7); // Villain[]</code></pre>
+                        </div>
+
+                        <!-- Sección 8: readonly arrays -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-amber-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">8</span>
+                                readonly arrays (evitar mutaciones)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Muy usado en React y arquitectura limpia.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const ids: readonly number[] = [1, 2, 3];
+ids.push(4); // ❌ Error</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900">Evita bugs por cambios accidentales.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 9: Conexión con React -->
+                        <div class="bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-300 rounded-2xl p-8 mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-brands fa-react text-cyan-600 text-2xl"></i>
+                                Conexión real con React
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">type Todo = {
+  id: string;
+  title: string;
+  done: boolean;
+};
+
+const initialTodos: Todo[] = [
+  { id: "1", title: "Learn TS arrays", done: false }
+];
+
+function TodoList() {
+  const [todos, setTodos] = React.useState&lt;Todo[]&gt;(initialTodos);
+
+  const addTodo = () => {
+    setTodos(prev => [
+      ...prev,
+      { id: crypto.randomUUID(), title: "New task", done: false }
+    ]);
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={addTodo}&gt;Add&lt;/button&gt;
+      &lt;ul&gt;
+        {todos.map(t =&gt; (
+          &lt;li key={t.id}&gt;{t.title}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+                            <div class="bg-white p-4 rounded-lg mt-4 border-2 border-cyan-400">
+                                <p class="text-cyan-900 font-semibold">👉 Esto es TypeScript bien aplicado a UI real.</p>
+                            </div>
+                        </div>
+
+                        <!-- Buenas prácticas -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                <i class="fa-solid fa-star text-green-600"></i>
+                                Buenas prácticas clave
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Usa arrays homogéneos</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Tipa explícito cuando empiezas vacío</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Prefiere objetos tipados para datos reales</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Usa readonly si no debe mutarse</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Usa tuplas cuando el orden importa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Errores comunes -->
+                        <div class="bg-white border border-red-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-times-circle text-red-600"></i>
+                                Errores comunes
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                                    <span class="text-red-900">🚫 any[]</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                                    <span class="text-red-900">🚫 mezclar tipos sin necesidad</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                                    <span class="text-red-900">🚫 no hacer narrowing en uniones</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-ban text-red-600 mt-1"></i>
+                                    <span class="text-red-900">🚫 confiar en inferencia sin valores iniciales</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejercicio -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-dumbbell text-purple-600 text-2xl"></i>
+                                Mini-ejercicio
+                            </h3>
+
+                            <p class="text-gray-800 mb-4">Tienes esto:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const values: (string | null)[] = ["one", null, "two", null, "three"];</code></pre>
+
+                            <p class="text-purple-900 font-semibold mb-3">👉 Objetivo: devolver string[] en mayúsculas sin nulls.</p>
+
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-gray-700 font-semibold">Pista:</p>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• filter</li>
+                                    <li>• luego map</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Referencias y Recursos Adicionales -->
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mt-8 shadow-2xl">
+                            <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-book-bookmark text-3xl text-blue-400"></i>
+                                Referencias y Recursos Adicionales
+                            </h2>
+                            <p class="text-gray-300 mb-6">
+                                Profundiza más en Arrays con TypeScript con estas guías recomendadas:
+                            </p>
+                            <div class="grid gap-4">
+                                <a href="https://chatgpt.com/c/6984bc5a-96bc-8389-92ab-40181d841023" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-green-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">Conversación sobre Arrays en TypeScript</h3>
+                                        <p class="text-gray-400 text-sm">Guía interactiva y ejemplos prácticos</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <a href="https://chatgpt.com/c/67b261b6-bef0-8008-ad04-610fe79c6ced" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-purple-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-lightbulb text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">Recursos adicionales de Arrays</h3>
+                                        <p class="text-gray-400 text-sm">Conceptos avanzados y patrones comunes</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
                     </div>

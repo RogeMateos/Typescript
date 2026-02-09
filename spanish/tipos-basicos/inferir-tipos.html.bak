@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inferir Tipos - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .animate-in { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Volver</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Conceptos Fundamentales -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="../tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Tipado</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tipos de Unión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tipos Básicos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
+                            <li>
+                                <a href="enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list-ol w-5"></i>
+                                    <span>Enums</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-lightbulb w-5"></i>
+                                    <span>Inferir Tipos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-quote-left w-5"></i>
+                                    <span>Strings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-triangle w-5"></i>
+                                    <span>Tipo Any</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list w-5"></i>
+                                    <span>Arrays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tuples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ban w-5"></i>
+                                    <span>Tipo Void</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-infinity w-5"></i>
+                                    <span>Tipo Never</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question w-5"></i>
+                                    <span>Null vs Undefined</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Funciones y Objetos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('funciones-objetos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Funciones y Objetos</span>
+                            <i id="icon-funciones-objetos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-funciones-objetos" class="space-y-1 hidden">
+                            <li>
+                                <a href="../../spanish/funciones/funciones-basicas.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-function w-5"></i>
+                                    <span>Funciones Básicas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../spanish/funciones/parametros-obligatorios.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-circle w-5"></i>
+                                    <span>Parámetros Obligatorios</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../spanish/funciones/parametros-opcionales.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question-circle w-5"></i>
+                                    <span>Parámetros Opcionales</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../spanish/funciones/parametros-por-defecto.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-equals w-5"></i>
+                                    <span>Parámetros Por Defecto</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../spanish/funciones/parametros-rest.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ellipsis w-5"></i>
+                                    <span>Parámetros Rest</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../spanish/funciones/tipo-function.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-code w-5"></i>
+                                    <span>Tipo Function</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../spanish/funciones/type-test.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-flask w-5"></i>
+                                    <span>Prueba de Tipo</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Language Switcher -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Idioma</p>
+                    <div class="flex gap-2">
+                        <a href="inferir-tipos.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                            <span>🇪🇸</span>
+                            <span>Español</span>
+                        </a>
+                        <a href="../../english/basics/type-inference.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <span>🇬🇧</span>
+                            <span>English</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Volver al índice
+                </a>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Content -->
+                        <div class="animate-in">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-lightbulb text-3xl"></i>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Inferir Tipos</h1>
+                </div>
+
+                <div class="grid gap-8">
+                    <!-- Problem & Solution -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                            <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Problema
+                            </h3>
+                            <p class="text-red-900">¿Tengo que escribir el tipo de cada variable manualmente? Parece repetitivo y tedioso.</p>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
+                            <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> Solución
+                            </h3>
+                            <p class="text-green-900">TypeScript puede inferir (deducir) automáticamente el tipo basándose en el valor inicial. ¡No siempre necesitas escribirlo!</p>
+                        </div>
+                    </div>
+
+                    <!-- Analogy -->
+                    <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
+                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Analogía Visual</h3>
+                            <p class="text-blue-900 text-lg italic leading-relaxed">"Si te doy una manzana, no necesitas decir 'esto es una fruta'. Ya lo sé porque la veo. TypeScript funciona igual: si asignas un número, sabe que es un número."</p>
+                        </div>
+                    </div>
+
+                    <!-- Code Tabs -->
+                    <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
+                        <div class="flex border-b border-gray-800 bg-[#252526]">
+                            <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
+                                Inferencia Automática
+                            </button>
+                            <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
+                                Tipo Explícito
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">// TypeScript infiere automáticamente
+let edad = 25; // TS sabe que es 'number'
+let nombre = "Ana"; // TS sabe que es 'string'
+let activo = true; // TS sabe que es 'boolean'
+
+// edad = "treinta"; // ❌ Error: no puedes asignar string</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">// También puedes ser explícito (opcional)
+let edad: number = 25;
+let nombre: string = "Ana";
+let activo: boolean = true;
+
+// Ambas formas son válidas, elige según el contexto</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Best Practices -->
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h3 class="text-purple-800 font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-star"></i> Buenas Prácticas
+                        </h3>
+                        <ul class="text-purple-900 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Deja que TypeScript infiera cuando el tipo es obvio del valor inicial</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Usa anotaciones explícitas en parámetros de funciones y APIs públicas</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-red-600 mt-1"></i>
+                                <span>Evita escribir tipos redundantes: <code>let x: number = 5</code> es innecesario</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Interview Question -->
+                    <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
+                        <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
+                        </h3>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Qué es la inferencia de tipos en TypeScript?</p>
+                        <div id="answer-container">
+                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
+                            <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
+                                <span class="font-black text-amber-500">A: </span>Es la capacidad de TypeScript de deducir automáticamente el tipo de una variable basándose en su valor inicial, sin necesidad de anotaciones explícitas. Reduce código repetitivo manteniendo la seguridad de tipos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial Completo -->
+                    <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-completo')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-graduation-cap text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">Tutorial: Inferencia de Tipos y Buenas Prácticas</h2>
+                                    <p class="text-gray-600 mt-1">Guía completa para dominar TypeScript profesionalmente</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-completo" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-completo" class="hidden">
+
+                        <!-- Objetivo -->
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-8">
+                            <h3 class="text-blue-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> Objetivo del tutorial
+                            </h3>
+                            <p class="text-blue-800 mb-4">En este tutorial aprenderás:</p>
+                            <ul class="text-blue-900 space-y-2 ml-4">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Cómo TypeScript infiere tipos automáticamente</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Cuándo confiar en la inferencia y cuándo definir tipos explícitos</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Por qué <code>any</code> es peligroso y cómo evitarlo</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Cómo tipar correctamente funciones</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Cómo evitar contaminar el scope global</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Cómo usar <code>tsc -w</code> para trabajar de forma productiva</span>
+                                </li>
+                            </ul>
+                            <p class="text-blue-800 mt-4 italic">La idea no es "tipar por tipar", sino detectar errores antes de ejecutar el código y escribir código más seguro y mantenible.</p>
+                        </div>
+
+                        <!-- Sección 1: Preparar entorno -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                Preparar el entorno y activar Watch Mode
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-2">Abrir el proyecto</h4>
+                                    <p class="text-gray-700">Abrimos el proyecto en Visual Studio Code.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-2">Activar el modo observador</h4>
+                                    <p class="text-gray-700 mb-2">Ejecutamos:</p>
+                                    <pre class="text-sm md:text-base leading-relaxed"><code class="language-bash">tsc -w</code></pre>
+                                </div>
+
+                                <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg">
+                                    <p class="text-blue-900 font-semibold mb-2">¿Qué hace esto?</p>
+                                    <ul class="text-blue-800 space-y-1 ml-4">
+                                        <li>• TypeScript observa los cambios en los archivos .ts</li>
+                                        <li>• Cada vez que guardas, recompila automáticamente</li>
+                                        <li>• Los errores aparecen en tiempo real</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                                    <p class="text-yellow-900">
+                                        <i class="fa-solid fa-lightbulb mr-2"></i>
+                                        <strong>Esto es clave en el día a día profesional:</strong> feedback inmediato sin ejecutar nada.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: Inferencia -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                Inferencia de tipos en TypeScript
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">TypeScript es muy inteligente y deduce tipos automáticamente.</p>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Ejemplo con <code>let</code></h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">let age = 30;</code></pre>
+                                    <p class="text-gray-700 mb-2">TypeScript infiere:</p>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">let age: number;</code></pre>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>✅ Puedes cambiarlo a otro número</li>
+                                        <li>❌ No puedes asignar un string</li>
+                                    </ul>
+                                    <pre class="text-sm md:text-base leading-relaxed mt-2"><code class="language-typescript">age = "30"; // Error</code></pre>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Ejemplo con <code>const</code></h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const name = "Batman";</code></pre>
+                                    <p class="text-gray-700">Aquí TypeScript sabe que:</p>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>• <code>name</code> no puede cambiar</li>
+                                        <li>• Es una cadena de texto</li>
+                                        <li>• En muchos casos incluso mantiene el tipo literal</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                    <p class="text-purple-900 font-semibold mb-2"><i class="fa-solid fa-lightbulb mr-2"></i>Regla práctica</p>
+                                    <ul class="text-purple-800 space-y-1 ml-4">
+                                        <li>• Variables locales simples → inferencia está bien</li>
+                                        <li>• Código reutilizable o importante → mejor tipar explícito</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 3: Tipar explícitamente -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Tipar explícitamente para evitar ambigüedades
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Aunque TypeScript infiere bien, a veces queremos dejar clara nuestra intención.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let hero: string = "Batman";
+let power: number = 100;</code></pre>
+
+                            <p class="text-gray-700 mb-2">Esto ayuda a:</p>
+                            <ul class="text-gray-700 space-y-1 ml-4">
+                                <li>✅ Evitar errores silenciosos</li>
+                                <li>✅ Mejorar el autocompletado</li>
+                                <li>✅ Facilitar refactors</li>
+                            </ul>
+                        </div>
+
+                        <!-- Sección 4: El problema any -->
+                        <div class="bg-white border border-red-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                El gran problema: el tipo <code>any</code>
+                            </h3>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-red-900 font-semibold mb-2">¿Qué es <code>any</code>?</p>
+                                <p class="text-red-800"><code>any</code> significa: "TypeScript, no me ayudes, yo me encargo"</p>
+                            </div>
+
+                            <p class="text-gray-700 mb-3">Ejemplo peligroso:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let value;
+value = 10;
+value = "hola";
+value = true;</code></pre>
+
+                            <p class="text-gray-700">TypeScript no avisa de nada.</p>
+                            <p class="text-red-600 font-semibold mt-2">❌ Esto elimina completamente las ventajas del tipado.</p>
+                        </div>
+
+                        <!-- Sección 5: noImplicitAny -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                Evitar <code>any</code> con <code>noImplicitAny</code>
+                            </h3>
+
+                            <p class="text-gray-700 mb-3">En el <code>tsconfig.json</code> debemos activar:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-json">{
+  "compilerOptions": {
+    "noImplicitAny": true
+  }
+}</code></pre>
+
+                            <p class="text-gray-700 mb-3">Mejor aún:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-json">{
+  "compilerOptions": {
+    "strict": true
+  }
+}</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold mb-2">¿Por qué <code>strict</code>?</p>
+                                <p class="text-green-800 mb-2">Porque activa varias protecciones importantes de golpe:</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>• <code>noImplicitAny</code></li>
+                                    <li>• Comprobaciones más seguras</li>
+                                    <li>• Menos errores en runtime</li>
+                                </ul>
+                                <p class="text-green-900 font-semibold mt-3">
+                                    <i class="fa-solid fa-lightbulb mr-2"></i>
+                                    En equipos profesionales, <code>strict</code> es la norma.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 6: Tipado en funciones -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                Tipado correcto en funciones
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                    <p class="text-red-800 font-bold mb-2">❌ Mal ejemplo</p>
+                                    <pre class="text-sm leading-relaxed"><code class="language-typescript">function greet(msg) {
+  return msg.toUpperCase();
+}</code></pre>
+                                    <p class="text-red-700 text-sm mt-2">Problemas:</p>
+                                    <ul class="text-red-700 text-sm space-y-1 ml-4">
+                                        <li>• <code>msg</code> es <code>any</code></li>
+                                        <li>• TypeScript no puede ayudarte</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                    <p class="text-green-800 font-bold mb-2">✅ Buen ejemplo</p>
+                                    <pre class="text-sm leading-relaxed"><code class="language-typescript">function greet(msg: string): string {
+  return msg.toUpperCase();
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg">
+                                <p class="text-blue-900 font-semibold mb-2">¿Por qué esto es importante?</p>
+                                <ul class="text-blue-800 space-y-1 ml-4">
+                                    <li>✅ Evita errores al llamar la función</li>
+                                    <li>✅ Define un contrato claro</li>
+                                    <li>✅ Protege el código ante cambios futuros</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mt-4">
+                                <h4 class="text-blue-900 font-bold mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                    ¿Qué significa <code>: string</code> al final?
+                                </h4>
+                                <p class="text-blue-800 mb-3">
+                                    Ese <code>: string</code> después de los paréntesis es el <strong>tipo de retorno</strong>. Significa: "Esta función debe devolver un string."
+                                </p>
+                                <p class="text-blue-800 mb-3">
+                                    Piénsalo como un <strong>contrato</strong>:
+                                </p>
+                                <ul class="text-blue-800 space-y-1 ml-4 mb-3">
+                                    <li>• El parámetro <code>msg</code> es un string</li>
+                                    <li>• El resultado de la función también es un string</li>
+                                </ul>
+                                <p class="text-blue-800 font-semibold">
+                                    TypeScript puede inferir esto automáticamente, ¿por qué escribirlo explícitamente?
+                                </p>
+                            </div>
+
+                            <div class="space-y-3 mt-4">
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                    <p class="text-green-900 font-semibold mb-2">1️⃣ Documentación (humanos > compilador)</p>
+                                    <p class="text-green-800">
+                                        Cuando alguien lee <code>function greet(msg: string): string</code>, inmediatamente sabe: entrada → string, salida → string. No necesita leer el cuerpo de la función.
+                                    </p>
+                                </div>
+
+                                <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
+                                    <p class="text-orange-900 font-semibold mb-2">2️⃣ Protección contra bugs (lo más importante)</p>
+                                    <p class="text-orange-800 mb-2">
+                                        Imagina que alguien después edita la función:
+                                    </p>
+                                    <pre class="text-sm bg-white p-2 rounded mb-2"><code class="language-typescript">function greet(msg: string): string {
+  return 123; // 🚨 devuelve number!
+}</code></pre>
+                                    <p class="text-orange-800 mb-2">
+                                        Error de TypeScript: <em>"Type 'number' is not assignable to type 'string'"</em>
+                                    </p>
+                                    <p class="text-orange-900 font-semibold">
+                                        ✅ ¡Bug detectado antes de runtime!
+                                    </p>
+                                    <p class="text-orange-800 mt-2 text-sm">
+                                        Sin el tipo de retorno explícito, TypeScript simplemente inferiría <code>number</code> y cambiarías el comportamiento de la función silenciosamente.
+                                    </p>
+                                </div>
+
+                                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                    <p class="text-purple-900 font-semibold mb-2">3️⃣ Importante para código compartido</p>
+                                    <p class="text-purple-800 mb-2">
+                                        En proyectos reales, helpers, utils y servicios se usan en muchos lugares. Los tipos de retorno explícitos:
+                                    </p>
+                                    <ul class="text-purple-800 space-y-1 ml-4">
+                                        <li>• Previenen cambios que rompen el código</li>
+                                        <li>• Hacen los refactors más seguros</li>
+                                        <li>• Actúan como una API pública</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-200 p-4 rounded-lg mt-4">
+                                <p class="text-gray-900 font-bold mb-2">¿Cuándo deberías añadir el tipo de retorno?</p>
+                                <div class="space-y-2 text-sm">
+                                    <div>
+                                        <p class="text-green-700 font-semibold">✅ Recomendado (regla senior):</p>
+                                        <p class="text-gray-700">Añade tipos de retorno cuando la función se exporta, se reutiliza o es parte de una API pública.</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-blue-700 font-semibold">😌 Opcional:</p>
+                                        <p class="text-gray-700">Omítelo para funciones muy pequeñas, locales y obvias como <code>const doble = (n: number) => n * 2;</code></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-lg mt-4">
+                                <p class="font-bold mb-2">💡 Resumen en una frase:</p>
+                                <p class="italic">
+                                    El <code>: string</code> al final documenta lo que devuelve la función y te protege de cambiar accidentalmente lo que retorna.
+                                </p>
+                            </div>
+
+                            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg mt-4">
+                                <p class="text-purple-900 font-semibold">
+                                    <i class="fa-solid fa-graduation-cap mr-2"></i>
+                                    Consejo senior
+                                </p>
+                                <ul class="text-purple-800 space-y-1 ml-4 mt-2">
+                                    <li>• Tipar parámetros: casi siempre</li>
+                                    <li>• Tipar retorno: sobre todo en funciones importantes o reutilizables</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Sección 7: IIFE -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">7</span>
+                                Función Anónima Autoinvocada (IIFE)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Cuando trabajamos con muchos archivos sueltos, podemos encapsular el código para evitar conflictos globales.</p>
+
+                            <h4 class="font-semibold text-gray-900 mb-2">Ejemplo</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">(function () {
+  const a: number = 10;
+  console.log(a);
+})();</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-green-900 font-semibold mb-2">¿Qué problema resuelve?</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>✅ Evita que variables choquen entre archivos</li>
+                                    <li>✅ Mantiene el scope limpio</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                                <p class="text-yellow-900">
+                                    <strong>Nota importante:</strong> En proyectos modernos con <code>import / export</code>, cada archivo ya tiene su propio scope. Las IIFE son muy útiles en tutoriales y ejemplos educativos.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 8: Compilación -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">8</span>
+                                Compilación a JavaScript
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">TypeScript no se ejecuta en el navegador.</p>
+
+                            <ul class="text-gray-700 space-y-2 mb-4 ml-4">
+                                <li>• Se transpila a JavaScript</li>
+                                <li>• El nivel de compatibilidad depende del <code>target</code></li>
+                            </ul>
+
+                            <p class="text-gray-700 mb-2">Ejemplo típico:</p>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-json">{
+  "compilerOptions": {
+    "target": "ES5"
+  }
+}</code></pre>
+
+                            <p class="text-gray-700 mb-2">Esto permite:</p>
+                            <ul class="text-gray-700 space-y-1 ml-4">
+                                <li>✅ Usar sintaxis moderna</li>
+                                <li>✅ Soportar navegadores antiguos</li>
+                            </ul>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mt-4">
+                                <p class="text-blue-900">
+                                    <i class="fa-solid fa-lightbulb mr-2"></i>
+                                    TypeScript adapta la sintaxis, no las APIs del navegador.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 9: Buenas prácticas finales -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">9</span>
+                                Buenas prácticas finales
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Define tipos cuando el código sea importante</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Evita <code>any</code> siempre que puedas</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Usa <code>strict</code> para mayor seguridad</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Tipar funciones mejora la mantenibilidad</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Usa <code>tsc -w</code> para feedback inmediato</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Encapsula el código para evitar conflictos</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejercicio -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-dumbbell text-purple-600 text-2xl"></i>
+                                Ejercicio recomendado
+                            </h3>
+
+                            <ol class="text-gray-800 space-y-3 ml-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+                                    <span>Crea una función sin tipos y observa el error</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+                                    <span>Activa <code>strict</code></span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+                                    <span>Añade tipos a parámetros y retorno</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
+                                    <span>Encapsula el código en una IIFE</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">5</span>
+                                    <span>Observa cómo TypeScript te guía</span>
+                                </li>
+                            </ol>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial React -->
+                    <div class="border-t-4 border-cyan-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-react')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-brands fa-react text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">TypeScript en React</h2>
+                                    <p class="text-gray-600 mt-1">Inferencia, evitar any, y tipado práctico</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-react" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-react" class="hidden">
+
+                        <!-- Objetivo React -->
+                        <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-600 p-6 rounded-r-xl mb-8">
+                            <h3 class="text-cyan-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> Objetivo
+                            </h3>
+                            <p class="text-cyan-800 mb-4">Aprenderás a:</p>
+                            <ul class="text-cyan-900 space-y-2 ml-4">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-600 mt-1"></i>
+                                    <span>Confiar en inferencia donde conviene (state, callbacks simples)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-600 mt-1"></i>
+                                    <span>Tipar explícitamente cuando importa (props, handlers, funciones reutilizables)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-600 mt-1"></i>
+                                    <span>Evitar <code>any</code> (y usar <code>unknown</code> cuando toque)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-600 mt-1"></i>
+                                    <span>Configurar <code>tsconfig</code> para React con buenas prácticas</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-600 mt-1"></i>
+                                    <span>Encapsular / organizar código (en React usamos módulos, no IIFE)</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Sección 1: Setup React + TS -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                Setup real en React + TS
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Crear proyecto (si lo necesitas)</h4>
+                                    <div class="space-y-3">
+                                        <div>
+                                            <p class="text-gray-700 mb-2"><strong>Vite:</strong></p>
+                                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-bash">npm create vite@latest my-app -- --template react-ts</code></pre>
+                                        </div>
+                                        <div>
+                                            <p class="text-gray-700 mb-2"><strong>CRA</strong> (menos recomendado hoy, pero existe):</p>
+                                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-bash">npx create-react-app my-app --template typescript</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">tsconfig recomendado (base)</h4>
+                                    <p class="text-gray-700 mb-3">En React casi siempre quieres:</p>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-json">{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "noImplicitAny": true
+  }
+}</code></pre>
+
+                                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg">
+                                        <p class="text-blue-900 font-semibold mb-2">Por qué (versión senior):</p>
+                                        <ul class="text-blue-800 space-y-1 ml-4">
+                                            <li>• <code>strict</code> te evita bugs típicos: undefined, props mal usadas, etc.</li>
+                                            <li>• <code>jsx: react-jsx</code> es el runtime moderno (React 17+)</li>
+                                            <li>• <code>noImplicitAny</code> evita que se te "cuele" any en parámetros</li>
+                                        </ul>
+                                        <p class="text-blue-900 font-semibold mt-3">En proyectos reales, <code>strict</code> es el estándar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: Inferencia en React -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                Inferencia en React: dónde confiar y dónde no
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                    <p class="text-green-900 font-semibold mb-3">✅ useState infiere tipos (cuando hay valor inicial claro)</p>
+                                    <pre class="text-sm leading-relaxed mb-3"><code class="language-typescript">import { useState } from "react";
+
+export function Counter() {
+  const [count, setCount] = useState(0); // count: number
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}</code></pre>
+                                    <p class="text-green-800"><strong>Justificación:</strong> TS ve <code>0</code> y sabe que es <code>number</code>.</p>
+                                </div>
+
+                                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                                    <p class="text-yellow-900 font-semibold mb-3">⚠️ Cuando el state empieza como null, debes tipar</p>
+                                    <pre class="text-sm leading-relaxed mb-3"><code class="language-typescript">type User = { id: string; name: string };
+
+export function Profile() {
+  const [user, setUser] = useState<User | null>(null);
+
+  if (!user) return <p>Loading...</p>;
+  return <p>{user.name}</p>;
+}</code></pre>
+                                    <p class="text-yellow-800"><strong>Por qué:</strong> si haces <code>useState(null)</code>, TS no puede saber qué vendrá después sin ayuda.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 3: Props -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Props: aquí sí tipa explícitamente (contrato del componente)
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Forma recomendada (simple y clara)</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">type GreetingProps = {
+  name: string;
+  onLogout: () => void;
+};
+
+export function Greeting({ name, onLogout }: GreetingProps) {
+  return (
+    <div>
+      <p>Hello {name}</p>
+      <button onClick={onLogout}>Logout</button>
+    </div>
+  );
+}</code></pre>
+
+                            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                <p class="text-purple-900 font-semibold mb-2">Por qué (senior):</p>
+                                <ul class="text-purple-800 space-y-1 ml-4">
+                                    <li>• Las props son una API pública del componente</li>
+                                    <li>• Tiparlas te protege cuando otro dev consume tu componente</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Sección 4: any en React -->
+                        <div class="bg-white border border-red-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                any en React: dónde aparece y cómo evitarlo
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Caso típico: evento sin tipo</h4>
+
+                                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                            <p class="text-red-800 font-bold mb-2">❌ Malo:</p>
+                                            <pre class="text-sm leading-relaxed"><code class="language-typescript">function SearchInput() {
+  const handleChange = (e) => {
+    console.log(e.target.value);
+  };
+
+  return <input onChange={handleChange} />;
+}</code></pre>
+                                        </div>
+
+                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                            <p class="text-green-800 font-bold mb-2">✅ Bien:</p>
+                                            <pre class="text-sm leading-relaxed"><code class="language-typescript">import { ChangeEvent } from "react";
+
+function SearchInput() {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  };
+
+  return <input onChange={handleChange} />;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-lg">
+                                        <p class="text-blue-900"><strong>Por qué:</strong> en React, los eventos son <code>SyntheticEvent</code> y tienen tipos concretos.</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Caso típico: datos de API</h4>
+                                    <p class="text-gray-700 mb-3">Si no sabes el tipo todavía, no uses <code>any</code>, usa <code>unknown</code> y valida:</p>
+
+                                    <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">function isUser(value: unknown): value is { id: string; name: string } {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    "name" in value
+  );
+}</code></pre>
+
+                                    <p class="text-gray-700 mb-2">Luego:</p>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">async function loadUser() {
+  const res = await fetch("/api/user");
+  const data: unknown = await res.json();
+
+  if (!isUser(data)) throw new Error("Invalid user shape");
+  return data;
+}</code></pre>
+
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                        <p class="text-green-900"><strong>Justificación senior:</strong> <code>unknown</code> te obliga a comprobar, <code>any</code> te deja romper en runtime.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 5: Tipado de funciones -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                Tipado de funciones: parámetros sí, retorno según el caso
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-2">Función interna pequeña → retorno inferido ok</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">const formatName = (name: string) => name.trim().toUpperCase();</code></pre>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-2">Función exportada / importante → retorno explícito</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(amount);
+}</code></pre>
+                                    <p class="text-gray-700"><strong>Por qué:</strong> proteges el contrato ante refactors.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 6: Scope global -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                React + "scope global": en lugar de IIFE, usamos módulos
+                            </h3>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-yellow-900 mb-2">En tutoriales TypeScript puros se usa IIFE para evitar contaminar el scope.</p>
+                                <p class="text-yellow-900">En React <strong>no se usa eso</strong> porque:</p>
+                                <ul class="text-yellow-800 space-y-1 ml-4 mt-2">
+                                    <li>• Cada archivo es un módulo (tiene imports/exports)</li>
+                                    <li>• El scope queda aislado automáticamente</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold mb-2">✅ La "versión React" de esa buena práctica es:</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>• Exportar componentes/utilidades</li>
+                                    <li>• Evitar variables globales (salvo config muy concreta)</li>
+                                    <li>• Organizar helpers en <code>utils/</code>, <code>types/</code>, <code>hooks/</code></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Sección 7: Ejemplo completo -->
+                        <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border-2 border-cyan-300 rounded-2xl p-8 mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">7</span>
+                                Ejemplo completo: componente tipado con props, state y eventos
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">import { useState, ChangeEvent, FormEvent } from "react";
+
+type Task = {
+  id: string;
+  title: string;
+  done: boolean;
+};
+
+type TaskListProps = {
+  initialTasks?: Task[];
+};
+
+export function TaskList({ initialTasks = [] }: TaskListProps) {
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [title, setTitle] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!title.trim()) return;
+
+    const newTask: Task = {
+      id: crypto.randomUUID(),
+      title: title.trim(),
+      done: false,
+    };
+
+    setTasks((prev) => [newTask, ...prev]);
+    setTitle("");
+  };
+
+  const toggleDone = (id: string) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
+    );
+  };
+
+  return (
+    <section>
+      <h2>My tasks</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input value={title} onChange={handleChange} placeholder="New task..." />
+        <button type="submit">Add</button>
+      </form>
+
+      <ul>
+        {tasks.map((t) => (
+          <li key={t.id}>
+            <label>
+              <input
+                type="checkbox"
+                checked={t.done}
+                onChange={() => toggleDone(t.id)}
+              />
+              {t.title}
+            </label>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}</code></pre>
+
+                            <div class="bg-white border border-cyan-200 p-4 rounded-lg">
+                                <p class="text-gray-900 font-semibold mb-2">Qué enseña este ejemplo:</p>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>✅ Tipos reusables (<code>Task</code>)</li>
+                                    <li>✅ Props opcionales con valor por defecto</li>
+                                    <li>✅ <code>useState&lt;Task[]&gt;</code></li>
+                                    <li>✅ Tipado de eventos (<code>ChangeEvent</code>, <code>FormEvent</code>)</li>
+                                    <li>✅ Updates inmutables (patrón React correcto)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Sección 8: Buenas prácticas React -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">8</span>
+                                Buenas prácticas rápidas (checklist senior)
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Props tipadas siempre</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900"><code>useState</code> con inferencia cuando hay initial value claro</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900"><code>useState&lt;T | null&gt;</code> cuando empieza vacío</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Eventos React tipados (<code>ChangeEvent</code>, <code>MouseEvent</code>, <code>FormEvent</code>)</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Evita <code>any</code>: usa <code>unknown</code> + guards</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Helpers importantes con retorno tipado</span>
+                                </div>
+                                <div class="flex items-start gap-2 md:col-span-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Nada de IIFE en React: módulos + exports</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejercicios React -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-dumbbell text-purple-600 text-2xl"></i>
+                                Ejercicios (para practicar)
+                            </h3>
+
+                            <ol class="text-gray-800 space-y-3 ml-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+                                    <div>
+                                        <strong>State null:</strong> Cambia <code>useState(null)</code> a <code>useState&lt;User | null&gt;(null)</code> y arregla el render.
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+                                    <div>
+                                        <strong>Evento:</strong> Tipar <code>onSubmit</code> con <code>FormEvent&lt;HTMLFormElement&gt;</code>.
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="bg-purple-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+                                    <div>
+                                        <strong>Eliminar any:</strong> Cambia <code>const data: any = await res.json()</code> a <code>unknown</code> y crea un type guard.
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Referencias Adicionales -->
+                    <div class="border-t-4 border-gray-600 pt-12 mt-12">
+                        <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+                            <h2 class="text-3xl font-extrabold mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-bookmark text-yellow-400 text-3xl"></i>
+                                Referencias y Recursos Adicionales
+                            </h2>
+                            <p class="text-gray-300 mb-6">
+                                Profundiza más en TypeScript con estos recursos oficiales y guías recomendadas:
+                            </p>
+                            <div class="grid gap-4">
+                                <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-blue-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-book text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-blue-300 transition-colors">TypeScript Handbook - Everyday Types</h3>
+                                        <p class="text-gray-400 text-sm">Documentación oficial sobre tipos comunes en TypeScript</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <a href="https://chatgpt.com/c/67aaa78d-f600-8008-bf7b-6de9b97278be" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-green-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">Conversación sobre TypeScript</h3>
+                                        <p class="text-gray-400 text-sm">Guía interactiva y ejemplos prácticos</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/69840549-429c-8391-b388-7faaf60f62d3" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-purple-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-robot text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">TypeScript GPT - Conversación Avanzada</h3>
+                                        <p class="text-gray-400 text-sm">Asistente especializado en TypeScript con ejemplos detallados</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

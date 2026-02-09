@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipo Any - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .animate-in { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Volver</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Conceptos Fundamentales -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="../tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Tipado</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tipos de Unión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tipos Básicos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
+                            <li>
+                                <a href="enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list-ol w-5"></i>
+                                    <span>Enums</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-lightbulb w-5"></i>
+                                    <span>Inferir Tipos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-quote-left w-5"></i>
+                                    <span>Strings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-exclamation-triangle w-5"></i>
+                                    <span>Tipo Any</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list w-5"></i>
+                                    <span>Arrays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tuples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ban w-5"></i>
+                                    <span>Tipo Void</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-infinity w-5"></i>
+                                    <span>Tipo Never</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question w-5"></i>
+                                    <span>Null vs Undefined</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Funciones y Objetos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('funciones-objetos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Funciones y Objetos</span>
+                            <i id="icon-funciones-objetos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-funciones-objetos" class="space-y-1">
+                            <li>
+                                <a href="../funciones/funciones-basicas.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-function w-5"></i>
+                                    <span>Funciones Básicas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-obligatorios.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-circle w-5"></i>
+                                    <span>Parámetros Requeridos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-opcionales.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question-circle w-5"></i>
+                                    <span>Parámetros Opcionales</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-por-defecto.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-equals w-5"></i>
+                                    <span>Parámetros por Defecto</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-rest.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ellipsis-h w-5"></i>
+                                    <span>Parámetros Rest</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/tipo-function.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-code w-5"></i>
+                                    <span>Tipo de Función</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/type-test.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-flask w-5"></i>
+                                    <span>Prueba de Tipo</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Idioma</p>
+                        <div class="flex gap-2">
+                            <a href="tipo-any.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                                <span>🇪🇸</span>
+                                <span>Español</span>
+                            </a>
+                            <a href="../../english/basics/type-any.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Volver al índice
+                </a>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Content -->
+                        <div class="animate-in">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 bg-orange-600 text-white rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-exclamation-triangle text-3xl"></i>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Tipo Any</h1>
+                </div>
+
+                <div class="grid gap-8">
+                    <!-- Problem & Solution -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                            <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Problema
+                            </h3>
+                            <p class="text-red-900">A veces no sé qué tipo tendrá una variable (datos de API, librerías sin tipos, migración desde JS).</p>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
+                            <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> Solución
+                            </h3>
+                            <p class="text-green-900">El tipo <code>any</code> desactiva la verificación de tipos, permitiendo cualquier valor. Es una "escape hatch" temporal.</p>
+                        </div>
+                    </div>
+
+                    <!-- Analogy -->
+                    <div class="bg-orange-50 border border-orange-200 p-8 rounded-2xl flex items-center gap-6">
+                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-orange-600 hidden sm:block">
+                            <i class="fa-solid fa-unlock"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-orange-800 font-bold uppercase text-xs tracking-widest mb-1">⚠️ Advertencia</h3>
+                            <p class="text-orange-900 text-lg italic leading-relaxed">"Any es como un comodín: acepta todo, pero pierdes la protección de TypeScript. ¡Úsalo solo cuando sea necesario!"</p>
+                        </div>
+                    </div>
+
+                    <!-- Code Tabs -->
+                    <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
+                        <div class="flex border-b border-gray-800 bg-[#252526]">
+                            <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
+                                Uso de Any
+                            </button>
+                            <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
+                                Alternativa: Unknown
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">// Any acepta cualquier tipo
+let dato: any = "texto";
+dato = 123; // ✅ OK
+dato = true; // ✅ OK
+dato = { nombre: "Ana" }; // ✅ OK
+
+// Peligro: no hay verificación
+let x: any = "hola";
+x.toFixed(); // ❌ Error en runtime, pero TS no avisa</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">// Mejor alternativa: unknown (más seguro)
+let dato: unknown = "texto";
+dato = 123; // ✅ OK
+
+// Pero no puedes usarlo sin verificar primero
+// dato.toFixed(); // ❌ Error de compilación
+
+if (typeof dato === "number") {
+  dato.toFixed(); // ✅ Ahora sí, porque verificaste
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Best Practices -->
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h3 class="text-purple-800 font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-star"></i> Buenas Prácticas
+                        </h3>
+                        <ul class="text-purple-900 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-red-600 mt-1"></i>
+                                <span>Evita <code>any</code> siempre que sea posible - derrota el propósito de TypeScript</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Prefiere <code>unknown</code> si necesitas flexibilidad con seguridad</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Usa <code>any</code> solo temporalmente en migraciones JS → TS</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-lightbulb text-amber-600 mt-1"></i>
+                                <span>Activa <code>noImplicitAny</code> en tsconfig.json para evitar any accidentales</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Interview Question -->
+                    <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
+                        <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
+                        </h3>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuándo deberías usar el tipo any?</p>
+                        <div id="answer-container">
+                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
+                            <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
+                                <span class="font-black text-amber-500">A: </span>Solo en casos específicos: migración gradual de JavaScript, integración con librerías sin tipos, o cuando el tipo es genuinamente imposible de determinar. En la mayoría de casos, <code>unknown</code> es más seguro porque obliga a verificar el tipo antes de usarlo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial Completo -->
+                    <div class="border-t-4 border-red-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-any')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-red-600 to-orange-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-shield-halved text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">📘 Tutorial: any, inferencia y casting</h2>
+                                    <p class="text-gray-600 mt-1">Guía completa para entender y evitar any correctamente</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-any" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-any" class="hidden">
+
+                        <!-- Objetivo -->
+                        <div class="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-600 p-6 rounded-r-xl mb-8">
+                            <h3 class="text-red-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> Objetivo del tutorial
+                            </h3>
+                            <p class="text-red-800 mb-4">Al terminar este tutorial deberías:</p>
+                            <ul class="text-red-900 space-y-2 ml-4">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-red-600 mt-1"></i>
+                                    <span>Entender por qué any es peligroso</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-red-600 mt-1"></i>
+                                    <span>Saber cuándo confiar en la inferencia de TypeScript y cuándo no</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-red-600 mt-1"></i>
+                                    <span>Usar casting correctamente y con criterio</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-red-600 mt-1"></i>
+                                    <span>Modelar estados reales con undefined</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-red-600 mt-1"></i>
+                                    <span>Escribir TypeScript que te ayude de verdad en producción</span>
+                                </li>
+                            </ul>
+                            <div class="bg-white p-4 rounded-lg mt-4">
+                                <p class="text-gray-700 italic">💡 Piensa en TypeScript como una red de seguridad. Este tutorial trata de no cortarla.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 1: El tipo any -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                El tipo any: qué es y por qué evitarlo
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Qué es any</h4>
+                            <p class="text-gray-700 mb-4"><code class="bg-gray-100 px-2 py-1 rounded">any</code> desactiva el sistema de tipos de TypeScript para una variable.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let avenger: any = 123;
+avenger = "Doctor Strange";
+avenger = true;</code></pre>
+
+                            <p class="text-gray-700 mb-6">TypeScript no se queja de nada.</p>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">El problema real (no teórico)</h4>
+                            <p class="text-gray-700 mb-3">Cuando usas any:</p>
+                            <div class="grid md:grid-cols-2 gap-3 mb-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Pierdes autocompletado</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Pierdes detección temprana de errores</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Los bugs aparecen en runtime, no al compilar</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">TypeScript deja de aportar valor</span>
+                                </div>
+                            </div>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Ejemplo peligroso:</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let avenger: any = 123;
+
+avenger = "Doctor Strange";
+console.log(avenger.toFixed(2)); // 💥 Error en runtime</code></pre>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                <p class="text-red-900 font-semibold">TypeScript no te avisó. El bug llega a producción.</p>
+                            </div>
+                        </div>
+
+                        <!-- Explicación detallada del ejemplo confuso -->
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-2xl p-8 mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-graduation-cap text-blue-600"></i>
+                                Explicación paso a paso del ejemplo confuso
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-bold text-blue-900 mb-2">Paso 1: let avenger: any = 123;</h4>
+                                    <div class="bg-white p-4 rounded-lg">
+                                        <p class="text-gray-800 mb-2">Qué está pasando aquí:</p>
+                                        <ul class="text-gray-700 space-y-1 ml-4">
+                                            <li>• Declaras una variable llamada <code>avenger</code></li>
+                                            <li>• Le dices a TypeScript: "esto es any"</li>
+                                            <li>• Eso significa: puede ser cualquier cosa y no me avises de errores</li>
+                                            <li>• En este momento: <code>avenger === 123</code> (es un número)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-blue-900 mb-2">Paso 2: avenger = "Doctor Strange";</h4>
+                                    <div class="bg-white p-4 rounded-lg">
+                                        <p class="text-gray-800 mb-2">Qué pasa ahora:</p>
+                                        <ul class="text-gray-700 space-y-1 ml-4">
+                                            <li>• Cambias el valor de <code>avenger</code></li>
+                                            <li>• Ya no es un número, ahora es un string</li>
+                                            <li>• Pero como el tipo es <code>any</code>:</li>
+                                            <li class="ml-4">❌ TypeScript no se queja</li>
+                                            <li class="ml-4">❌ TypeScript no recuerda que antes era número</li>
+                                            <li>• Para TS: "haz lo que quieras"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-red-900 mb-2">Paso 3: console.log(avenger.toFixed(2));</h4>
+                                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                                        <p class="text-red-900 font-semibold mb-2">Aquí está el problema 💥</p>
+                                        <ul class="text-red-800 space-y-1 ml-4">
+                                            <li>• <code>toFixed(2)</code> solo existe en números</li>
+                                            <li>• <code>"Doctor Strange"</code> NO tiene <code>toFixed</code></li>
+                                            <li>• 👉 En JavaScript esto equivale a:</li>
+                                        </ul>
+                                        <pre class="text-sm bg-red-100 p-2 rounded mt-2"><code>"Doctor Strange".toFixed(2); // 💥 error</code></pre>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-orange-900 mb-2">¿Por qué TypeScript no avisó?</h4>
+                                    <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                                        <p class="text-orange-900 mb-2">Porque tú le dijiste antes:</p>
+                                        <pre class="text-sm bg-white p-2 rounded mb-2"><code>let avenger: any;</code></pre>
+                                        <p class="text-orange-800 italic">Eso es como decirle: "No me protejas, confío en mí mismo"</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg mt-6 border-2 border-blue-300">
+                                <p class="text-blue-900 font-bold text-lg mb-2">💡 El problema NO es reasignar la variable</p>
+                                <p class="text-gray-700 mb-3">Reasignar está permitido en JavaScript y TypeScript.</p>
+                                <p class="text-gray-700 font-semibold">El problema es:</p>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• <code>any</code> permite mezclar tipos sin control</li>
+                                    <li>• TypeScript deja de verificar</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg mt-6">
+                                <p class="text-purple-900 font-bold text-lg mb-2">🧠 Analogía simple</p>
+                                <p class="text-gray-700 mb-2">Imagina que <code>any</code> es quitarte el cinturón de seguridad:</p>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>• Mientras todo va bien → no pasa nada</li>
+                                    <li>• Cuando hay un choque → el daño es mayor</li>
+                                </ul>
+                                <p class="text-gray-700 mt-3 italic">TypeScript normalmente te diría: "Oye, esto no es un número". Pero con <code>any</code> se queda callado.</p>
+                            </div>
+                        </div>
+
+                        <!-- Cómo hacerlo correctamente -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">✓</span>
+                                Cómo debería hacerse correctamente
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Opción 1: usar un tipo real</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">let avenger: number | string = 123;
+
+avenger = "Doctor Strange";
+
+if (typeof avenger === "number") {
+  console.log(avenger.toFixed(2));
+}</code></pre>
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                        <p class="text-green-900 font-semibold mb-2">Ahora:</p>
+                                        <ul class="text-green-800 space-y-1 ml-4">
+                                            <li>• TypeScript sí te protege</li>
+                                            <li>• Solo llamas <code>toFixed</code> cuando es número</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">Opción 2: usar unknown (mejor que any)</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">let avenger: unknown = 123;
+
+avenger = "Doctor Strange";
+
+if (typeof avenger === "number") {
+  console.log(avenger.toFixed(2));
+}</code></pre>
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                        <p class="text-blue-900">Aquí TypeScript te obliga a pensar: "¿Seguro que esto es un número?"</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gradient-to-r from-yellow-50 to-amber-50 p-6 rounded-lg mt-6 border-2 border-yellow-400">
+                                <p class="text-yellow-900 font-bold text-lg mb-2">🔑 Idea clave para que no se te olvide</p>
+                                <ul class="text-gray-800 space-y-2 text-lg">
+                                    <li>• <code class="bg-red-100 px-2 py-1 rounded">any</code> permite errores silenciosos</li>
+                                    <li>• <code class="bg-blue-100 px-2 py-1 rounded">unknown</code> obliga a comprobar</li>
+                                    <li>• <code class="bg-green-100 px-2 py-1 rounded">Tipos reales</code> previenen bugs</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: Inferencia de tipos -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                Inferencia de tipos: cuándo confiar en ella
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Inferencia automática</h4>
+                            <p class="text-gray-700 mb-4">TypeScript es inteligente. No siempre necesitas escribir tipos explícitamente:</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let name = "Tony Stark";
+// TypeScript sabe: name es string
+
+let age = 45;
+// TypeScript sabe: age es number
+
+let hero = { name: "Iron Man", active: true };
+// TypeScript sabe: hero es { name: string, active: boolean }</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3 mt-6">¿Cuándo SÍ escribir el tipo explícitamente?</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">Cuando quieres forzar una restricción:</p>
+                                        <pre class="text-sm bg-gray-100 p-3 rounded mt-2"><code class="language-typescript">let role: "admin" | "user" = "admin"; // Solo puede ser admin o user</code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">En parámetros de funciones:</p>
+                                        <pre class="text-sm bg-gray-100 p-3 rounded mt-2"><code class="language-typescript">function greet(name: string) {
+  console.log(`Hello, ${name}`);
+}</code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                    <div>
+                                        <p class="font-semibold text-gray-900">Para valores futuros:</p>
+                                        <pre class="text-sm bg-gray-100 p-3 rounded mt-2"><code class="language-typescript">let userId: number; // Aún no tiene valor
+// ...
+userId = getUserIdFromAPI();</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 3: Casting -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Casting: cuándo y cómo usarlo
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Casting es decirle a TypeScript: "Confía en mí, este valor es de este tipo".</p>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Sintaxis de casting</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let someValue: unknown = "Hello TypeScript";
+
+// Opción 1: sintaxis 'as'
+let strLength1: number = (someValue as string).length;
+
+// Opción 2: sintaxis angle-bracket (no funciona en JSX)
+let strLength2: number = (&lt;string&gt;someValue).length;</code></pre>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-6">
+                                <p class="text-yellow-900 font-semibold">⚠️ Cuidado: Casting NO convierte valores</p>
+                                <p class="text-yellow-800 mt-2">Solo cambia cómo TypeScript ve el valor, no lo transforma.</p>
+                            </div>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Casting peligroso</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let data = "123" as any as number;
+console.log(data.toFixed(2)); // 💥 Error: "123" sigue siendo string</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3 mt-6">Casting seguro</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let input: unknown = "123";
+
+// Primero verifica
+if (typeof input === "string") {
+  let num = parseInt(input); // Ahora sí convierte
+  console.log(num.toFixed(2)); // ✅ Funciona
+}</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold">💡 Regla de oro</p>
+                                <p class="text-blue-800 mt-2">Usa casting solo cuando TypeScript no puede inferir correctamente pero tú SABES con certeza el tipo real.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 4: unknown vs any -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                unknown vs any: la diferencia crucial
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="bg-red-50 border-2 border-red-300 p-4 rounded-xl">
+                                    <h4 class="font-bold text-red-900 mb-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-ban"></i> any
+                                    </h4>
+                                    <ul class="text-red-800 space-y-2">
+                                        <li>• Desactiva TODAS las verificaciones</li>
+                                        <li>• Puedes hacer lo que quieras</li>
+                                        <li>• TypeScript no ayuda</li>
+                                        <li>• Errores en runtime</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-green-50 border-2 border-green-300 p-4 rounded-xl">
+                                    <h4 class="font-bold text-green-900 mb-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-shield"></i> unknown
+                                    </h4>
+                                    <ul class="text-green-800 space-y-2">
+                                        <li>• Acepta cualquier valor</li>
+                                        <li>• Pero OBLIGA a verificar antes de usar</li>
+                                        <li>• TypeScript te protege</li>
+                                        <li>• Errores en compilación</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Ejemplo comparativo</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// Con any (PELIGROSO)
+let data1: any = "hello";
+data1.toFixed(); // ⚠️ TypeScript no avisa, falla en runtime
+
+// Con unknown (SEGURO)
+let data2: unknown = "hello";
+data2.toFixed(); // ❌ Error de compilación
+
+// Tienes que verificar primero
+if (typeof data2 === "number") {
+  data2.toFixed(); // ✅ Ahora sí funciona
+}</code></pre>
+
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg mt-6 border-2 border-green-400">
+                                <p class="text-green-900 font-bold text-lg mb-2">✅ Conclusión</p>
+                                <p class="text-gray-800 text-lg">Si necesitas flexibilidad → usa <code class="bg-white px-2 py-1 rounded">unknown</code>, no <code class="bg-red-100 px-2 py-1 rounded">any</code></p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 5: Variables sin inicializar -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-amber-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                Variables sin inicializar: el error común
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Problema típico</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let userId: number;
+
+console.log(userId); // undefined (aunque dices que es number)</code></pre>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-6">
+                                <p class="text-red-900 font-semibold">❌ Esto es mentirle a TypeScript</p>
+                                <p class="text-red-800 mt-2">Dices que <code>userId</code> es <code>number</code>, pero realmente es <code>undefined</code> hasta que lo inicialices.</p>
+                            </div>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">Solución correcta</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let userId: number | undefined;
+
+console.log(userId); // undefined (esperado)
+
+// Verifica antes de usar
+if (userId !== undefined) {
+  console.log(userId.toFixed(2)); // ✅ Seguro
+}</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3 mt-6">O mejor aún: inicializa siempre</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">let userId: number = 0; // Valor por defecto
+// o
+let userId: number | null = null; // Explícitamente sin valor aún</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold">💡 Buena práctica</p>
+                                <p class="text-blue-800 mt-2">Modela el estado real: si algo puede no existir, usa <code>| undefined</code> o <code>| null</code></p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 6: Ejemplo completo -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8 mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-code text-purple-600"></i>
+                                Ejemplo completo: Todo junto
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">// ❌ MAL: Código peligroso con any
+function processData(data: any) {
+  return data.toUpperCase() + " - " + data.toFixed(2);
+}
+processData(123); // 💥 Falla en runtime
+
+// ✅ BIEN: Código seguro con tipos reales
+function processDataSafe(data: string | number) {
+  if (typeof data === "string") {
+    return data.toUpperCase();
+  } else {
+    return data.toFixed(2);
+  }
+}
+processDataSafe(123); // ✅ Funciona: "123.00"
+processDataSafe("hello"); // ✅ Funciona: "HELLO"
+
+// ✅ BIEN: Con unknown (cuando no sabes de antemano)
+function processUnknown(data: unknown) {
+  if (typeof data === "string") {
+    return data.toUpperCase();
+  } else if (typeof data === "number") {
+    return data.toFixed(2);
+  } else {
+    return "Tipo no soportado";
+  }
+}
+
+// ✅ BIEN: Modelando estados reales
+interface User {
+  name: string;
+  email: string | undefined; // Puede no tener email
+}
+
+function sendEmail(user: User) {
+  if (user.email === undefined) {
+    console.log("Usuario sin email");
+    return;
+  }
+
+  // Aquí TypeScript sabe que email existe
+  console.log(`Enviando a ${user.email}`);
+}</code></pre>
+                        </div>
+
+                        <!-- Sección 7: Reglas prácticas -->
+                        <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-600 p-8 rounded-r-2xl">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                <i class="fa-solid fa-list-check text-cyan-600"></i>
+                                Reglas prácticas para recordar
+                            </h3>
+
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-xl border-l-4 border-red-500">
+                                    <h4 class="font-bold text-red-900 mb-2">🚫 NUNCA</h4>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>• Usar <code>any</code> por pereza</li>
+                                        <li>• Hacer casting sin verificar</li>
+                                        <li>• Mentir sobre los tipos (ej: <code>let x: number;</code> sin inicializar)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-xl border-l-4 border-green-500">
+                                    <h4 class="font-bold text-green-900 mb-2">✅ SIEMPRE</h4>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>• Prefiere <code>unknown</code> sobre <code>any</code></li>
+                                        <li>• Usa tipos reales (<code>string | number</code>)</li>
+                                        <li>• Verifica con <code>typeof</code> antes de usar</li>
+                                        <li>• Modela estados reales (<code>| undefined</code> si puede no existir)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-xl border-l-4 border-blue-500">
+                                    <h4 class="font-bold text-blue-900 mb-2">💡 RECUERDA</h4>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>• Casting NO convierte, solo cambia cómo TS ve el valor</li>
+                                        <li>• Inferencia funciona bien el 90% del tiempo</li>
+                                        <li>• TypeScript es tu aliado, no tu enemigo</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-gradient-to-r from-yellow-100 to-amber-100 p-6 rounded-xl border-2 border-yellow-500 mt-6">
+                                    <p class="text-gray-900 font-bold text-xl text-center">
+                                        🎯 Si solo recuerdas una cosa: <code class="bg-white px-3 py-1 rounded">unknown &gt; any</code>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Referencias Adicionales -->
+                    <div class="border-t-4 border-gray-600 pt-12 mt-12">
+                        <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+                            <h2 class="text-3xl font-extrabold mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-bookmark text-yellow-400 text-3xl"></i>
+                                Referencias y Recursos Adicionales
+                            </h2>
+                            <p class="text-gray-300 mb-6">
+                                Profundiza más en TypeScript con esta guía recomendada:
+                            </p>
+                            <div class="grid gap-4">
+                                <a href="https://chatgpt.com/c/67aaa78d-f600-8008-bf7b-6de9b97278be" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                    <div class="bg-green-500 rounded-lg p-3">
+                                        <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">Conversación sobre TypeScript</h3>
+                                        <p class="text-gray-400 text-sm">Guía interactiva y ejemplos prácticos</p>
+                                    </div>
+                                    <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

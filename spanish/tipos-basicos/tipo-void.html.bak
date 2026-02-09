@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipo Void: Funciones sin Retorno - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .animate-in { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Volver</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Conceptos Fundamentales -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="../tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Tipado</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tipos de Unión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tipos Básicos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
+                            <li>
+                                <a href="enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list-ol w-5"></i>
+                                    <span>Enums</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-lightbulb w-5"></i>
+                                    <span>Inferir Tipos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-quote-left w-5"></i>
+                                    <span>Strings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-triangle w-5"></i>
+                                    <span>Tipo Any</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list w-5"></i>
+                                    <span>Arrays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tuples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-ban w-5"></i>
+                                    <span>Tipo Void</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-infinity w-5"></i>
+                                    <span>Tipo Never</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question w-5"></i>
+                                    <span>Null vs Undefined</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Funciones y Objetos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('funciones-objetos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Funciones y Objetos</span>
+                            <i id="icon-funciones-objetos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-funciones-objetos" class="space-y-1">
+                            <li>
+                                <a href="../funciones/funciones-basicas.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-function w-5"></i>
+                                    <span>Funciones Básicas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-obligatorios.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-circle w-5"></i>
+                                    <span>Parámetros Requeridos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-opcionales.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question-circle w-5"></i>
+                                    <span>Parámetros Opcionales</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-por-defecto.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-equals w-5"></i>
+                                    <span>Parámetros por Defecto</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/parametros-rest.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ellipsis-h w-5"></i>
+                                    <span>Parámetros Rest</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/tipo-function.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-code w-5"></i>
+                                    <span>Tipo de Función</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/type-test.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-flask w-5"></i>
+                                    <span>Prueba de Tipo</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Idioma</p>
+                        <div class="flex gap-2">
+                            <a href="tipo-void.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                                <span>🇪🇸</span>
+                                <span>Español</span>
+                            </a>
+                            <a href="../../english/basics/type-void.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Volver al índice
+                </a>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Content -->
+                        <div class="animate-in">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-ban text-3xl"></i>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Tipo Void: Funciones sin Retorno</h1>
+                </div>
+
+                <div class="grid gap-8">
+                    <!-- Problem & Solution -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                            <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Problema
+                            </h3>
+                            <p class="text-red-900">Algunas funciones no devuelven un valor útil (como funciones que imprimen en consola o modifican el DOM). ¿Cómo indicar esto en TypeScript?</p>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
+                            <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> Solución
+                            </h3>
+                            <p class="text-green-900">El tipo <code>void</code> indica que una función no devuelve ningún valor. Es la forma de TypeScript de decir "esta función hace algo, pero no esperes un resultado."</p>
+                        </div>
+                    </div>
+
+                    <!-- Analogy -->
+                    <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
+                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Analogía Visual</h3>
+                            <p class="text-blue-900 text-lg italic leading-relaxed">"Como gritar en un valle: haces una acción (gritar) pero no esperas recibir algo tangible de vuelta, solo el eco que no usarás."</p>
+                        </div>
+                    </div>
+
+                    <!-- Code Tabs -->
+                    <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
+                        <div class="flex border-b border-gray-800 bg-[#252526]">
+                            <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
+                                Código Base
+                            </button>
+                            <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
+                                Resultado TS
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed text-gray-300"><code>// Función con void explícito
+function saludar(nombre: string): void {
+  console.log(`Hola, ${nombre}`);
+  // No hay return (o return sin valor)
+}
+
+// Función que modifica el DOM
+function actualizarTitulo(titulo: string): void {
+  document.title = titulo;
+}
+
+// ❌ Error: void no puede asignarse a otro tipo
+let resultado: string = saludar("Ana");</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed text-gray-300 hidden"><code>// TypeScript infiere void automáticamente
+function log(mensaje: string) {
+  console.log(mensaje);
+  // TS infiere: ': void'
+}
+
+// Diferencia con undefined
+function retornaUndefined(): undefined {
+  return undefined; // Debe retornar explícitamente
+}
+
+function retornaVoid(): void {
+  return; // Puede no tener return
+}
+
+// Callbacks con void
+type Callback = (data: string) => void;
+const procesar: Callback = (data) => {
+  console.log(data);
+};</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Best Practices -->
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h3 class="text-purple-800 font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-star"></i> Buenas Prácticas
+                        </h3>
+                        <ul class="text-purple-900 space-y-2">
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>Usa <code>void</code> para funciones que realizan efectos secundarios (logs, DOM, API calls)</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>TypeScript infiere <code>void</code> automáticamente, pero es bueno ser explícito en APIs públicas</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>No confundas <code>void</code> con <code>undefined</code>: void es más flexible en callbacks</span></li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-600 mt-1"></i><span>En callbacks, <code>void</code> permite ignorar el valor de retorno del callback</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Interview Question -->
+                    <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
+                        <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
+                        </h3>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuál es la diferencia entre void y undefined en TypeScript?</p>
+                        <div id="answer-container">
+                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
+                            <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
+                                <span class="font-black text-amber-500">A: </span><code>void</code> significa que el valor de retorno se ignora o no se debe usar (la función puede no tener return). <code>undefined</code> es un tipo y valor específico que debe retornarse explícitamente. En callbacks, <code>void</code> es más flexible: permite que el callback retorne cualquier cosa, pero ese valor será ignorado.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial Completo -->
+                    <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-void')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-book text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">📘 Tutorial: El tipo void en TypeScript</h2>
+                                    <p class="text-gray-600 mt-1">Guía completa y profesional</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-void" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-void" class="hidden">
+
+                        <!-- Sección 1: ¿Por qué existe void? -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                ¿Por qué existe void en TypeScript?
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Empecemos por JavaScript puro.</p>
+
+                            <p class="text-gray-700 mb-4">En JavaScript, todas las funciones devuelven algo, aunque tú no lo veas:</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function sayHello() {
+  console.log("Hola");
+}
+
+const result = sayHello();
+console.log(result); // undefined</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-blue-900 mb-2">👉 Si no usas <code class="bg-white px-2 py-1 rounded">return</code>, JavaScript devuelve <code class="bg-white px-2 py-1 rounded">undefined</code> automáticamente.</p>
+                            </div>
+
+                            <p class="text-gray-700 mb-4"><strong>Entonces… ¿por qué TypeScript necesita void?</strong></p>
+
+                            <p class="text-gray-700 mb-4">Porque TypeScript no solo describe qué pasa en runtime, sino cómo debería usarse el código.</p>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold mb-2">✔ void existe para expresar una intención clara:</p>
+                                <p class="text-green-800">"Esta función existe para hacer algo, no para devolver un valor que deba usarse."</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: ¿Qué significa realmente void? -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                ¿Qué significa realmente void?
+                            </h3>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-red-900 font-semibold mb-2">❌ Idea incorrecta:</p>
+                                <p class="text-red-800"><code>void</code> significa que la función no devuelve nada</p>
+                            </div>
+
+                            <p class="text-gray-700 mb-4">Significa algo más preciso:</p>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-yellow-900 font-semibold">🔹 El valor de retorno no debe ser usado</p>
+                            </div>
+
+                            <p class="text-gray-700 mb-4"><strong>Ejemplo básico:</strong></p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function callBatman(): void {
+  console.log("Bat-signal activated 🦇");
+}</code></pre>
+
+                            <ul class="text-gray-700 space-y-2 ml-4 mb-4">
+                                <li>✔ La función hace algo</li>
+                                <li>✔ No esperamos ningún resultado</li>
+                                <li>✔ No tiene sentido usar lo que "devuelve"</li>
+                            </ul>
+                        </div>
+
+                        <!-- Sección 3: Funciones void y return -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Funciones void y return
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">✅ Permitido: no devolver nada</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function logMessage(message: string): void {
+  console.log(message);
+}</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">✅ Permitido: return; (salida temprana)</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function validate(isValid: boolean): void {
+  if (!isValid) return; // solo corta la ejecución
+  console.log("Todo correcto");
+}</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">❌ NO permitido: devolver un valor</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function logMessage(message: string): void {
+  return message; // ❌ Error
+}</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold mb-2">💡 Razón:</p>
+                                <p class="text-blue-800"><code>void</code> le dice a TypeScript que ningún valor debe salir de ahí.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 4: void vs undefined vs null -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                void vs undefined vs null (esto confunde a muchos)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Aquí va la diferencia clara, sin líos:</p>
+
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                    <h4 class="text-blue-900 font-bold mb-2">🔹 void</h4>
+                                    <ul class="text-blue-800 space-y-1 ml-4">
+                                        <li>✓ Es un tipo</li>
+                                        <li>✓ Se usa sobre todo en retornos de funciones</li>
+                                        <li>✓ Expresa "no hay valor útil"</li>
+                                    </ul>
+                                </div>
+
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function doSomething(): void {}</code></pre>
+
+                                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                    <h4 class="text-purple-900 font-bold mb-2">🔹 undefined</h4>
+                                    <ul class="text-purple-800 space-y-1 ml-4">
+                                        <li>✓ Es un valor real en JavaScript</li>
+                                        <li>✓ Significa "no asignado"</li>
+                                    </ul>
+                                </div>
+
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">let x: undefined = undefined;</code></pre>
+
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                    <h4 class="text-green-900 font-bold mb-2">🔹 null</h4>
+                                    <ul class="text-green-800 space-y-1 ml-4">
+                                        <li>✓ Es un valor intencional</li>
+                                        <li>✓ Significa "vacío a propósito"</li>
+                                    </ul>
+                                </div>
+
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">let y: null = null;</code></pre>
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-4">
+                                <p class="text-yellow-900 font-semibold mb-2">👉 Clave senior:</p>
+                                <p class="text-yellow-800"><code>void</code> es sobre intención de uso, <code>undefined</code> y <code>null</code> son datos.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 5: void en funciones flecha -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                void en funciones flecha
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Exactamente igual:</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const callSuperman = (): void => {
+  console.log("Up, up and away 🦸‍♂️");
+};</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold">✔ Muy común en callbacks y handlers.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 6: void en React -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                Caso REAL: void en React (muy importante)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">En React, la mayoría de handlers no devuelven nada útil.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function Button() {
+  const handleClick = (): void => {
+    console.log("Clicked");
+  };
+
+  return &lt;button onClick={handleClick}&gt;Click&lt;/button&gt;;
+}</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold mb-2">💡 Mentalidad correcta:</p>
+                                <ul class="text-blue-800 space-y-1 ml-4">
+                                    <li>✓ Si necesitas un resultado → usa state, props o callback</li>
+                                    <li>✓ No devuelvas valores desde handlers</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Sección 7: Promise<void> -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">7</span>
+                                Promise&lt;void&gt; (clave en async / APIs)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Este punto suele faltar en tutoriales básicos, pero es CRÍTICO.</p>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">async function saveUser(): Promise&lt;void&gt; {
+  await fetch("/api/user", { method: "POST" });
+}</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-green-900 font-semibold mb-2">✔ ¿Qué significa?</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>✓ La función es async</li>
+                                    <li>✓ Hace algo (side-effect)</li>
+                                    <li>✓ No devuelve datos</li>
+                                </ul>
+                            </div>
+
+                            <p class="text-gray-700 mb-4"><strong>Esto es muy común en:</strong></p>
+                            <ul class="text-gray-700 space-y-1 ml-4">
+                                <li>✓ Guardar datos</li>
+                                <li>✓ Enviar logs</li>
+                                <li>✓ Disparar eventos</li>
+                            </ul>
+                        </div>
+
+                        <!-- Sección 8: void vs never -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">8</span>
+                                Diferencia clave: void vs never (nivel pro)
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">Esto eleva tu tutorial 👇</p>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-blue-900 font-semibold mb-2">🔹 void</p>
+                                <p class="text-blue-800 mb-2">La función termina, pero no devuelve valor útil.</p>
+                                <pre class="text-sm bg-white p-2 rounded border border-blue-200"><code class="language-typescript">function log(msg: string): void {
+  console.log(msg);
+}</code></pre>
+                            </div>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                <p class="text-red-900 font-semibold mb-2">🔹 never</p>
+                                <p class="text-red-800 mb-2">La función NO termina nunca.</p>
+                                <pre class="text-sm bg-white p-2 rounded border border-red-200"><code class="language-typescript">function crash(): never {
+  throw new Error("Boom");
+}</code></pre>
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-4">
+                                <p class="text-yellow-900 font-semibold mb-2">👉 Si una función siempre lanza error o entra en un bucle infinito, NO es void, es never.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 9: Buenas prácticas -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">9</span>
+                                Buenas prácticas (explicadas como senior)
+                            </h3>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-green-900 font-semibold mb-2">✅ Usa void cuando:</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>✓ La función solo produce efectos</li>
+                                    <li>✓ Es un handler, callback o logger</li>
+                                    <li>✓ No quieres que nadie use el retorno</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-4">
+                                <p class="text-red-900 font-semibold mb-2">❌ No uses void si:</p>
+                                <ul class="text-red-800 space-y-1 ml-4">
+                                    <li>✓ La función devuelve datos</li>
+                                    <li>✓ El resultado se usa después</li>
+                                    <li>✓ Es parte de un cálculo</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold">👉 <code>void</code> documenta intención y previene bugs silenciosos.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 10: Ejercicios prácticos -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">🔟</span>
+                                Ejercicios prácticos
+                            </h3>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">🧪 Ejercicio 1: Logger</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function logInfo(message: string): void {
+  console.log("INFO:", message);
+}</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">🧪 Ejercicio 2: Timer con callback</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function runLater(ms: number, callback: () => void): void {
+  setTimeout(callback, ms);
+}
+
+runLater(1000, () => console.log("1 segundo después"));</code></pre>
+
+                            <h4 class="font-semibold text-gray-900 mb-3">🧪 Ejercicio 3: Bug intencional</h4>
+                            <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function test(): void {
+  return 123; // ❌ arreglar
+}</code></pre>
+
+                            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                <p class="text-purple-900 font-semibold mb-2">💡 Desafío:</p>
+                                <p class="text-purple-800">Intenta ejecutar estos ejercicios y observa qué errores da TypeScript.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 11: void en React + TypeScript -->
+                        <div class="border-t-4 border-green-600 pt-8 mt-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                <span class="bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold">⚛️</span>
+                                void en React + TypeScript (Guía práctica)
+                            </h3>
+
+                            <p class="text-gray-700 mb-6 text-lg font-semibold">Contexto: En React, la mayoría de funciones no existen para devolver valores, sino para provocar efectos: actualizar estado, lanzar una request, registrar algo, etc.</p>
+                            <p class="text-gray-700 mb-4">Ahí es donde <code class="bg-gray-100 px-2 py-1 rounded">void</code> encaja perfectamente.</p>
+
+                            <!-- Sub-sección 1 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                                    Idea base en React: "no devuelvas datos, cambia estado"
+                                </h4>
+
+                                <p class="text-gray-700 mb-4">En React no usamos el retorno de funciones para controlar la UI.</p>
+
+                                <h5 class="font-semibold text-red-700 mb-3">❌ Mentalidad incorrecta (JS clásico):</h5>
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function isValid(): boolean {
+  return true;
+}</code></pre>
+
+                                <h5 class="font-semibold text-green-700 mb-3">✅ Mentalidad React:</h5>
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function validate(): void {
+  setIsValid(true);
+}</code></pre>
+
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                    <p class="text-blue-900 font-semibold mb-2">👉 En React:</p>
+                                    <ul class="text-blue-800 space-y-1 ml-4">
+                                        <li>✓ La UI responde a state</li>
+                                        <li>✓ No al valor de retorno de funciones</li>
+                                        <li>✓ Por eso void es tan común</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 2 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                                    Event handlers en React siempre son void
+                                </h4>
+
+                                <p class="text-gray-700 mb-4"><strong>Ejemplo típico:</strong></p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function Button() {
+  const handleClick = (): void => {
+    console.log("Click");
+  };
+
+  return &lt;button onClick={handleClick}&gt;Click&lt;/button&gt;;
+}</code></pre>
+
+                                <p class="text-gray-700 mb-4"><strong>¿Por qué void aquí?</strong></p>
+                                <ul class="text-gray-700 space-y-1 mb-4 ml-4">
+                                    <li>✓ React ignora completamente el retorno del handler</li>
+                                    <li>✓ Si devuelves algo, no pasa nada útil</li>
+                                    <li>✓ <code>void</code> deja clara la intención</li>
+                                </ul>
+
+                                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                                    <p class="text-yellow-900 font-semibold">💡 Senior tip:</p>
+                                    <p class="text-yellow-800">Si una función es pasada a JSX como evento, su retorno no importa → <code>void</code></p>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 3 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                                    Handlers con evento tipado
+                                </h4>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function Button() {
+  const handleClick = (
+    event: React.MouseEvent&lt;HTMLButtonElement&gt;
+  ): void => {
+    console.log(event.currentTarget);
+  };
+
+  return &lt;button onClick={handleClick}&gt;Click&lt;/button&gt;;
+}</code></pre>
+
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>✔ Tipas el evento</li>
+                                    <li>✔ Tipas el retorno</li>
+                                    <li>✔ Código auto-documentado</li>
+                                </ul>
+                            </div>
+
+                            <!-- Sub-sección 4 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                                    void + useState (patrón más común)
+                                </h4>
+
+                                <p class="text-gray-700 mb-4"><strong>Ejemplo real:</strong></p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  const increment = (): void => {
+    setCount(prev => prev + 1);
+  };
+
+  return &lt;button onClick={increment}&gt;{count}&lt;/button&gt;;
+}</code></pre>
+
+                                <p class="text-gray-700 mb-4"><strong>¿Por qué void?</strong></p>
+                                <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li>✓ <code>increment</code> no devuelve el nuevo valor</li>
+                                    <li>✓ Solo provoca un cambio de estado</li>
+                                    <li>✓ React se encarga del re-render</li>
+                                </ul>
+
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mt-4">
+                                    <p class="text-green-900 font-semibold">👉 Esto es React puro.</p>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 5 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                                    void en funciones async (Promise&lt;void&gt;)
+                                </h4>
+
+                                <p class="text-gray-700 mb-4">Este punto es CLAVE y suele confundirse.</p>
+
+                                <p class="text-gray-700 mb-4"><strong>Ejemplo realista (guardar datos):</strong></p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">async function saveUser(): Promise&lt;void&gt; {
+  await fetch("/api/user", { method: "POST" });
+}</code></pre>
+
+                                <p class="text-gray-700 mb-4"><strong>Uso en React:</strong></p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function SaveButton() {
+  const [saving, setSaving] = React.useState(false);
+
+  const handleSave = async (): Promise&lt;void&gt; => {
+    setSaving(true);
+    await saveUser();
+    setSaving(false);
+  };
+
+  return &lt;button disabled={saving}&gt;Save&lt;/button&gt;;
+}</code></pre>
+
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                    <p class="text-blue-900 font-semibold">Mentalidad senior:</p>
+                                    <ul class="text-blue-800 space-y-1 ml-4">
+                                        <li>✓ Si no devuelves datos → <code>Promise&lt;void&gt;</code></li>
+                                        <li>✓ El resultado se refleja en state, no en return</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 6 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+                                    useEffect: por qué SIEMPRE es void
+                                </h4>
+
+                                <p class="text-gray-700 mb-4">Esto es fundamental.</p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">React.useEffect((): void => {
+  console.log("Component mounted");
+}, []);</code></pre>
+
+                                <p class="text-gray-700 mb-4"><strong>¿Por qué?</strong></p>
+                                <p class="text-gray-700 mb-4"><code>useEffect</code> no espera un valor</p>
+                                <p class="text-gray-700 mb-4">Solo permite:</p>
+                                <ul class="text-gray-700 space-y-1 ml-4 mb-4">
+                                    <li>✓ nada (void)</li>
+                                    <li>✓ o una función de cleanup</li>
+                                </ul>
+
+                                <h5 class="font-semibold text-red-700 mb-3">❌ Incorrecto:</h5>
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">useEffect(() => {
+  return 123; // ❌
+});</code></pre>
+
+                                <h5 class="font-semibold text-green-700 mb-3">✅ Correcto:</h5>
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">useEffect(() => {
+  return () => {
+    console.log("cleanup");
+  };
+});</code></pre>
+                            </div>
+
+                            <!-- Sub-sección 7 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+                                    Callbacks y props: () =&gt; void
+                                </h4>
+
+                                <p class="text-gray-700 mb-4">Muy común al pasar funciones entre componentes.</p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">type Props = {
+  onClose: () => void;
+};
+
+function Modal({ onClose }: Props) {
+  return &lt;button onClick={onClose}&gt;Close&lt;/button&gt;;
+}</code></pre>
+
+                                <p class="text-gray-700 mb-4"><strong>Uso:</strong></p>
+
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">&lt;Modal onClose={() => setOpen(false)} /&gt;</code></pre>
+
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                    <p class="text-green-900 font-semibold mb-2">Justificación:</p>
+                                    <ul class="text-green-800 space-y-1 ml-4">
+                                        <li>✓ El componente no necesita saber nada</li>
+                                        <li>✓ Solo ejecuta la acción</li>
+                                        <li>✓ <code>void</code> expresa independencia</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 8 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">8</span>
+                                    Error común de juniors (y por qué void lo evita)
+                                </h4>
+
+                                <h5 class="font-semibold text-red-700 mb-3">❌ Anti-patrón:</h5>
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const handleSubmit = (): boolean => {
+  setLoading(true);
+  return true;
+};</code></pre>
+
+                                <p class="text-gray-700 mb-4"><strong>¿Por qué está mal?</strong></p>
+                                <ul class="text-gray-700 space-y-1 ml-4 mb-4">
+                                    <li>✓ React ignora el retorno</li>
+                                    <li>✓ El boolean no sirve para nada</li>
+                                    <li>✓ Genera falsa sensación de control</li>
+                                </ul>
+
+                                <h5 class="font-semibold text-green-700 mb-3">✅ Correcto:</h5>
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const handleSubmit = (): void => {
+  setLoading(true);
+};</code></pre>
+                            </div>
+
+                            <!-- Sub-sección 9 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">9</span>
+                                    void vs never en React
+                                </h4>
+
+                                <p class="text-gray-700 mb-4">Importante distinguirlos.</p>
+
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-gray-700 font-semibold mb-2">void → acción normal</p>
+                                        <pre class="text-sm bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const logOut = (): void => {
+  setUser(null);
+};</code></pre>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-gray-700 font-semibold mb-2">never → la app se rompe o se corta</p>
+                                        <pre class="text-sm bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">function fatalError(message: string): never {
+  throw new Error(message);
+}</code></pre>
+                                    </div>
+                                </div>
+
+                                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-4">
+                                    <p class="text-yellow-900 font-semibold">En React:</p>
+                                    <ul class="text-yellow-800 space-y-1 ml-4">
+                                        <li>✓ <code>void</code> = flujo normal</li>
+                                        <li>✓ <code>never</code> = crash</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 10 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">🔟</span>
+                                    Reglas mentales rápidas (React edition)
+                                </h4>
+
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                    <p class="text-blue-900 font-semibold mb-3">🧠 Piensa así:</p>
+                                    <ul class="text-blue-800 space-y-1 ml-4">
+                                        <li>✓ Event handler → <code>void</code></li>
+                                        <li>✓ Callback de props → <code>void</code></li>
+                                        <li>✓ <code>useEffect</code> → <code>void</code></li>
+                                        <li>✓ Async sin datos → <code>Promise&lt;void&gt;</code></li>
+                                        <li>✓ Si necesitas datos → state / props, no return</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Sub-sección 11 -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">🧪</span>
+                                    Ejercicios prácticos (React)
+                                </h4>
+
+                                <h5 class="font-semibold text-gray-900 mb-3">Ejercicio 1: Toggle</h5>
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const toggle = (): void => {
+  setOpen(prev => !prev);
+};</code></pre>
+
+                                <h5 class="font-semibold text-gray-900 mb-3">Ejercicio 2: Fetch sin retorno</h5>
+                                <pre class="text-sm md:text-base leading-relaxed mb-4 bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">async function loadData(): Promise&lt;void&gt; {
+  await fetch("/api/data");
+}</code></pre>
+
+                                <h5 class="font-semibold text-gray-900 mb-3">Ejercicio 3: Corrige el error</h5>
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const onClick = (): boolean => {
+  setOpen(true);
+  return true; // ❌
+};</code></pre>
+                            </div>
+
+                            <!-- Conclusión React -->
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-xl mt-8">
+                                <h4 class="text-green-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                    <i class="fa-solid fa-lightbulb"></i> 🧩 Resumen final (para React)
+                                </h4>
+                                <p class="text-green-800 mb-4">En React, <code>void</code> es el tipo natural de casi todas las funciones. Los componentes no dependen del valor de retorno, sino de los efectos secundarios que actualizan el estado.</p>
+                                <p class="text-green-800">Usar <code>void</code> hace explícita esta intención, mejora la legibilidad y previene errores de diseño heredados de JavaScript clásico.</p>
+                            </div>
+                        </div>
+
+                        <!-- Resumen -->
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-6 rounded-r-xl">
+                            <h3 class="text-blue-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb"></i> 🧠 Resumen mental rápido
+                            </h3>
+                            <ul class="text-blue-800 space-y-2 ml-4">
+                                <li><strong>void</strong> = "no hay valor útil que usar"</li>
+                                <li>No es lo mismo que <code>undefined</code></li>
+                                <li>Es clave en React y async</li>
+                                <li>Ayuda a expresar intención</li>
+                                <li>Previene errores de diseño</li>
+                            </ul>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Referencias y Recursos Adicionales -->
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mt-8 shadow-2xl">
+                    <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-book-bookmark text-3xl text-blue-400"></i>
+                        Referencias y Recursos Adicionales
+                    </h2>
+                    <p class="text-gray-300 mb-6">
+                        Profundiza más en void con TypeScript con estas guías recomendadas:
+                    </p>
+                    <div class="grid gap-4">
+                        <a href="https://claude.ai/chat/b5e0e1db-3f65-49dd-9a6b-8fa6f3365400" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-blue-500 rounded-lg p-3">
+                                <i class="fa-solid fa-comments text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg text-white group-hover:text-blue-300 transition-colors">Conversación sobre void en TypeScript</h3>
+                                <p class="text-gray-400 text-sm">Análisis profundo y ejemplos prácticos con Claude</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                        </a>
+                        <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/6984c577-42f8-8396-abc8-611a32726c3e" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-green-500 rounded-lg p-3">
+                                <i class="fa-solid fa-lightbulb text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">TypeScript Assistant - void</h3>
+                                <p class="text-gray-400 text-sm">Asistente especializado en TypeScript con enfoque en tipos y void</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                        </a>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

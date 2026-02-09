@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strings - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .animate-in { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Volver</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Conceptos Fundamentales -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="../tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Tipado</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tipos de Unión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tipos Básicos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
+                            <li>
+                                <a href="enums.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list-ol w-5"></i>
+                                    <span>Enums</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-lightbulb w-5"></i>
+                                    <span>Inferir Tipos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="strings.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-quote-left w-5"></i>
+                                    <span>Strings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-triangle w-5"></i>
+                                    <span>Tipo Any</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list w-5"></i>
+                                    <span>Arrays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tuples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ban w-5"></i>
+                                    <span>Tipo Void</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-infinity w-5"></i>
+                                    <span>Tipo Never</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question w-5"></i>
+                                    <span>Null vs Undefined</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Funciones y Objetos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('funciones-objetos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Funciones y Objetos</span>
+                            <i id="icon-funciones-objetos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-funciones-objetos" class="space-y-1">
+                            <li>
+                                <a href="../funciones/basic-functions.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-function w-5"></i>
+                                    <span>Funciones Básicas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/required-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-circle w-5"></i>
+                                    <span>Parámetros Requeridos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/optional-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question-circle w-5"></i>
+                                    <span>Parámetros Opcionales</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/default-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-equals w-5"></i>
+                                    <span>Parámetros por Defecto</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/rest-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ellipsis-h w-5"></i>
+                                    <span>Parámetros Rest</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/function-type.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-code w-5"></i>
+                                    <span>Tipo de Función</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../funciones/type-test.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-flask w-5"></i>
+                                    <span>Prueba de Tipo</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Idioma</p>
+                        <div class="flex gap-2">
+                            <a href="strings.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                                <span>🇪🇸</span>
+                                <span>Español</span>
+                            </a>
+                            <a href="../../english/basics/strings.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Volver al índice
+                </a>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Content -->
+                        <div class="animate-in">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
+                        <i class="fa-solid fa-quote-left text-3xl"></i>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-gray-900">Tipo String</h1>
+                </div>
+
+                <div class="grid gap-8">
+                    <!-- Problem & Solution -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                            <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Problema
+                            </h3>
+                            <p class="text-red-900">En JavaScript, puedes asignar cualquier valor a una variable que contenía texto, causando errores difíciles de rastrear.</p>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
+                            <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i> Solución
+                            </h3>
+                            <p class="text-green-900">El tipo <code>string</code> en TypeScript garantiza que una variable solo contenga texto, previniendo errores de tipo.</p>
+                        </div>
+                    </div>
+
+                    <!-- Analogy -->
+                    <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
+                        <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
+                            <i class="fa-solid fa-font"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Analogía Visual</h3>
+                            <p class="text-blue-900 text-lg italic leading-relaxed">"Un buzón de correo solo acepta cartas, no paquetes grandes. Un string solo acepta texto, no números ni objetos."</p>
+                        </div>
+                    </div>
+
+                    <!-- Code Tabs -->
+                    <div class="bg-[#1e1e1e] rounded-2xl overflow-hidden shadow-xl">
+                        <div class="flex border-b border-gray-800 bg-[#252526]">
+                            <button onclick="showCode('original')" id="btn-original" class="px-6 py-3 text-sm font-medium transition-all text-blue-400 border-b-2 border-blue-400">
+                                Uso Básico
+                            </button>
+                            <button onclick="showCode('result')" id="btn-result" class="px-6 py-3 text-sm font-medium transition-all text-gray-500 hover:text-gray-300">
+                                Template Literals
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <pre id="code-original" class="text-sm md:text-base leading-relaxed"><code class="language-typescript">// Declaración de strings
+let mensaje: string = "Hola TypeScript";
+let nombre: string = 'Juan'; // Comillas simples también
+let multilinea: string = `Esto es
+una cadena
+multilínea`;
+
+// mensaje = 123; // ❌ Error: Type 'number' no es 'string'</code></pre>
+                            <pre id="code-result" class="text-sm md:text-base leading-relaxed hidden"><code class="language-typescript">// Template literals (backticks)
+let nombre = "Ana";
+let edad = 25;
+
+let saludo = `Hola, soy ${nombre} y tengo ${edad} años`;
+// Resultado: "Hola, soy Ana y tengo 25 años"
+
+// Cálculos dentro de templates
+let precio = `Total: ${10 + 5} euros`; // "Total: 15 euros"</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Best Practices -->
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <h3 class="text-purple-800 font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-star"></i> Buenas Prácticas
+                        </h3>
+                        <ul class="text-purple-900 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Usa template literals (`) para concatenar strings con variables</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                                <span>Prefiere comillas dobles " para consistencia (o simples ', pero elige una)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-red-600 mt-1"></i>
+                                <span>Evita concatenar con +: usa `Hola ${nombre}` en lugar de "Hola " + nombre</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Interview Question -->
+                    <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
+                        <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-microphone-lines"></i> Pregunta de Entrevista
+                        </h3>
+                        <p class="text-xl font-bold text-gray-900 mb-6">Q: ¿Cuál es la diferencia entre strings con comillas y backticks?</p>
+                        <div id="answer-container">
+                            <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Ver Respuesta</button>
+                            <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
+                                <span class="font-black text-amber-500">A: </span>Los backticks (`) permiten crear template literals con interpolación de variables usando ${} y strings multilínea. Las comillas simples o dobles solo crean strings literales sin estas características.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial Completo -->
+                    <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-strings')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-book text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">📘 Tutorial: Strings en TypeScript</h2>
+                                    <p class="text-gray-600 mt-1">Guía práctica y profesional completa</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-strings" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-strings" class="hidden">
+
+                        <!-- Objetivo -->
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-8">
+                            <h3 class="text-blue-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> 1️⃣ Objetivo del tutorial
+                            </h3>
+                            <p class="text-blue-800 mb-4">Al finalizar este capítulo aprenderás a:</p>
+                            <ul class="text-blue-900 space-y-2 ml-4">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Declarar strings correctamente en TypeScript</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Elegir entre comillas simples, dobles y backticks</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Usar template literals para interpolación y multilínea</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Entender cuándo tipar explícitamente y cuándo confiar en la inferencia</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Manipular strings de forma segura evitando errores (undefined)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Aplicar optional chaining (?.) y fallbacks correctos (?? vs ||)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                    <span>Escribir código más legible, robusto y profesional</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Sección 2: Formas de definir strings -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                Formas de definir strings en TypeScript
+                            </h3>
+
+                            <p class="text-gray-700 mb-6">En TypeScript (y JavaScript) existen tres formas principales de definir strings:</p>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">2.1 Comillas simples ' '</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const hero: string = 'Batman';</code></pre>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>👉 Son las más usadas por convención en muchos proyectos</li>
+                                        <li>👉 Ideales cuando el texto no contiene comillas simples internas</li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">2.2 Comillas dobles " "</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const hero: string = "Linterna Verde";</code></pre>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>👉 Funcionan exactamente igual que las simples</li>
+                                        <li>👉 Útiles si el texto contiene apóstrofes (I'm Batman)</li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">2.3 Backticks ` ` (Template Literals)</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const hero: string = `Héroe: Volcán Negro`;</code></pre>
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                        <p class="text-green-900 font-semibold mb-2">👉 Son las más potentes:</p>
+                                        <ul class="text-green-800 space-y-1 ml-4">
+                                            <li>• Permiten interpolación</li>
+                                            <li>• Permiten multilínea</li>
+                                            <li>• Mejoran mucho la legibilidad</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 3: Template literals -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Template literals: el superpoder de los strings
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">3.1 Interpolación de variables</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const name = 'Batman';
+console.log(`I'm ${name}`);</code></pre>
+                                    <ul class="text-gray-700 space-y-1 ml-4 mb-3">
+                                        <li>✔️ Evita concatenaciones poco legibles</li>
+                                        <li>✔️ Convierte automáticamente números a string</li>
+                                    </ul>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-2"><code class="language-typescript">const age = 42;
+console.log(`Edad: ${age}`);</code></pre>
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                        <p class="text-blue-900">ℹ️ Esta conversión es JavaScript, no TypeScript. TypeScript solo valida tipos en tiempo de compilación.</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">3.2 Strings multilínea</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const message = `Hola,
+este texto
+ocupa varias líneas`;</code></pre>
+                                    <p class="text-gray-700">👉 Sin 
+, sin concatenar, más limpio.</p>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">3.3 Interpolación con lógica</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">const isAdmin = true;
+const role = `Rol: ${isAdmin ? 'Admin' : 'User'}`;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 4: Inferencia vs tipado explícito -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                Inferencia de tipos vs tipado explícito
+                            </h3>
+
+                            <p class="text-gray-700 mb-4">TypeScript infiere tipos muy bien, especialmente con const.</p>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">4.1 Inferencia automática</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const hero = 'Batman';
+// TypeScript infiere: string (o incluso el literal "Batman")</code></pre>
+                                    <ul class="text-gray-700 space-y-1 ml-4">
+                                        <li>✔️ Correcto</li>
+                                        <li>✔️ Recomendado para valores simples</li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">4.2 Tipado explícito (cuándo sí usarlo)</h4>
+                                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-3">
+                                        <p class="text-yellow-900 font-semibold mb-2">Usa : string cuando:</p>
+                                        <ul class="text-yellow-800 space-y-1 ml-4">
+                                            <li>• El valor puede cambiar (let)</li>
+                                            <li>• Estás creando una API pública</li>
+                                            <li>• Hay uniones de tipos</li>
+                                            <li>• Quieres documentación explícita</li>
+                                        </ul>
+                                    </div>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">let hero: string = 'Batman';</code></pre>
+                                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                        <p class="text-purple-900 font-semibold">👉 Regla senior:</p>
+                                        <p class="text-purple-800">Tipar por seguridad y claridad, no por costumbre.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 5: IIFE -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                Encapsulación del código (IIFE)
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">(() => {
+  const hero = 'Batman';
+  console.log(hero);
+})();</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-3">
+                                <p class="text-green-900 font-semibold mb-2">¿Por qué usar una IIFE?</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>✅ Evita contaminar el scope global</li>
+                                    <li>✅ Útil en archivos sueltos o educativos</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                                <p class="text-yellow-900">👉 En proyectos modernos con módulos, normalmente no es necesaria.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sección 6: Manipulación segura -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                Manipulación de strings y seguridad
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">6.1 Acceso por índice</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const hero = 'Batman';
+hero[0];   // 'B'
+hero[10];  // undefined</code></pre>
+                                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                        <p class="text-red-900">⚠️ Los índices fuera de rango devuelven undefined.</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">6.2 Optional chaining (?.)</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">hero[10]?.toUpperCase();</code></pre>
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                        <p class="text-blue-900 font-semibold mb-2">👉 Si el valor no existe:</p>
+                                        <ul class="text-blue-800 space-y-1 ml-4">
+                                            <li>• No rompe el programa</li>
+                                            <li>• Devuelve undefined</li>
+                                        </ul>
+                                        <p class="text-blue-900 font-semibold mt-3">Analogía:</p>
+                                        <p class="text-blue-800 italic">?. es un guardián que pregunta: "¿Existe esto antes de usarlo?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 7: Fallbacks -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">7</span>
+                                Fallbacks: || vs ?? (muy importante)
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">7.1 Operador OR (||)</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const result = '' || 'Fallback';</code></pre>
+                                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                        <p class="text-red-900 mb-1">❌ Devuelve 'Fallback'</p>
+                                        <p class="text-red-800">Porque '' es falsy</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">7.2 Nullish coalescing (??) ✅</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">const result = '' ?? 'Fallback';</code></pre>
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                        <p class="text-green-900 mb-1">✔️ Devuelve ''</p>
+                                        <p class="text-green-800">Solo reemplaza si es null o undefined</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-3">7.3 Uso recomendado en strings</h4>
+                                    <pre class="text-sm md:text-base leading-relaxed mb-3"><code class="language-typescript">console.log(hero[10]?.toUpperCase() ?? 'No está presente');</code></pre>
+                                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                        <p class="text-purple-900 font-semibold">👉 Best practice moderna en TypeScript</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 8: Código completo -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">8</span>
+                                Código completo del ejemplo
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">export {}; // fuerza el archivo a ser un módulo
+
+(() => {
+  const batman: string = 'Batman';
+  const greenLantern: string = "Linterna Verde";
+  const blackVolcano: string = `Héroe: Volcán Negro`;
+
+  console.log(`I'm ${batman}`);
+
+  const abc = 123;
+  console.log(`Valor: ${abc}`);
+
+  console.log(batman[10]?.toUpperCase() ?? "No está presente");
+})();</code></pre>
+                        </div>
+
+                        <!-- Sección 9: Buenas prácticas -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">9</span>
+                                Buenas prácticas
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Tipar cuando aporta claridad</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Usar backticks para interpolación</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Proteger accesos con ?.</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Preferir ?? frente a || para fallbacks</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                    <span class="text-green-900">Escribir código legible antes que "listo"</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 10: Errores comunes -->
+                        <div class="bg-white border border-red-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">10</span>
+                                Errores comunes
+                            </h3>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Acceder a índices sin comprobar</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Usar || cuando quieres conservar '' o 0</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Tipar todo sin necesidad</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <i class="fa-solid fa-times-circle text-red-600 mt-1"></i>
+                                    <span class="text-red-900">Concatenar strings innecesariamente</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 11: Ejercicios -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-dumbbell text-purple-600 text-2xl"></i>
+                                11️⃣ Ejercicios prácticos
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div class="bg-white p-6 rounded-xl border border-purple-200">
+                                    <h4 class="font-bold text-purple-900 mb-3">🧠 Ejercicio 1 – Interpolación</h4>
+                                    <ul class="text-gray-800 space-y-2 ml-4">
+                                        <li>• Crea <code>name: string</code> y <code>age: number</code></li>
+                                        <li>• Imprime: <code>Hola X, tienes Y años</code></li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-xl border border-purple-200">
+                                    <h4 class="font-bold text-purple-900 mb-3">🧠 Ejercicio 2 – Acceso seguro</h4>
+                                    <ul class="text-gray-800 space-y-2 ml-4">
+                                        <li>• Dado un string, accede al carácter 5</li>
+                                        <li>• Si existe → <code>toUpperCase()</code></li>
+                                        <li>• Si no → <code>"Fuera de rango"</code></li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-xl border border-purple-200">
+                                    <h4 class="font-bold text-purple-900 mb-3">🧠 Bonus</h4>
+                                    <p class="text-gray-800">Reescribe el ejercicio usando <code>||</code> y luego <code>??</code></p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutorial React -->
+                    <div class="border-t-4 border-cyan-600 pt-12 mt-12">
+                        <button onclick="toggleSection('tutorial-react-strings')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-brands fa-react text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">Strings en TypeScript + React</h2>
+                                    <p class="text-gray-600 mt-1">Ejemplos prácticos con componentes, props y estado</p>
+                                </div>
+                            </div>
+                            <i id="icon-tutorial-react-strings" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-tutorial-react-strings" class="hidden">
+
+                        <!-- Objetivo React -->
+                        <div class="bg-gradient-to-r from-cyan-50 to-blue-50 border-l-4 border-cyan-600 p-6 rounded-r-xl mb-8">
+                            <h3 class="text-cyan-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> Objetivo
+                            </h3>
+                            <p class="text-cyan-800 mb-4">Aplicar strings, template literals, tipado, optional chaining (?.) y fallbacks (?? vs ||) en componentes React reales.</p>
+                        </div>
+
+                        <!-- Ejemplo 1: Componente básico -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                Componente básico: strings + template literals
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">import React from "react";
+
+export function HeroIntro() {
+  const batman = "Batman";
+  const greenLantern = "Linterna Verde";
+  const blackVolcano = `Héroe: Volcán Negro`;
+
+  const age = 53;
+
+  return (
+    &lt;section&gt;
+      &lt;h2&gt;{`I'm ${batman}`}&lt;/h2&gt;
+      &lt;p&gt;{greenLantern}&lt;/p&gt;
+      &lt;p&gt;{blackVolcano}&lt;/p&gt;
+
+      {/* Interpolación con número (JS hace String(age)) */}
+      &lt;p&gt;{`Edad: ${age}`}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                <p class="text-blue-900 font-semibold mb-2">Qué enseña aquí (modo senior):</p>
+                                <ul class="text-blue-800 space-y-1 ml-4">
+                                    <li>• En JSX, puedes renderizar strings directamente o con template literals</li>
+                                    <li>• La interpolación es ideal para evitar concatenaciones</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo 2: Props tipadas -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                Props tipadas: tipado explícito donde sí aporta valor
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">import React from "react";
+
+type HeroCardProps = {
+  name: string;
+  universe?: string; // opcional
+};
+
+export function HeroCard({ name, universe }: HeroCardProps) {
+  return (
+    &lt;article&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+
+      {/* Optional chaining no aplica aquí porque universe es string | undefined,
+          usamos fallback con ?? */}
+      &lt;p&gt;{universe ?? "Universo desconocido"}&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}</code></pre>
+
+                            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                <p class="text-purple-900 font-semibold mb-2">Por qué esto es importante:</p>
+                                <ul class="text-purple-800 space-y-1 ml-4">
+                                    <li>• En React, el tipado sí aporta mucho en props (contrato del componente)</li>
+                                    <li>• <code>??</code> es mejor que <code>||</code> si quieres permitir <code>''</code> como valor válido</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo 3: Optional chaining real -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                Optional chaining real con datos de API (objeto anidado)
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">import React from "react";
+
+type User = {
+  profile?: {
+    name?: string;
+  };
+};
+
+export function UserHeader() {
+  const user: User = {}; // simula respuesta incompleta de API
+
+  return (
+    &lt;header&gt;
+      &lt;h2&gt;{user.profile?.name ?? "Sin nombre"}&lt;/h2&gt;
+    &lt;/header&gt;
+  );
+}</code></pre>
+
+                            <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
+                                <p class="text-orange-900 font-semibold mb-2">Contexto práctico:</p>
+                                <ul class="text-orange-800 space-y-1 ml-4">
+                                    <li>• En React, esto pasa todo el tiempo con fetch/APIs</li>
+                                    <li>• <code>?.</code> evita errores tipo: "Cannot read properties of undefined"</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo 4: Estado + acceso seguro -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                Estado + string por índice + seguridad
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">import React, { useMemo, useState } from "react";
+
+export function SafeCharViewer() {
+  const [text, setText] = useState("Batman");
+  const [index, setIndex] = useState(10);
+
+  const result = useMemo(() => {
+    return text[index]?.toUpperCase() ?? "No está presente";
+  }, [text, index]);
+
+  return (
+    &lt;section&gt;
+      &lt;h2&gt;Acceso seguro a caracteres&lt;/h2&gt;
+
+      &lt;label&gt;
+        Texto:
+        &lt;input value={text} onChange={(e) =&gt; setText(e.target.value)} /&gt;
+      &lt;/label&gt;
+
+      &lt;label&gt;
+        Índice:
+        &lt;input
+          type="number"
+          value={index}
+          onChange={(e) =&gt; setIndex(Number(e.target.value))}
+        /&gt;
+      &lt;/label&gt;
+
+      &lt;p&gt;{`Resultado: ${result}`}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+                            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <p class="text-green-900 font-semibold mb-2">Qué estás enseñando aquí:</p>
+                                <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>• <code>text[index]</code> puede ser undefined</li>
+                                    <li>• <code>?.</code> protege el <code>.toUpperCase()</code></li>
+                                    <li>• <code>??</code> aplica fallback solo cuando falta el valor</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo 5: || vs ?? en UI -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                Demostración clara: || vs ?? en UI
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">import React, { useState } from "react";
+
+export function FallbackDemo() {
+  const [value, setValue] = useState("");
+
+  const withOr = value || "fallback con ||";
+  const withNullish = value ?? "fallback con ??";
+
+  return (
+    &lt;section&gt;
+      &lt;h2&gt;|| vs ??&lt;/h2&gt;
+
+      &lt;input
+        value={value}
+        onChange={(e) =&gt; setValue(e.target.value)}
+        placeholder="Deja vacío para probar"
+      /&gt;
+
+      &lt;p&gt;{`Valor actual: "${value}"`}&lt;/p&gt;
+      &lt;p&gt;{`Con ||: "${withOr}"`}&lt;/p&gt;
+      &lt;p&gt;{`Con ??: "${withNullish}"`}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                                <p class="text-yellow-900 font-semibold mb-2">Explicación senior (simple):</p>
+                                <ul class="text-yellow-800 space-y-1 ml-4">
+                                    <li>• Si el input está vacío (<code>''</code>) → <code>||</code> lo considera "falsy" y mete fallback</li>
+                                    <li>• <code>??</code> mantiene <code>''</code> (porque no es null ni undefined)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo 6: App completa -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 mb-6 shadow-sm">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                Mini "App" para probar todo junto
+                            </h3>
+
+                            <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">import React from "react";
+import { HeroIntro } from "./HeroIntro";
+import { HeroCard } from "./HeroCard";
+import { UserHeader } from "./UserHeader";
+import { SafeCharViewer } from "./SafeCharViewer";
+import { FallbackDemo } from "./FallbackDemo";
+
+export default function App() {
+  return (
+    &lt;main style={{ display: "grid", gap: 16 }}&gt;
+      &lt;HeroIntro /&gt;
+      &lt;HeroCard name="Batman" universe="DC" /&gt;
+      &lt;HeroCard name="Volcán Negro" /&gt;
+      &lt;UserHeader /&gt;
+      &lt;SafeCharViewer /&gt;
+      &lt;FallbackDemo /&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+                        </div>
+
+                        <!-- Ejercicios React -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                <i class="fa-solid fa-dumbbell text-purple-600 text-2xl"></i>
+                                Ejercicios React
+                            </h3>
+
+                            <div class="space-y-6">
+                                <div class="bg-white p-6 rounded-xl border border-purple-200">
+                                    <h4 class="font-bold text-purple-900 mb-3">🧠 HeroCard++</h4>
+                                    <p class="text-gray-800">Añade prop opcional <code>quote?: string</code> y renderízala con <code>??</code> "Sin frase".</p>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-xl border border-purple-200">
+                                    <h4 class="font-bold text-purple-900 mb-3">🧠 SafeCharViewer++</h4>
+                                    <p class="text-gray-800">Valida el <code>index</code>: si es negativo, muestra "Índice inválido".</p>
+                                </div>
+
+                                <div class="bg-white p-6 rounded-xl border border-purple-200">
+                                    <h4 class="font-bold text-purple-900 mb-3">🧠 API mock</h4>
+                                    <p class="text-gray-800">Crea un objeto <code>user</code> que a veces venga incompleto y usa <code>?.</code> + <code>??</code> para mostrar fallback.</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

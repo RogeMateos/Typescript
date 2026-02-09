@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript vs JavaScript - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .animate-in { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Atrás</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Conceptos Fundamentales -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Conceptos Fundamentales</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="tipado.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Tipado</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tipos-union.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tipos Union</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ts-vs-js.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-code-compare w-5"></i>
+                                    <span>TS vs JS</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tipos Básicos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('tipos-basicos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Tipos Básicos</span>
+                            <i id="icon-tipos-basicos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-tipos-basicos" class="space-y-1">
+                            <li><a href="../../tipos-basicos/inferir-tipos.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-lightbulb w-5"></i><span>Inferencia de Tipos</span></a></li>
+                            <li><a href="../../tipos-basicos/strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-quote-left w-5"></i><span>Strings</span></a></li>
+                            <li><a href="../../tipos-basicos/tipo-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-exclamation-triangle w-5"></i><span>Tipo Any</span></a></li>
+                            <li><a href="../../tipos-basicos/arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-list w-5"></i><span>Arrays</span></a></li>
+                            <li><a href="../../tipos-basicos/tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-layer-group w-5"></i><span>Tuplas</span></a></li>
+                            <li><a href="../../tipos-basicos/tipo-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-ban w-5"></i><span>Tipo Void</span></a></li>
+                            <li><a href="../../tipos-basicos/tipo-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-infinity w-5"></i><span>Tipo Never</span></a></li>
+                            <li><a href="../../tipos-basicos/null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-question w-5"></i><span>Null vs Undefined</span></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Funciones y Objetos -->
+                    <div>
+                        <button onclick="toggleSidebarSection('funciones-objetos')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Funciones y Objetos</span>
+                            <i id="icon-funciones-objetos" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-funciones-objetos" class="space-y-1">
+                            <li><a href="../../funciones/funciones-basicas.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-function w-5"></i><span>Funciones Básicas</span></a></li>
+                            <li><a href="../../funciones/parametros-obligatorios.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-exclamation-circle w-5"></i><span>Parámetros Obligatorios</span></a></li>
+                            <li><a href="../../funciones/parametros-opcionales.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-question-circle w-5"></i><span>Parámetros Opcionales</span></a></li>
+                            <li><a href="../../funciones/parametros-por-defecto.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-equals w-5"></i><span>Parámetros por Defecto</span></a></li>
+                            <li><a href="../../funciones/parametros-rest.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-ellipsis-h w-5"></i><span>Parámetros Rest</span></a></li>
+                            <li><a href="../../funciones/tipo-funcion.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-code w-5"></i><span>Tipo Función</span></a></li>
+                            <li><a href="../../funciones/type-test.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-flask w-5"></i><span>Type Test</span></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Selector de Idioma -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Idioma</p>
+                        <div class="flex gap-2">
+                            <a href="../../english/core-concepts/ts-vs-js.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <span>🇬🇧</span>
+                                <span>English</span>
+                            </a>
+                            <a href="ts-vs-js.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm">
+                                <span>🇪🇸</span>
+                                <span>Español</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Encabezado Mobile -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">Volver al inicio</a>
+            </div>
+
+            <!-- Contenido Desplazable -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="animate-in">
+                            <div class="flex items-center gap-4 mb-8">
+                                <div class="p-4 bg-yellow-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-code-compare text-3xl"></i>
+                                </div>
+                                <h1 class="text-4xl font-extrabold text-gray-900">TypeScript vs JavaScript</h1>
+                            </div>
+
+                            <div class="grid gap-8">
+                                <!-- Intro -->
+                                <div class="bg-blue-50 border-l-4 border-blue-600 p-8 rounded-r-2xl">
+                                    <p class="text-lg text-blue-900 mb-4">
+                                        <strong>La idea clave:</strong> TypeScript es un guardián en tiempo de desarrollo, no en tiempo de ejecución. Te protege durante el desarrollo, pero el código que se ejecuta en producción sigue siendo JavaScript.
+                                    </p>
+                                    <p class="text-blue-800">
+                                        Todos los tipos de TypeScript desaparecen después de la compilación. Entender esto cambia cómo escribes código seguro y listo para producción.
+                                    </p>
+                                </div>
+
+                                <!-- Sección del Problema -->
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                                        <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center">1</span>
+                                        El Verdadero Problema en JavaScript
+                                    </h2>
+                                    <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                        <p class="text-gray-700 mb-4">JavaScript no verifica tipos antes de ejecutar. Esto lleva a comportamientos sorprendentes:</p>
+                                        <pre class="bg-[#1e1e1e] p-4 rounded-lg mb-4 text-sm overflow-x-auto"><code class="language-javascript">function double(n) {
+  return n * 2;
+}
+
+double(2);    // 4 ✅
+double("2");  // 4 😅 (¡coerción implícita!)
+double("a");  // NaN 😬 (fallo silencioso)</code></pre>
+                                        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                                            <p class="text-amber-900"><strong>Qué está sucediendo:</strong> JavaScript realiza conversiones de tipo implícitas. "2" se convierte en 2, "a" se convierte en NaN. El código se ejecuta sin errores, pero produce resultados incorrectos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sección Tipado Estático -->
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                                        <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center">2</span>
+                                        Entra TypeScript: Tipado Estático
+                                    </h2>
+                                    <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                        <p class="text-gray-700 mb-4">Ahora declaramos un contrato:</p>
+                                        <pre class="bg-[#1e1e1e] p-4 rounded-lg mb-4 text-sm overflow-x-auto"><code class="language-typescript">function double(n: number) {
+  return n * 2;
+}
+
+double(2);    // ✅ OK
+double("2");  // ❌ ¡Error en tiempo de compilación!</code></pre>
+                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                            <p class="text-green-900">El compilador verifica tipos <strong>antes de la ejecución</strong>. Los errores aparecen en tu editor, no en producción.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Punto Crítico -->
+                                <div class="bg-pink-50 border-2 border-pink-300 border-dashed p-8 rounded-2xl">
+                                    <h3 class="text-xl font-bold text-pink-900 mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-explosion"></i> CRÍTICO: TypeScript No Existe en Tiempo de Ejecución
+                                    </h3>
+                                    <p class="text-pink-900 mb-4">
+                                        Esta es la cosa más importante para entender:
+                                    </p>
+                                    <ul class="text-pink-900 space-y-2 ml-4">
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span><strong>TypeScript solo actúa durante el desarrollo</strong> - es como un corrector ortográfico.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span><strong>La producción ejecuta JavaScript puro</strong> - todos los tipos se eliminan.</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span>Si este código de alguna manera se ejecuta como JavaScript, se comportará exactamente como el original.</span>
+                                        </li>
+                                    </ul>
+                                    <p class="text-pink-900 font-bold mt-4 text-lg">
+                                        "TypeScript es un inspector antes de la salida, no un guardaespaldas después de la llegada."
+                                    </p>
+                                </div>
+
+                                <!-- Datos Externos -->
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                                        <span class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center">3</span>
+                                        El Mundo Real: Datos Externos
+                                    </h2>
+                                    <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                        <p class="text-gray-700 mb-4">En aplicaciones reales, los datos provienen de fuentes no confiables:</p>
+                                        <ul class="text-gray-700 space-y-2 ml-4 mb-6">
+                                            <li class="flex items-start gap-2"><span>•</span><span>Entradas del usuario</span></li>
+                                            <li class="flex items-start gap-2"><span>•</span><span>Respuestas de API</span></li>
+                                            <li class="flex items-start gap-2"><span>•</span><span>Datos de localStorage</span></li>
+                                            <li class="flex items-start gap-2"><span>•</span><span>Variables de entorno</span></li>
+                                        </ul>
+                                        <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                            <p class="text-red-900"><strong>❌ Error común:</strong> Asumir que porque TypeScript dice algo es verdadero, lo será en tiempo de ejecución. ¡Incorrecto! TypeScript solo sabe lo que le dijiste.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Unknown vs Any -->
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                                        <span class="bg-cyan-600 text-white w-10 h-10 rounded-full flex items-center justify-center">4</span>
+                                        unknown vs any: Esto Te Hace Mejor Desarrollador
+                                    </h2>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-white border border-red-200 rounded-2xl p-8 shadow-sm">
+                                            <h4 class="font-bold text-red-900 mb-4">❌ Usando "any"</h4>
+                                            <pre class="bg-[#1e1e1e] p-4 rounded-lg text-sm overflow-x-auto mb-4"><code class="language-typescript">const x: any = "2";
+x.toFixed(2); // 💥 ¡Error en tiempo de ejecución!
+// TypeScript no ayuda</code></pre>
+                                            <p class="text-red-800 text-sm">Pierdes toda la seguridad de tipos. Esencialmente lo mismo que JavaScript.</p>
+                                        </div>
+                                        <div class="bg-white border border-green-200 rounded-2xl p-8 shadow-sm">
+                                            <h4 class="font-bold text-green-900 mb-4">✅ Usando "unknown"</h4>
+                                            <pre class="bg-[#1e1e1e] p-4 rounded-lg text-sm overflow-x-auto mb-4"><code class="language-typescript">const x: unknown = "2";
+if (typeof x === "number") {
+  x.toFixed(2); // ✅ ¡Seguro!
+}</code></pre>
+                                            <p class="text-green-800 text-sm">Obligado a validar antes de usar. Verdadera seguridad de tipos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Patrón de Validación -->
+                                <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                    <h3 class="text-xl font-bold mb-4">Patrón Apropiado de Validación</h3>
+                                    <pre class="bg-[#1e1e1e] p-4 rounded-lg text-sm overflow-x-auto mb-4"><code class="language-typescript">function toNumber(value: unknown): number {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+
+  throw new Error("Entrada de número inválida");
+}</code></pre>
+                                    <p class="text-gray-700">Esto valida minuciosamente porque <code>Number("anything")</code> puede devolver NaN, ¡y NaN sigue siendo técnicamente un número!</p>
+                                </div>
+
+                                <!-- Checklist -->
+                                <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl">
+                                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-clipboard-check text-green-600"></i> Lista de Verificación para Desarrolladores Sénior
+                                    </h3>
+                                    <ul class="text-gray-700 space-y-2 ml-4">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-green-600 font-bold">✅</span>
+                                            <span>Trata todos los datos externos como <code>unknown</code></span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-green-600 font-bold">✅</span>
+                                            <span>Valida antes de usar datos en tu aplicación</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-green-600 font-bold">✅</span>
+                                            <span>Separa DTO (respuesta de API) de Modelo (estado de la aplicación)</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-red-600 font-bold">❌</span>
+                                            <span>Nunca uses <code>as Type</code> sin validación</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-red-600 font-bold">❌</span>
+                                            <span>No uses <code>any</code> a menos que sea absolutamente necesario</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Por Qué TypeScript Vale la Pena -->
+                                <div class="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl p-8">
+                                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-star"></i> Por Qué TypeScript Vale la Pena
+                                    </h3>
+                                    <ul class="space-y-2 ml-4">
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span>Detecta errores antes de producción</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span>Mejor autocompletado y soporte de IDE</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span>Código autodocumentado</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span>Refactorización segura</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span>•</span>
+                                            <span>Contratos claros entre funciones</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

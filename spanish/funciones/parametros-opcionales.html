@@ -214,6 +214,353 @@ saludar("Juan", "Johnny"); // ✅ También correcto</code></pre>
                         <li class="flex items-start gap-2"><span>•</span><span>Los opcionales deben venir después de los obligatorios</span></li>
                       </ul>
                     </div>
+
+                    <!-- Acordeón: Parámetros Opcionales en Profundo -->
+                    <div class="border-t-4 border-cyan-600 pt-12 mt-12">
+                      <button onclick="toggleSection('parametros-opcionales-deep')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                        <div class="flex items-center gap-4">
+                          <div class="p-4 bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-2xl shadow-lg">
+                            <i class="fa-solid fa-question-circle text-3xl"></i>
+                          </div>
+                          <div class="text-left">
+                            <h2 class="text-3xl font-extrabold text-gray-900">📚 Parámetros Opcionales: Guía Completa</h2>
+                            <p class="text-gray-600 mt-1">Domina cómo TypeScript gestiona parámetros opcionales en funciones, React y APIs</p>
+                          </div>
+                        </div>
+                        <i id="icon-parametros-opcionales-deep" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                      </button>
+
+                      <div id="list-parametros-opcionales-deep" class="hidden">
+                        <div class="p-8 space-y-8">
+
+                          <!-- 1️⃣ Qué son los parámetros opcionales -->
+                          <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-cyan-900 mb-4 flex items-center gap-2">
+                              <span class="bg-cyan-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                              Qué son los parámetros opcionales
+                            </h3>
+                            <p class="text-cyan-900 mb-4">Un parámetro opcional es aquel que puede o no ser proporcionado al llamar a una función. Se marcan con el símbolo <code class="bg-cyan-100 px-1 rounded">?</code>:</p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">function activarPoder(name: string, lastName?: string) {
+  const fullName = `${name} ${lastName}`;
+  console.log(`${fullName} activated!`);
+}
+
+// Uso
+activarPoder("Tony");
+activarPoder("Tony", "Stark");</code></pre>
+                            <div class="bg-green-50 border-l-4 border-green-500 p-3 rounded-r-lg">
+                              <p class="text-green-900 text-sm">👉 TypeScript permite ambas llamadas porque <code class="bg-green-100 px-1 rounded">lastName</code> es opcional.</p>
+                            </div>
+                          </div>
+
+                          <!-- 2️⃣ Qué significa realmente ? -->
+                          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                              <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                              Qué significa realmente ? en TypeScript
+                            </h3>
+                            <p class="text-blue-900 mb-4">Cuando escribes:</p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">lastName?: string</code></pre>
+                            <p class="text-blue-900 mb-4">TypeScript lo interpreta internamente como:</p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">lastName: string | undefined</code></pre>
+                            <ul class="text-blue-900 space-y-2 mt-4">
+                              <li class="flex items-start gap-2"><span>•</span><span>El parámetro puede no existir</span></li>
+                              <li class="flex items-start gap-2"><span>•</span><span>Si existe, puede ser <code class="bg-blue-100 px-1 rounded">undefined</code></span></li>
+                            </ul>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-3 rounded-r-lg mt-4">
+                              <p class="text-red-900 text-sm"><strong>⚠️ Esto es clave:</strong> Te obliga a manejar ese caso.</p>
+                            </div>
+                          </div>
+
+                          <!-- 3️⃣ Manejar correctamente valores opcionales -->
+                          <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+                              <span class="bg-amber-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                              Manejar correctamente valores opcionales
+                            </h3>
+                            <p class="text-amber-900 mb-4"><strong>❌ Error común:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">lastName.toUpperCase(); // ❌ Puede romper si es undefined</code></pre>
+                            <p class="text-amber-900 mb-4"><strong>✅ Formas correctas:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">lastName?.toUpperCase();
+
+if (lastName) {
+  lastName.toUpperCase();
+}
+
+const safeLastName = lastName ?? "- no lastName -";</code></pre>
+                          </div>
+
+                          <!-- 4️⃣ Defaults: || vs ?? vs parámetros por defecto -->
+                          <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-purple-900 mb-4 flex items-center gap-2">
+                              <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                              Defaults: || vs ?? vs parámetros por defecto
+                            </h3>
+                            <p class="text-purple-900 mb-4"><strong>❌ Uso peligroso de ||:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">const fullName = `${name} ${lastName || "- no lastName -"}`;
+// Problema: || considera falsy valores válidos como "", 0</code></pre>
+                            <p class="text-purple-900 mb-4"><strong>✅ Mejor: Nullish coalescing (??):</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">const fullName = `${name} ${lastName ?? "- no lastName -"}`;
+// Solo aplica default si es null o undefined</code></pre>
+                            <p class="text-purple-900 mb-4"><strong>✅ Aún mejor: parámetros con valor por defecto:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">function activarPoder(
+  name: string,
+  lastName: string = "- no lastName -"
+) {
+  console.log(`${name} ${lastName} activated!`);
+}
+// Más claro, legible, y parte explícita de la API</code></pre>
+                          </div>
+
+                          <!-- 5️⃣ Regla fundamental: los opcionales van al final -->
+                          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+                              <span class="bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                              Regla fundamental: los opcionales van al final
+                            </h3>
+                            <p class="text-red-900 mb-4"><strong>❌ Incorrecto:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">function f(a?: string, b: number) {}</code></pre>
+                            <p class="text-red-900 mb-4"><strong>✅ Correcto:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">function f(b: number, a?: string) {}
+// Si necesitas muchos opcionales, usa Options Object</code></pre>
+                          </div>
+
+                          <!-- 6️⃣ Patrón profesional: Options Object -->
+                          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+                              <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+                              Patrón profesional: Options Object
+                            </h3>
+                            <p class="text-green-900 mb-4">Este es el patrón más usado en proyectos reales:</p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">type ActivarPoderOptions = {
+  name: string;
+  lastName?: string;
+  shout?: boolean;
+};
+
+function activarPoder({
+  name,
+  lastName,
+  shout = false,
+}: ActivarPoderOptions) {
+  const fullName = `${name} ${lastName ?? "- no lastName -"}`;
+  const message = `${fullName} activated!`;
+  console.log(shout ? message.toUpperCase() : message);
+}
+
+// Uso
+activarPoder({ name: "Tony" });
+activarPoder({ name: "Tony", lastName: "Stark" });
+activarPoder({ name: "Tony", shout: true });</code></pre>
+                            <div class="bg-green-100 border-l-4 border-green-700 p-3 rounded-r-lg mt-4">
+                              <p class="text-green-900 text-sm"><strong>Por qué este patrón es clave:</strong></p>
+                              <ul class="text-green-900 space-y-1 mt-2 ml-4">
+                                <li>• No dependes del orden de parámetros</li>
+                                <li>• Escala sin romper código existente</li>
+                                <li>• Muy legible</li>
+                                <li>• Ideal para APIs y React</li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <!-- 7️⃣ Parámetros opcionales en React (Props) -->
+                          <div class="bg-pink-50 border-l-4 border-pink-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-pink-900 mb-4 flex items-center gap-2">
+                              <span class="bg-pink-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+                              Parámetros opcionales en React (Props)
+                            </h3>
+                            <p class="text-pink-900 mb-4"><strong>Props obligatorias vs opcionales:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">type UserCardProps = {
+  name: string;
+  lastName?: string;
+};
+
+export function UserCard({ name, lastName }: UserCardProps) {
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;
+        {name} {lastName ?? ""}
+      &lt;/h3&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                            <p class="text-pink-900 mb-4"><strong>Defaults modernos en React:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">type BadgeProps = {
+  label: string;
+  variant?: "success" | "warning" | "danger";
+};
+
+export function Badge({
+  label,
+  variant = "success",
+}: BadgeProps) {
+  return &lt;span&gt;{label} ({variant})&lt;/span&gt;;
+}
+// ✅ Usa defaults en el destructuring
+// ✅ Evita defaultProps (patrón antiguo)</code></pre>
+                          </div>
+
+                          <!-- 8️⃣ Parámetros opcionales en APIs reales -->
+                          <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                              <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">8</span>
+                              Parámetros opcionales en APIs reales
+                            </h3>
+                            <p class="text-indigo-900 mb-4">Caso típico: filtros opcionales en una búsqueda.</p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">type SearchUsersParams = {
+  query: string;
+  page?: number;
+  pageSize?: number;
+};
+
+async function searchUsers({
+  query,
+  page = 1,
+  pageSize = 20,
+}: SearchUsersParams) {
+  const url = new URL("/api/users", window.location.origin);
+
+  url.searchParams.set("query", query);
+  url.searchParams.set("page", String(page));
+  url.searchParams.set("pageSize", String(pageSize));
+
+  const response = await fetch(url.toString());
+  if (!response.ok) throw new Error("Request failed");
+
+  return response.json();
+}</code></pre>
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r-lg">
+                              <p class="text-blue-900 text-sm">💡 La función siempre trabaja con valores seguros, aunque el usuario no pase todos los parámetros.</p>
+                            </div>
+                          </div>
+
+                          <!-- 9️⃣ Errores comunes (muy frecuentes) -->
+                          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+                              <i class="fa-solid fa-triangle-exclamation text-red-600"></i>
+                              Errores comunes (muy frecuentes)
+                            </h3>
+                            <ul class="text-red-900 space-y-2 ml-4">
+                              <li class="flex items-start gap-2"><span>❌</span><span>Usar <code class="bg-red-100 px-1 rounded">||</code> para defaults</span></li>
+                              <li class="flex items-start gap-2"><span>❌</span><span>No manejar <code class="bg-red-100 px-1 rounded">undefined</code></span></li>
+                              <li class="flex items-start gap-2"><span>❌</span><span>Firmas con demasiados parámetros opcionales</span></li>
+                              <li class="flex items-start gap-2"><span>❌</span><span>Confiar en JavaScript para validar obligatoriedad</span></li>
+                            </ul>
+                          </div>
+
+                          <!-- 🔟 Ejercicios prácticos -->
+                          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-8 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                              <i class="fa-solid fa-flask-vial text-blue-600"></i>
+                              Ejercicios prácticos
+                            </h3>
+                            <div class="space-y-4">
+                              <div>
+                                <p class="font-bold text-gray-900 mb-2">1️⃣ Ejercicio básico</p>
+                                <p class="text-gray-700 ml-4">Crea <code class="bg-blue-100 px-2 py-1 rounded">createUser</code> usando options object con:</p>
+                                <ul class="text-gray-700 ml-8 mt-2 space-y-1">
+                                  <li>• <code class="bg-blue-100 px-1 rounded">name</code> obligatorio</li>
+                                  <li>• <code class="bg-blue-100 px-1 rounded">age</code> opcional</li>
+                                  <li>• <code class="bg-blue-100 px-1 rounded">role</code> opcional (default "user")</li>
+                                </ul>
+                              </div>
+                              <div>
+                                <p class="font-bold text-gray-900 mb-2">2️⃣ Ejercicio intermedio</p>
+                                <p class="text-gray-700 ml-4">Implementa <code class="bg-blue-100 px-2 py-1 rounded">formatDate(date: Date, format?: "short" | "long")</code></p>
+                                <ul class="text-gray-700 ml-8 mt-2 space-y-1">
+                                  <li>• short: YYYY-MM-DD</li>
+                                  <li>• long: 10 February 2026</li>
+                                </ul>
+                              </div>
+                              <div>
+                                <p class="font-bold text-gray-900 mb-2">3️⃣ Ejercicio React</p>
+                                <p class="text-gray-700 ml-4">Crea <code class="bg-blue-100 px-2 py-1 rounded">&lt;UserAvatar name="Tony" size? theme? /&gt;</code></p>
+                                <ul class="text-gray-700 ml-8 mt-2 space-y-1">
+                                  <li>• size: "sm" | "md" | "lg" (default "md")</li>
+                                  <li>• theme: "light" | "dark" (default "light")</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- 1️⃣1️⃣ Checklist final para producción -->
+                          <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border-l-4 border-emerald-600 p-8 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                              <i class="fa-solid fa-clipboard-check text-emerald-600"></i>
+                              Checklist final (para producción)
+                            </h3>
+                            <div class="space-y-2 ml-4">
+                              <li class="flex items-start gap-2 text-gray-700"><span>☑</span><span>Uso correcto de <code class="bg-emerald-100 px-1 rounded">?</code></span></li>
+                              <li class="flex items-start gap-2 text-gray-700"><span>☑</span><span>Defaults con <code class="bg-emerald-100 px-1 rounded">=</code> o <code class="bg-emerald-100 px-1 rounded">??</code></span></li>
+                              <li class="flex items-start gap-2 text-gray-700"><span>☑</span><span>Opcionales al final</span></li>
+                              <li class="flex items-start gap-2 text-gray-700"><span>☑</span><span>Options Object cuando escala</span></li>
+                              <li class="flex items-start gap-2 text-gray-700"><span>☑</span><span>Manejo explícito de <code class="bg-emerald-100 px-1 rounded">undefined</code></span></li>
+                              <li class="flex items-start gap-2 text-gray-700"><span>☑</span><span>Conexión con React y APIs</span></li>
+                            </div>
+                          </div>
+
+                          <!-- Conclusión -->
+                          <div class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white p-8 rounded-xl">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                              <i class="fa-solid fa-rocket"></i>
+                              Conclusión
+                            </h3>
+                            <p class="mb-4 text-lg">Los parámetros opcionales en TypeScript son fundamentales para crear APIs flexibles y seguras.</p>
+                            <ul class="space-y-2 mt-3 ml-4">
+                              <li class="flex items-start gap-2"><span>→</span><span>Comunica intención clara en el código</span></li>
+                              <li class="flex items-start gap-2"><span>→</span><span>Evita bugs silenciosos en producción</span></li>
+                              <li class="flex items-start gap-2"><span>→</span><span>Hace componentes React más robustos</span></li>
+                              <li class="flex items-start gap-2"><span>→</span><span>Facilita colaboración en equipos grandes</span></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Referencias y Recursos Adicionales -->
+                    <div class="border-t-4 border-gray-600 pt-12 mt-12">
+                      <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+                        <h2 class="text-3xl font-extrabold mb-4 flex items-center gap-3">
+                          <i class="fa-solid fa-bookmark text-yellow-400 text-3xl"></i>
+                          Referencias y Recursos Adicionales
+                        </h2>
+                        <p class="text-gray-300 mb-6">
+                          Profundiza más en parámetros opcionales con estos recursos:
+                        </p>
+                        <div class="grid gap-4">
+                          <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-blue-500 rounded-lg p-3">
+                              <i class="fa-solid fa-book text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-blue-300 transition-colors">Documentación oficial de TypeScript</h3>
+                              <p class="text-gray-400 text-sm">Guía completa sobre funciones y parámetros</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                          <a href="https://www.typescriptlang.org/play" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-green-500 rounded-lg p-3">
+                              <i class="fa-solid fa-code text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">TypeScript Playground</h3>
+                              <p class="text-gray-400 text-sm">Editor interactivo para probar código</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                          <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/698b1c2d-d6fc-8391-a9be-55d9ed678089" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-orange-500 rounded-lg p-3">
+                              <i class="fa-solid fa-comments text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-orange-300 transition-colors">ChatGPT - TypeScript GPT</h3>
+                              <p class="text-gray-400 text-sm">Guía interactiva sobre parámetros y funciones</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

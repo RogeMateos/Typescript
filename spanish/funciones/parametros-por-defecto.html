@@ -220,6 +220,349 @@ saludar("John", "en"); // "Hello, John" (sobrescribe)</code></pre>
                         </div>
                       </div>
                     </div>
+
+                    <!-- Acordeón: Argumentos Opcionales y Valores por Defecto en Profundo -->
+                    <div class="border-t-4 border-teal-600 pt-12 mt-12">
+                      <button onclick="toggleSection('params-defaults-deep')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                        <div class="flex items-center gap-4">
+                          <div class="p-4 bg-gradient-to-br from-teal-600 to-green-600 text-white rounded-2xl shadow-lg">
+                            <i class="fa-solid fa-sliders text-3xl"></i>
+                          </div>
+                          <div class="text-left">
+                            <h2 class="text-3xl font-extrabold text-gray-900">📚 Argumentos Opcionales y Valores por Defecto: Guía Avanzada</h2>
+                            <p class="text-gray-600 mt-1">Domina el orden de parámetros, patrones profesionales y casos reales en TypeScript</p>
+                          </div>
+                        </div>
+                        <i id="icon-params-defaults-deep" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                      </button>
+
+                      <div id="list-params-defaults-deep" class="hidden">
+                        <div class="p-8 space-y-8">
+
+                          <!-- 1️⃣ El problema que TypeScript quiere evitar -->
+                          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+                              <span class="bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                              El problema que TypeScript quiere evitar
+                            </h3>
+                            <p class="text-red-900 mb-4">En TypeScript, el orden de parámetros importa cuando mezclamos:</p>
+                            <ul class="text-red-900 space-y-1 mb-4 ml-4">
+                              <li>• Parámetros obligatorios</li>
+                              <li>• Parámetros opcionales (?)</li>
+                              <li>• Parámetros con valores por defecto (=)</li>
+                            </ul>
+                            <p class="text-red-900 mb-4"><strong>Ejemplo problemático:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">function nombreCompleto(
+  primerNombre: string,
+  segundoNombre?: string,
+  capitalizar: boolean
+) {}
+
+// ❌ Error: A required parameter cannot follow an optional parameter.</code></pre>
+                            <div class="bg-orange-50 border-l-4 border-orange-500 p-3 rounded-r-lg mt-4">
+                              <p class="text-orange-900 text-sm"><strong>¿Por qué?</strong> TypeScript no puede saber si <code class="bg-orange-100 px-1 rounded">true</code> es <code class="bg-orange-100 px-1 rounded">segundoNombre</code> o <code class="bg-orange-100 px-1 rounded">capitalizar</code>.</p>
+                            </div>
+                          </div>
+
+                          <!-- 2️⃣ Regla de oro -->
+                          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
+                              <span class="bg-yellow-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                              Regla de oro (muy importante)
+                            </h3>
+                            <p class="text-yellow-900 mb-4"><strong>Los parámetros obligatorios SIEMPRE deben ir antes que los opcionales.</strong></p>
+                            <p class="text-yellow-900 mb-4">Orden correcto:</p>
+                            <ol class="text-yellow-900 space-y-1 ml-4">
+                              <li>1. Obligatorios</li>
+                              <li>2. Opcionales (?)</li>
+                              <li>3. Parámetros con valor por defecto (=)</li>
+                            </ol>
+                          </div>
+
+                          <!-- 3️⃣ Parámetro opcional vs valor por defecto -->
+                          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                              <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                              Parámetro opcional (?) vs valor por defecto (=)
+                            </h3>
+                            <p class="text-blue-900 mb-4"><strong>Parámetro opcional (?):</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">function saludar(nombre: string, apellido?: string) {}
+
+// Puede venir o no
+// Su tipo es: string | undefined
+// Tienes que comprobarlo dentro de la función</code></pre>
+                            <p class="text-blue-900 mb-4"><strong>Parámetro con valor por defecto (=):</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">function saludar(nombre: string, apellido = "") {}
+
+// Si no se pasa, toma el valor por defecto
+// Nunca es undefined
+// El tipo queda limpio (string)</code></pre>
+                            <div class="bg-green-50 border-l-4 border-green-500 p-3 rounded-r-lg mt-4">
+                              <p class="text-green-900 text-sm">👉 <strong>En la práctica:</strong> Los valores por defecto suelen ser más cómodos.</p>
+                            </div>
+                          </div>
+
+                          <!-- 4️⃣ Solución 1: Reordenar parámetros -->
+                          <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-purple-900 mb-4 flex items-center gap-2">
+                              <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                              Solución 1: Reordenar parámetros
+                            </h3>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">function nombreCompleto(
+  primerNombre: string,
+  capitalizar: boolean,
+  segundoNombre?: string
+) {
+  const full = segundoNombre
+    ? `${primerNombre} ${segundoNombre}`
+    : primerNombre;
+
+  return capitalizar ? full.toUpperCase() : full;
+}</code></pre>
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded-r-lg">
+                              <p class="text-yellow-900 text-sm">✅ Correcto pero poco escalable si empiezan a crecer las opciones</p>
+                            </div>
+                          </div>
+
+                          <!-- 5️⃣ Solución 2: Usar valores por defecto -->
+                          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+                              <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                              Solución 2: Usar valores por defecto (muy recomendable)
+                            </h3>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">function nombreCompleto(
+  primerNombre: string,
+  segundoNombre: string = "",
+  capitalizar: boolean = false
+) {
+  const full = segundoNombre
+    ? `${primerNombre} ${segundoNombre}`
+    : primerNombre;
+
+  return capitalizar ? full.toUpperCase() : full;
+}
+
+// Uso:
+nombreCompleto("Roge");
+nombreCompleto("Roge", "Mateos");
+nombreCompleto("Roge", "Mateos", true);</code></pre>
+                            <div class="bg-green-100 border-l-4 border-green-700 p-3 rounded-r-lg">
+                              <p class="text-green-900 text-sm">✅ <strong>Ventaja clave:</strong> No tienes que lidiar con undefined</p>
+                            </div>
+                          </div>
+
+                          <!-- 6️⃣ El patrón profesional: objeto de opciones -->
+                          <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                              <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+                              El patrón profesional: objeto de opciones
+                            </h3>
+                            <p class="text-indigo-900 mb-4">Cuando una función empieza a tener flags, configuraciones u opciones, usa este patrón:</p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">type NombreOptions = {
+  segundoNombre?: string;
+  capitalizar?: boolean;
+  separador?: string;
+};
+
+function nombreCompleto(
+  primerNombre: string,
+  options: NombreOptions = {}
+) {
+  const {
+    segundoNombre,
+    capitalizar = false,
+    separador = " "
+  } = options;
+
+  const full = segundoNombre
+    ? `${primerNombre}${separador}${segundoNombre}`
+    : primerNombre;
+
+  return capitalizar ? full.toUpperCase() : full;
+}</code></pre>
+                            <div class="bg-indigo-100 border-l-4 border-indigo-700 p-3 rounded-r-lg">
+                              <p class="text-indigo-900 text-sm">✅ Escalable • ✅ Legible • ✅ Común en React y APIs</p>
+                            </div>
+                          </div>
+
+                          <!-- 7️⃣ Ejemplo real: helper de API -->
+                          <div class="bg-pink-50 border-l-4 border-pink-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-pink-900 mb-4 flex items-center gap-2">
+                              <span class="bg-pink-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+                              Ejemplo real: helper de API (React/Frontend)
+                            </h3>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">type FetchOptions = {
+  method?: "GET" | "POST";
+  authToken?: string;
+  timeoutMs?: number;
+};
+
+async function apiFetch&lt;T&gt;(
+  url: string,
+  options: FetchOptions = {}
+): Promise&lt;T&gt; {
+  const {
+    method = "GET",
+    authToken,
+    timeoutMs = 10000
+  } = options;
+
+  const headers = authToken
+    ? { Authorization: `Bearer ${authToken}` }
+    : {};
+
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), timeoutMs);
+
+  const response = await fetch(url, {
+    method,
+    headers,
+    signal: controller.signal
+  });
+
+  if (!response.ok) {
+    throw new Error("API error");
+  }
+
+  return response.json();
+}</code></pre>
+                          </div>
+
+                          <!-- 8️⃣ Pitfalls importantes (nivel senior) -->
+                          <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-orange-900 mb-4 flex items-center gap-2">
+                              <i class="fa-solid fa-exclamation-triangle text-orange-600"></i>
+                              Pitfalls importantes (nivel senior)
+                            </h3>
+                            <p class="text-orange-900 mb-4"><strong>❗ undefined activa el default, null NO:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">function demo(x = 10) {
+  return x;
+}
+
+demo(undefined); // 10 ✅
+demo(null);      // null ❌</code></pre>
+                            <div class="bg-orange-100 border-l-4 border-orange-700 p-3 rounded-r-lg">
+                              <p class="text-orange-900 text-sm">⚠️ Muy importante cuando consumes APIs.</p>
+                            </div>
+                            <p class="text-orange-900 mt-4 mb-4"><strong>❗ Demasiados parámetros posicionales es una mala señal:</strong></p>
+                            <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">// ❌ Mala señal:
+func(a, b, c, d, e);
+
+// ✅ Mejor:
+func(a, { b, c, d, e });</code></pre>
+                          </div>
+
+                          <!-- 9️⃣ Ejercicios prácticos -->
+                          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-8 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                              <i class="fa-solid fa-flask-vial text-blue-600"></i>
+                              Ejercicios prácticos
+                            </h3>
+                            <div class="space-y-4">
+                              <div>
+                                <p class="font-bold text-gray-900 mb-2">1️⃣ Nivel básico</p>
+                                <p class="text-gray-700 ml-4">Refactoriza usando valores por defecto:</p>
+                                <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mt-2"><code class="language-typescript">function crearUsuario(
+  nombre: string,
+  edad?: number,
+  activo?: boolean
+) {}</code></pre>
+                                <ul class="text-gray-700 ml-8 mt-2 space-y-1">
+                                  <li>• edad por defecto: 18</li>
+                                  <li>• activo por defecto: true</li>
+                                </ul>
+                              </div>
+                              <div>
+                                <p class="font-bold text-gray-900 mb-2">2️⃣ Nivel intermedio</p>
+                                <p class="text-gray-700 ml-4">Usa objeto de opciones para <code class="bg-gray-100 px-1 rounded">nombreCompleto</code></p>
+                                <ul class="text-gray-700 ml-8 mt-2 space-y-1">
+                                  <li>• Parámetro obligatorio: primerNombre</li>
+                                  <li>• Opcionales: segundoNombre, capitalizar, separador</li>
+                                </ul>
+                              </div>
+                              <div>
+                                <p class="font-bold text-gray-900 mb-2">3️⃣ Nivel avanzado (React)</p>
+                                <p class="text-gray-700 ml-4">Crea un hook <code class="bg-gray-100 px-1 rounded">useFetch&lt;T&gt;</code> con opciones</p>
+                                <ul class="text-gray-700 ml-8 mt-2 space-y-1">
+                                  <li>• enabled (default: true)</li>
+                                  <li>• timeout (default: 10000)</li>
+                                  <li>• method (default: "GET")</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- 🔟 Conclusión clave -->
+                          <div class="bg-gradient-to-r from-teal-600 to-green-600 text-white p-8 rounded-xl">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                              <i class="fa-solid fa-rocket"></i>
+                              Conclusión clave
+                            </h3>
+                            <ul class="space-y-2 mt-3 ml-4">
+                              <li class="flex items-start gap-2"><span>❌</span><span>Nunca pongas un parámetro obligatorio después de uno opcional</span></li>
+                              <li class="flex items-start gap-2"><span>✅</span><span>Usa valores por defecto para simplificar tipos</span></li>
+                              <li class="flex items-start gap-2"><span>✅</span><span>Usa objetos de opciones cuando una función empieza a crecer</span></li>
+                              <li class="flex items-start gap-2"><span>💡</span><span>Este patrón es estándar en React, APIs y librerías modernas</span></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Referencias y Recursos Adicionales -->
+                    <div class="border-t-4 border-gray-600 pt-12 mt-12">
+                      <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+                        <h2 class="text-3xl font-extrabold mb-4 flex items-center gap-3">
+                          <i class="fa-solid fa-bookmark text-yellow-400 text-3xl"></i>
+                          Referencias y Recursos Adicionales
+                        </h2>
+                        <p class="text-gray-300 mb-6">
+                          Profundiza más en parámetros por defecto con estos recursos:
+                        </p>
+                        <div class="grid gap-4">
+                          <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-blue-500 rounded-lg p-3">
+                              <i class="fa-solid fa-book text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-blue-300 transition-colors">Documentación oficial de TypeScript</h3>
+                              <p class="text-gray-400 text-sm">Guía completa sobre funciones y parámetros</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                          <a href="https://www.typescriptlang.org/play" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-green-500 rounded-lg p-3">
+                              <i class="fa-solid fa-code text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">TypeScript Playground</h3>
+                              <p class="text-gray-400 text-sm">Editor interactivo para probar código</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                          <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/698b1c2d-d6fc-8391-a9be-55d9ed678089" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-orange-500 rounded-lg p-3">
+                              <i class="fa-solid fa-comments text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-orange-300 transition-colors">ChatGPT - TypeScript GPT</h3>
+                              <p class="text-gray-400 text-sm">Guía interactiva sobre parámetros y funciones</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                          <a href="https://chatgpt.com/c/698b3fee-cdbc-838f-9b73-a596604fc4cb" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-purple-500 rounded-lg p-3">
+                              <i class="fa-solid fa-brain text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">Sesión ChatGPT - Argumentos Opcionales</h3>
+                              <p class="text-gray-400 text-sm">Conversación en vivo sobre argumentos opcionales y valores por defecto</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

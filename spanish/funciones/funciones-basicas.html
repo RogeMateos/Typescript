@@ -579,6 +579,285 @@ const multiplicar = (a: number, b: number): number => {
                         </li>
                       </ul>
                     </div>
+
+                    <!-- Sección expandible: Funciones en TypeScript Profundo -->
+                    <div class="border-t-4 border-indigo-600 pt-12 mt-12">
+                      <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                        <button onclick="toggleSection('typescript-functions-deep')" class="w-full flex items-center justify-between p-8 hover:bg-gray-50 transition-colors">
+                          <h2 class="text-3xl font-extrabold text-gray-900 flex items-center gap-4">
+                            <i class="fa-solid fa-layer-group text-indigo-600"></i>
+                            📘 Funciones en TypeScript Profundo
+                          </h2>
+                          <i id="icon-typescript-functions-deep" class="fa-solid fa-chevron-down text-2xl text-indigo-600 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="section-typescript-functions-deep" class="hidden border-t border-gray-200">
+                          <div class="p-8 space-y-8">
+
+                            <!-- 1️⃣ ¿Qué aporta TypeScript a las funciones? -->
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                                ¿Qué aporta TypeScript a las funciones?
+                              </h3>
+                              <p class="text-blue-900 mb-4">TypeScript añade tipado estático a funciones, evitando bugs silenciosos:</p>
+                              <ul class="text-blue-900 space-y-2 ml-4">
+                                <li class="flex items-start gap-2"><span>✅</span><span>Los errores se detectan antes de ejecutar el código</span></li>
+                                <li class="flex items-start gap-2"><span>✅</span><span>El IDE puede ayudarte mejor (autocompletado, refactor)</span></li>
+                                <li class="flex items-start gap-2"><span>✅</span><span>El código comunica mejor la intención</span></li>
+                              </ul>
+                              <p class="text-blue-900 mt-4 italic">👉 Piensa en los tipos como contratos: "Esta función promete recibir X y devolver Y"</p>
+                            </div>
+
+                            <!-- 2️⃣ Formas de definir funciones -->
+                            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <span class="bg-green-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                                Formas de definir funciones
+                              </h3>
+                              <div class="space-y-4">
+                                <div>
+                                  <p class="font-bold text-gray-900 mb-2">Function declaration:</p>
+                                  <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">function sum(a: number, b: number): number {
+  return a + b;
+}</code></pre>
+                                  <p class="text-sm text-gray-600 mt-2">✅ Muy clara, ideal para utilidades exportadas</p>
+                                </div>
+                                <div>
+                                  <p class="font-bold text-gray-900 mb-2">Arrow functions (las más usadas en React):</p>
+                                  <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">const subtract = (a: number, b: number): number => {
+  return a - b;
+};
+
+// O versión corta:
+const double = (n: number): number => n * 2;</code></pre>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- 3️⃣ Tipar parámetros -->
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+                                <span class="bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                                Tipar parámetros: lo más importante
+                              </h3>
+                              <p class="text-red-900 mb-4">Sin parámetros bien tipados, el contrato ya está roto desde la entrada.</p>
+                              <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto mb-4"><code class="language-typescript">// ✅ Correcto
+function greet(name: string): string {
+  return `Hola ${name}`;
+}
+
+// ❌ Incorrecto - permite errores
+function greet(name) {
+  return `Hola ${name}`;
+}</code></pre>
+                            </div>
+
+                            <!-- 4️⃣ Tipos de retorno -->
+                            <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-purple-900 mb-4 flex items-center gap-2">
+                                <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                                Tipos de retorno
+                              </h3>
+                              <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">// Tipos básicos
+function getHero(): string {
+  return "Batman";
+}
+
+// void - cuando no importa el valor devuelto
+const logMessage = (msg: string): void => {
+  console.log(msg);
+};
+
+// never - cuando la función nunca termina bien
+const fail = (message: string): never => {
+  throw new Error(message);
+};</code></pre>
+                            </div>
+
+                            <!-- 5️⃣ Parámetros opcionales, defecto y rest -->
+                            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
+                                <span class="bg-yellow-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                                Parámetros opcionales, por defecto y rest
+                              </h3>
+                              <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">// Parámetros opcionales
+function formatName(name: string, lastName?: string): string {
+  return lastName ? `${name} ${lastName}` : name;
+}
+
+// Parámetros por defecto
+function buildUrl(
+  path: string,
+  base: string = "https://api.miapp.com"
+): string {
+  return `${base}${path}`;
+}
+
+// Rest parameters
+function joinWords(...words: string[]): string {
+  return words.join(" ");
+}</code></pre>
+                            </div>
+
+                            <!-- 6️⃣ Callbacks en React -->
+                            <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                                <span class="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+                                Callbacks en React
+                              </h3>
+                              <p class="text-indigo-900 mb-4">Tipar callbacks evita errores entre componentes:</p>
+                              <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">type Props = {
+  onSave: (value: string) => Promise&lt;void&gt;;
+};
+
+function Form({ onSave }: Props) {
+  const submit = async () => {
+    await onSave("data");
+  };
+
+  return &lt;button onClick={submit}&gt;Save&lt;/button&gt;;
+}</code></pre>
+                            </div>
+
+                            <!-- 7️⃣ Funciones genéricas -->
+                            <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-cyan-900 mb-4 flex items-center gap-2">
+                                <span class="bg-cyan-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+                                Funciones genéricas (nivel pro)
+                              </h3>
+                              <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-4 rounded-lg overflow-x-auto"><code class="language-typescript">function first&lt;T&gt;(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+// Uso:
+first([1, 2, 3]);      // ✅ Infiere 'number'
+first(["a", "b"]);    // ✅ Infiere 'string'</code></pre>
+                              <p class="text-cyan-900 mt-4">👉 Esto es lo que hace TypeScript realmente escalable</p>
+                            </div>
+
+                            <!-- ⚠️ Errores comunes -->
+                            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-orange-900 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-orange-600"></i>
+                                Errores comunes
+                              </h3>
+                              <div class="space-y-4">
+                                <div>
+                                  <p class="font-bold text-orange-900 mb-2">Retornos inconsistentes:</p>
+                                  <pre class="text-sm leading-relaxed bg-[#1e1e1e] p-3 rounded overflow-x-auto"><code class="language-typescript">// ❌ Devuelve number | undefined sin decirlo
+function maybeNumber(x: string) {
+  if (x === "a") return 1;
+}
+
+// ✅ Mejor
+function maybeNumber(x: string): number | undefined {
+  if (x === "a") return 1;
+  return undefined;
+}</code></pre>
+                                </div>
+                                <div>
+                                  <p class="font-bold text-orange-900 mb-2">Confundir void con undefined:</p>
+                                  <p class="text-orange-900">• void = "no me importa el valor"</p>
+                                  <p class="text-orange-900">• No es lo mismo que devolver undefined</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- 🧠 Buenas prácticas -->
+                            <div class="bg-gradient-to-r from-teal-50 to-emerald-50 border-l-4 border-teal-600 p-8 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-brain text-teal-600"></i>
+                                Buenas prácticas (nivel senior)
+                              </h3>
+                              <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                  <p class="font-bold text-green-700 mb-3">✅ Tipar siempre:</p>
+                                  <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li class="flex items-start gap-2"><span>•</span><span>Parámetros de funciones</span></li>
+                                    <li class="flex items-start gap-2"><span>•</span><span>Funciones exportadas</span></li>
+                                    <li class="flex items-start gap-2"><span>•</span><span>Lógica crítica</span></li>
+                                  </ul>
+                                </div>
+                                <div>
+                                  <p class="font-bold text-red-700 mb-3">❌ Evitar:</p>
+                                  <ul class="text-gray-700 space-y-1 ml-4">
+                                    <li class="flex items-start gap-2"><span>•</span><span>Tipo any</span></li>
+                                    <li class="flex items-start gap-2"><span>•</span><span>Dependencias ocultas</span></li>
+                                    <li class="flex items-start gap-2"><span>•</span><span>Abusar de inferencia</span></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- 🧪 Ejercicios propuestos -->
+                            <div class="bg-gradient-to-r from-pink-50 to-rose-50 border-l-4 border-pink-600 p-8 rounded-r-lg">
+                              <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-flask-vial text-pink-600"></i>
+                                Ejercicios propuestos
+                              </h3>
+                              <div class="space-y-4">
+                                <div>
+                                  <p class="font-bold text-gray-900 mb-2">1️⃣ Calculadora</p>
+                                  <p class="text-gray-700 ml-4">• add, subtract, multiply, divide</p>
+                                  <p class="text-gray-700 ml-4">• divide debe devolver number | null si b === 0</p>
+                                </div>
+                                <div>
+                                  <p class="font-bold text-gray-900 mb-2">2️⃣ String utility</p>
+                                  <p class="text-gray-700 ml-4">• Acepta string → devuelve number</p>
+                                  <p class="text-gray-700 ml-4">• Acepta string[] → devuelve number[]</p>
+                                  <p class="text-gray-700 ml-4">• Usa sobrecarga de funciones</p>
+                                </div>
+                                <div>
+                                  <p class="font-bold text-gray-900 mb-2">3️⃣ React mini</p>
+                                  <p class="text-gray-700 ml-4">&lt;SearchBox onSearch={(query) =&gt; Promise&lt;void&gt; } /&gt;</p>
+                                  <p class="text-gray-700 ml-4">• Tipar props y handler</p>
+                                  <p class="text-gray-700 ml-4">• Simular llamada a API</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- 🚀 Conclusión -->
+                            <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-8 rounded-xl">
+                              <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-rocket"></i>
+                                Conclusión
+                              </h3>
+                              <p class="mb-4 text-lg">Las funciones en TypeScript no son solo "funciones con tipos".<br>Son contratos, documentación viva y una red de seguridad para crecer sin miedo.</p>
+                              <p class="text-white/90">Dominar esto te prepara directamente para:</p>
+                              <ul class="space-y-2 mt-3 ml-4">
+                                <li class="flex items-start gap-2"><span>→</span><span>React avanzado</span></li>
+                                <li class="flex items-start gap-2"><span>→</span><span>APIs bien tipadas</span></li>
+                                <li class="flex items-start gap-2"><span>→</span><span>Trabajo en equipo a gran escala</span></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Referencias y Recursos Adicionales -->
+                    <div class="border-t-4 border-amber-600 pt-12 mt-12">
+                      <h2 class="text-3xl font-extrabold text-gray-900 mb-8">
+                        📚 Referencias y Recursos Adicionales
+                      </h2>
+                      <div class="grid md:grid-cols-2 gap-6">
+                        <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html" target="_blank" class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                          <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-link text-blue-600 text-2xl"></i>
+                            <h3 class="text-lg font-bold text-gray-900">Documentación oficial de TypeScript</h3>
+                          </div>
+                          <p class="text-gray-600 text-sm">Guía completa sobre funciones en TypeScript con ejemplos avanzados.</p>
+                        </a>
+                        <a href="https://www.typescriptlang.org/play" target="_blank" class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                          <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-code text-green-600 text-2xl"></i>
+                            <h3 class="text-lg font-bold text-gray-900">TypeScript Playground</h3>
+                          </div>
+                          <p class="text-gray-600 text-sm">Editor interactivo para probar código TypeScript en el navegador.</p>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

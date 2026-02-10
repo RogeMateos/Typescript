@@ -10,4 +10,353 @@
 }
 
 sum(1, 2, 3); // 6
-sum(5, 10, 15, 20); // 50 (variable number of args)</code></pre></div><div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl"><h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3"><i class="fa-solid fa-clipboard-check text-green-600"></i> Important Rules</h3><ul class="text-gray-700 space-y-2 ml-4"><li class="flex items-start gap-2"><span>•</span><span>Rest is always an array</span></li><li class="flex items-start gap-2"><span>•</span><span>Only one rest parameter per function</span></li><li class="flex items-start gap-2"><span>•</span><span>Must be the last parameter</span></li><li class="flex items-start gap-2"><span>•</span><span>Can receive zero or more arguments</span></li></ul></div></div></div></div></div></main></div><script type="module" src="../../js/main.js"></script></body></html>
+sum(5, 10, 15, 20); // 50 (variable number of args)</code></pre></div><div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl"><h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3"><i class="fa-solid fa-clipboard-check text-green-600"></i> Important Rules</h3><ul class="text-gray-700 space-y-2 ml-4"><li class="flex items-start gap-2"><span>•</span><span>Rest is always an array</span></li><li class="flex items-start gap-2"><span>•</span><span>Only one rest parameter per function</span></li><li class="flex items-start gap-2"><span>•</span><span>Must be the last parameter</span></li><li class="flex items-start gap-2"><span>•</span><span>Can receive zero or more arguments</span></li></ul></div>
+
+<!-- Accordion: Rest and Spread Operators -->
+<div class="border-t-4 border-red-600 pt-12 mt-12">
+  <button onclick="toggleSection('rest-spread-guide')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+    <div class="flex items-center gap-4">
+      <div class="p-4 bg-gradient-to-br from-red-600 to-orange-600 text-white rounded-2xl shadow-lg">
+        <i class="fa-solid fa-ellipsis-h text-3xl"></i>
+      </div>
+      <div class="text-left">
+        <h2 class="text-3xl font-extrabold text-gray-900">📚 Rest and Spread Operators: Complete Guide</h2>
+        <p class="text-gray-600 mt-1">Mastering ... in TypeScript and React</p>
+      </div>
+    </div>
+    <i id="icon-rest-spread-guide" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+  </button>
+
+  <div id="list-rest-spread-guide" class="hidden">
+    <div class="p-8 space-y-8">
+      <!-- 1. Core Concept -->
+      <div class="bg-gradient-to-br from-red-50 to-red-100 border-l-4 border-red-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">1️⃣</span> Core Concept: Rest Collects, Spread Expands
+        </h3>
+        <p class="text-gray-800 mb-4">The <code class="bg-red-200 px-2 py-1 rounded">...</code> operator has two opposite meanings:</p>
+        <ul class="text-gray-800 space-y-2 ml-4 mb-4">
+          <li class="flex items-start gap-2"><span class="font-bold text-red-600">• Rest:</span> <span>Collects multiple values into a single array</span></li>
+          <li class="flex items-start gap-2"><span class="font-bold text-red-600">• Spread:</span> <span>Expands a single array/object into multiple values</span></li>
+        </ul>
+        <p class="text-gray-800 text-sm italic">The difference is context! In parameters = Rest. In calls/literals = Spread.</p>
+      </div>
+
+      <!-- 2. Rest in Function Parameters -->
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">2️⃣</span> Rest in Function Parameters
+        </h3>
+        <p class="text-gray-800 mb-4">Collect all remaining arguments into an array:</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">// Collect all numbers into an array
+function sum(...numbers: number[]): number {
+  return numbers.reduce((a, b) => a + b, 0);
+}
+
+sum(1, 2, 3);        // numbers = [1, 2, 3]
+sum(10, 20, 30, 40); // numbers = [10, 20, 30, 40]
+
+// Mix regular params with rest
+function greet(greeting: string, ...names: string[]): void {
+  console.log(greeting + ": " + names.join(", "));
+}
+
+greet("Hello", "Alice", "Bob", "Charlie");
+// Output: Hello: Alice, Bob, Charlie</code></pre>
+        </div>
+        <div class="bg-blue-50 p-4 rounded border border-blue-200 text-sm text-gray-800">
+          <strong>⚠️ Rest must be the last parameter:</strong>
+          <div class="mt-2 text-red-600"><code>function bad(age: number, ...names: string[], email: string)</code></div>
+          <div class="text-green-600">❌ Syntax error: rest must be last</div>
+        </div>
+      </div>
+
+      <!-- 3. Rest vs Optional: Critical Difference -->
+      <div class="bg-gradient-to-br from-amber-50 to-amber-100 border-l-4 border-amber-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">3️⃣</span> Rest ≠ Optional: Critical Difference
+        </h3>
+        <p class="text-gray-800 mb-4">Don't confuse <code class="bg-amber-200 px-2 py-1 rounded">...</code> (rest) with <code class="bg-amber-200 px-2 py-1 rounded">?</code> (optional):</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">// Optional parameter: single value or undefined
+function optionalDemo(name?: string): void {
+  console.log(name); // string | undefined
+}
+optionalDemo();        // undefined
+optionalDemo("Alice"); // "Alice"
+// optionalDemo("Alice", "Bob"); // ERROR!
+
+// Rest parameter: always an array
+function restDemo(...names: string[]): void {
+  console.log(names); // string[]
+}
+restDemo();                     // [] empty array
+restDemo("Alice");              // ["Alice"]
+restDemo("Alice", "Bob", "Charlie"); // ["Alice", "Bob", "Charlie"]</code></pre>
+        </div>
+        <div class="bg-amber-50 p-4 rounded border border-amber-200 text-sm text-gray-800">
+          <strong>Key difference:</strong> Optional gives you `undefined`, Rest gives you an array (possibly empty)
+        </div>
+      </div>
+
+      <!-- 4. Spread in Function Calls -->
+      <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 border-l-4 border-cyan-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-cyan-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">4️⃣</span> Spread in Function Calls
+        </h3>
+        <p class="text-gray-800 mb-4">Expand an array into individual arguments:</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">function add(a: number, b: number, c: number): number {
+  return a + b + c;
+}
+
+const numbers = [1, 2, 3];
+
+// Without spread: ERROR (array is single argument)
+add(numbers); // ERROR: expects 3 numbers, got 1 array
+
+// With spread: ✓ Expand array into individual arguments
+add(...numbers); // 6 ✓
+
+// Real-world example
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const combined = [...arr1, ...arr2]; // [1, 2, 3, 4]
+
+// Math methods
+const numbers = [5, 3, 8, 1];
+Math.max(...numbers); // 8
+Math.min(...numbers); // 1</code></pre>
+        </div>
+      </div>
+
+      <!-- 5. Spread in Arrays -->
+      <div class="bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-green-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">5️⃣</span> Spread in Arrays
+        </h3>
+        <p class="text-gray-800 mb-4">Copy and merge arrays without mutation:</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">// Copy an array (creates new array)
+const original = [1, 2, 3];
+const copy = [...original]; // [1, 2, 3]
+
+// Merge arrays
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const merged = [...arr1, ...arr2]; // [1, 2, 3, 4]
+
+// Insert at beginning/middle
+const numbers = [2, 3];
+const withPrefix = [1, ...numbers, 4]; // [1, 2, 3, 4]
+
+// Clone with modifications
+const original = { name: "Alice", age: 30 };
+const numbers = [1, 2];
+const newNumbers = [...numbers, 3, 4]; // [1, 2, 3, 4]</code></pre>
+        </div>
+      </div>
+
+      <!-- 6. Spread in Objects (Fundamental in React) -->
+      <div class="bg-gradient-to-br from-pink-50 to-pink-100 border-l-4 border-pink-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-pink-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">6️⃣</span> Spread in Objects (Fundamental in React)
+        </h3>
+        <p class="text-gray-800 mb-4">Copy and merge objects without mutation:</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">// Copy an object (shallow copy)
+const user = { name: "Alice", age: 30 };
+const copy = { ...user }; // { name: "Alice", age: 30 }
+
+// Merge objects (right overwrites left)
+const obj1 = { a: 1, b: 2 };
+const obj2 = { b: 3, c: 4 };
+const merged = { ...obj1, ...obj2 }; // { a: 1, b: 3, c: 4 }
+
+// Override specific properties
+const user = { name: "Alice", age: 30, city: "NYC" };
+const updated = { ...user, age: 31 }; // age updated to 31
+
+// Deep merging (only first level)
+const original = { user: { name: "Alice", age: 30 } };
+const shallow = { ...original }; // Only first level copied
+shallow.user.age = 31; // Affects original! (same reference)</code></pre>
+        </div>
+        <div class="bg-pink-50 p-4 rounded border border-pink-200 text-sm text-gray-800">
+          <strong>⚠️ Note:</strong> Spread does shallow copy. Nested objects still reference the original.
+        </div>
+      </div>
+
+      <!-- 7. Destructuring: Rest vs Spread -->
+      <div class="bg-gradient-to-br from-orange-50 to-orange-100 border-l-4 border-orange-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-orange-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">7️⃣</span> Destructuring: Rest vs Spread
+        </h3>
+        <p class="text-gray-800 mb-4">Using <code class="bg-orange-200 px-2 py-1 rounded">...</code> in destructuring (Rest pattern):</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">// Array destructuring with rest
+const [first, second, ...rest] = [1, 2, 3, 4, 5];
+// first = 1, second = 2, rest = [3, 4, 5]
+
+// Object destructuring with rest
+const { name, age, ...other } = {
+  name: "Alice",
+  age: 30,
+  city: "NYC",
+  country: "USA"
+};
+// name = "Alice", age = 30
+// other = { city: "NYC", country: "USA" }
+
+// Skip elements in array
+const [, , third, ...rest] = [1, 2, 3, 4, 5];
+// third = 3, rest = [4, 5]</code></pre>
+        </div>
+      </div>
+
+      <!-- 8. React: Flexible Components with Rest + Spread -->
+      <div class="bg-gradient-to-br from-violet-50 to-violet-100 border-l-4 border-violet-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-violet-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">8️⃣</span> React: Flexible Components with Rest + Spread
+        </h3>
+        <p class="text-gray-800 mb-4">Pass unknown props to child components:</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">// Collect all props except 'label'
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+}
+
+function CustomButton({ label, ...rest }: ButtonProps & React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;) {
+  return (
+    &lt;button {...rest} className="px-4 py-2 bg-blue-500 text-white rounded"&gt;
+      {label}
+    &lt;/button&gt;
+  );
+}
+
+// Usage: pass any button props
+&lt;CustomButton
+  label="Click me"
+  onClick={() => alert("Clicked")}
+  disabled={false}
+  type="submit"
+/&gt;</code></pre>
+        </div>
+        <p class="text-gray-800 text-sm">The <code class="bg-violet-200 px-2 py-1 rounded">...rest</code> collects all remaining props, then <code class="bg-violet-200 px-2 py-1 rounded">{...rest}</code> spreads them back to the button element.</p>
+      </div>
+
+      <!-- 9. React: Immutable State with Spread -->
+      <div class="bg-gradient-to-br from-teal-50 to-teal-100 border-l-4 border-teal-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-teal-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">9️⃣</span> React: Immutable State with Spread
+        </h3>
+        <p class="text-gray-800 mb-4">Update state without mutations (React best practice):</p>
+        <div class="bg-[#1e1e1e] rounded-lg p-4 mb-4">
+          <pre><code class="language-typescript">const [user, setUser] = useState({ name: "Alice", age: 30, city: "NYC" });
+
+// ❌ BAD: Direct mutation
+user.age = 31; // Doesn't trigger re-render!
+
+// ✓ GOOD: Create new object with spread
+setUser({ ...user, age: 31 });
+
+// Updating nested arrays
+const [items, setItems] = useState([
+  { id: 1, name: "Item 1", done: false },
+  { id: 2, name: "Item 2", done: false }
+]);
+
+// Update one item
+setItems(items.map(item =>
+  item.id === 1 ? { ...item, done: true } : item
+));
+
+// Add new item
+setItems([...items, { id: 3, name: "Item 3", done: false }]);
+
+// Remove item by id
+setItems(items.filter(item => item.id !== 2));</code></pre>
+        </div>
+      </div>
+
+      <!-- 10. Practical Exercises -->
+      <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 border-l-4 border-indigo-600 p-6 rounded-r-xl">
+        <h3 class="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+          <span class="text-2xl">🔟</span> Practical Exercises
+        </h3>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded border border-indigo-200">
+            <p class="font-semibold text-gray-900 mb-2">Exercise 1: Flexible Sum Function</p>
+            <p class="text-gray-700 mb-2">Create a function that sums numbers passed as arguments:</p>
+            <div class="bg-[#1e1e1e] rounded p-3 text-sm mb-2">
+              <pre><code class="language-typescript">function sum(...nums: number[]): number {
+  return nums.reduce((acc, val) => acc + val, 0);
+}
+
+sum(1, 2, 3);              // 6
+sum(10, 20, 30, 40, 50);   // 150</code></pre>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded border border-indigo-200">
+            <p class="font-semibold text-gray-900 mb-2">Exercise 2: HTML Tag Generator</p>
+            <p class="text-gray-700 mb-2">Create an HTML tag builder using spread and rest:</p>
+            <div class="bg-[#1e1e1e] rounded p-3 text-sm mb-2">
+              <pre><code class="language-typescript">function createTag(tag: string, content: string, ...attrs: [string, string][]): string {
+  const attrStr = attrs.map(([key, val]) => `${key}="${val}"`).join(" ");
+  return `&lt;${tag} ${attrStr}&gt;${content}&lt;/${tag}&gt;`;
+}
+
+createTag("div", "Hello", ["id", "main"], ["class", "container"]);
+// &lt;div id="main" class="container"&gt;Hello&lt;/div&gt;</code></pre>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded border border-indigo-200">
+            <p class="font-semibold text-gray-900 mb-2">Exercise 3: Object Merging with Override</p>
+            <p class="text-gray-700 mb-2">Merge multiple objects, with later ones overriding earlier ones:</p>
+            <div class="bg-[#1e1e1e] rounded p-3 text-sm mb-2">
+              <pre><code class="language-typescript">function merge(...objects: object[]): object {
+  return Object.assign({}, ...objects);
+  // Or: return objects.reduce((acc, obj) => ({ ...acc, ...obj }), {});
+}
+
+const obj1 = { a: 1, b: 2 };
+const obj2 = { b: 3, c: 4 };
+const obj3 = { c: 5, d: 6 };
+
+merge(obj1, obj2, obj3); // { a: 1, b: 3, c: 5, d: 6 }</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- References Section -->
+<div class="border-t-4 border-gray-600 pt-12 mt-12">
+  <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+    <div class="flex items-center gap-3 mb-6">
+      <i class="fa-solid fa-book text-3xl text-gray-300"></i>
+      <h2 class="text-2xl font-bold">References</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <p class="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Official Documentation</p>
+        <ul class="space-y-2">
+          <li><a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#rest-parameters" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fa-solid fa-external-link text-xs"></i>TypeScript: Rest Parameters</a></li>
+          <li><a href="https://www.typescriptlang.org/docs/handbook/variable-declarations.html#destructuring" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fa-solid fa-external-link text-xs"></i>TypeScript: Destructuring</a></li>
+          <li><a href="https://www.typescriptlang.org/play" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fa-solid fa-external-link text-xs"></i>TypeScript Playground</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Learning Resources</p>
+        <ul class="space-y-2">
+          <li><a href="https://chatgpt.com/c/698b3fee-cdbc-838f-9b73-a596604fc4cb" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fa-solid fa-external-link text-xs"></i>ChatGPT: Rest & Spread Session</a></li>
+          <li><a href="https://chatgpt.com/c/698b424d-b9b4-8388-90e2-a26854ae5a22" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 flex items-center gap-2"><i class="fa-solid fa-external-link text-xs"></i>ChatGPT: Rest & Spread Advanced</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div></div></div></div></main></div><script type="module" src="../../js/main.js"></script></body></html>

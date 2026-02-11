@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primitives and Inference - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/styles.css" />
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="font-semibold">Back</span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+                        <i class="fa-solid fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <nav class="space-y-6">
+                    <!-- Core Concepts -->
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Core Concepts</h3>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="typing.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-shield-halved w-5"></i>
+                                    <span>Typing</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="primitives-and-inference.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700">
+                                    <i class="fa-solid fa-book w-5"></i>
+                                    <span>Primitives & Inference</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-file-contract w-5"></i>
+                                    <span>Interfaces</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="union-types.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Union Types</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Basics -->
+                    <div>
+                        <button onclick="toggleSidebarSection('basics')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                            <span>Basics</span>
+                            <i id="icon-basics" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+                        </button>
+                        <ul id="list-basics" class="space-y-1">
+                            <li>
+                                <a href="../basics/type-inference.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-lightbulb w-5"></i>
+                                    <span>Type Inference</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-quote-left w-5"></i>
+                                    <span>Strings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/type-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-exclamation-triangle w-5"></i>
+                                    <span>Type Any</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-list w-5"></i>
+                                    <span>Arrays</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-layer-group w-5"></i>
+                                    <span>Tuples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/type-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-ban w-5"></i>
+                                    <span>Type Void</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/type-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-infinity w-5"></i>
+                                    <span>Type Never</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../basics/null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100">
+                                    <i class="fa-solid fa-question w-5"></i>
+                                    <span>Null & Undefined</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <a href="../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Back to index
+                </a>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="min-h-screen p-6 md:p-12">
+                    <div class="max-w-4xl mx-auto">
+                        <!-- Content -->
+                        <div class="animate-in">
+                            <div class="flex items-center gap-4 mb-8">
+                                <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-book text-3xl"></i>
+                                </div>
+                                <h1 class="text-4xl font-extrabold text-gray-900">TypeScript Fundamentals: Primitives & Inference</h1>
+                            </div>
+
+                            <div class="grid gap-8">
+                                <!-- Problem & Solution -->
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                                        <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                            <i class="fa-solid fa-triangle-exclamation"></i> Problem
+                                        </h3>
+                                        <p class="text-red-900">Doesn't TypeScript require writing types everywhere? How can I understand const vs let differences with types? When do null and undefined matter?</p>
+                                    </div>
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
+                                        <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2">
+                                            <i class="fa-solid fa-circle-check"></i> Solution
+                                        </h3>
+                                        <p class="text-green-900">TypeScript infers types automatically. Understand primitive types, const literal types, and union types to write safer, more maintainable code with confidence.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Analogy -->
+                                <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl flex items-center gap-6">
+                                    <div class="bg-white p-4 rounded-full shadow-sm text-3xl text-blue-600 hidden sm:block">
+                                        <i class="fa-solid fa-brain"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-blue-800 font-bold uppercase text-xs tracking-widest mb-1">Visual Analogy</h3>
+                                        <p class="text-blue-900 text-lg italic leading-relaxed">"If I give you an apple, you don't say 'this is a fruit'. You already know because you can see it. TypeScript works the same way: it reads your values and deduces the types automatically."</p>
+                                    </div>
+                                </div>
+
+                                <!-- Interview Question -->
+                                <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
+                                    <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-microphone-lines"></i> Interview Prep
+                                    </h3>
+                                    <p class="text-xl font-bold text-gray-900 mb-6">Q: What's the difference between const and let in TypeScript type inference?</p>
+                                    <div id="answer-container">
+                                        <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Show Answer</button>
+                                        <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
+                                            <span class="font-black text-amber-500">A: </span><code>const</code> infers literal types (exact values like "primary"), while <code>let</code> widens types to general categories (like string). This difference matters deeply in React props and union types.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Main Content: Accordion Style -->
+                                <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                                    <button onclick="toggleSection('tutorial-primitives')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                                        <div class="flex items-center gap-4">
+                                            <div class="p-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-lg">
+                                                <i class="fa-solid fa-book text-3xl"></i>
+                                            </div>
+                                            <div class="text-left">
+                                                <h2 class="text-3xl font-extrabold text-gray-900">Complete Guide: From Zero to Master</h2>
+                                                <p class="text-gray-600 mt-1">Learn type inference, primitives, and the critical const vs let difference</p>
+                                            </div>
+                                        </div>
+                                        <i id="icon-tutorial-primitives" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                                    </button>
+
+                                    <div id="list-tutorial-primitives" class="hidden">
+                                        <div class="grid gap-8">
+                                            <!-- Objective -->
+                                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-8">
+                                                <h3 class="text-blue-900 font-bold text-lg mb-4 flex items-center gap-2">
+                                                    <i class="fa-solid fa-bullseye"></i> Learning Objectives
+                                                </h3>
+                                                <p class="text-blue-800 mb-4">In this comprehensive guide, you'll master:</p>
+                                                <ul class="text-blue-900 space-y-2 ml-4">
+                                                    <li class="flex items-start gap-2">
+                                                        <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                                        <span>Why VS Code has TypeScript built-in (95% TypeScript codebase)</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                                        <span>Automatic type inference from values</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                                        <span>The CRITICAL difference: const literal types vs let widened types</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                                        <span>All seven primitive types and when to use them</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                                        <span>Union types and type narrowing patterns</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2">
+                                                        <i class="fa-solid fa-check text-blue-600 mt-1"></i>
+                                                        <span>Real React integration and why this prevents prop errors</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Section 1: No Installation -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-1"></i>
+                                                        <span>No Installation Needed - VS Code Has TypeScript Built-In</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-4">
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        If you have Visual Studio Code, you already have TypeScript. No extra installation required.
+                                                    </p>
+                                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                        <p class="text-green-900 font-semibold mb-2">💡 Fun fact:</p>
+                                                        <p class="text-green-800">VS Code is ~95% built with TypeScript. When you code in VS Code, you're using a TypeScript application!</p>
+                                                    </div>
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        <strong>When you create a</strong> <code class="bg-gray-100 px-2 py-1 rounded text-sm">.ts</code> <strong>file, VS Code automatically:</strong>
+                                                    </p>
+                                                    <ul class="text-gray-700 space-y-2 ml-4">
+                                                        <li>✓ Analyzes your code</li>
+                                                        <li>✓ Infers types from values</li>
+                                                        <li>✓ Detects errors in real-time</li>
+                                                        <li>✓ Provides intelligent autocomplete</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 2: Type Inference -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-purple-600 to-purple-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-2"></i>
+                                                        <span>Type Inference: TypeScript Reads Your Mind</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-4">
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        TypeScript deduces types from initial values automatically.
+                                                    </p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">const name = "MoureDev";</code></pre>
+                                                    </div>
+                                                    <p class="text-gray-700 leading-relaxed">Hover over <code>name</code> and see:</p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">const name: "MoureDev"</code></pre>
+                                                    </div>
+                                                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-4">
+                                                        <p class="text-yellow-900"><strong>🔎 Important:</strong> The type is NOT <code>string</code>, but the literal <code>"MoureDev"</code>. This distinction is CRITICAL!</p>
+                                                    </div>
+
+                                                    <h4 class="font-bold text-gray-900 mt-6 mb-2">Compare with <code>let</code>:</h4>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">let name = "MoureDev";</code></pre>
+                                                    </div>
+                                                    <p class="text-gray-700 leading-relaxed">TypeScript infers:</p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">let name: string</code></pre>
+                                                    </div>
+
+                                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                                        <p class="text-blue-900 font-bold mb-2">🎯 Why the difference?</p>
+                                                        <p class="text-blue-800 mb-3"><strong>Because <code>let</code> can be reassigned:</strong></p>
+                                                        <pre class="text-sm bg-white p-3 rounded"><code class="language-typescript">let name = "MoureDev";
+name = "Batman";    // ✅ Allowed
+name = "Superman";  // ✅ Allowed</code></pre>
+                                                        <p class="text-blue-800">Since the value can change to ANY string, TypeScript must allow all strings, not just "MoureDev".</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 3: Inference + Autocomplete -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-red-600 to-red-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-3"></i>
+                                                        <span>Inference + Autocomplete = The Magic</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-4">
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        TypeScript knows the types, so it provides intelligent autocomplete:
+                                                    </p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">let greeting = "Hola";
+greeting.toUpperCase(); // ✅ VS Code suggests string methods
+
+let price = 19.99;
+price.toFixed(2); // ✅ VS Code suggests number methods</code></pre>
+                                                    </div>
+                                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                        <p class="text-green-900 font-semibold mb-2">✨ Not magic. Static analysis.</p>
+                                                        <p class="text-green-800">TypeScript analyzed your code and determined types. That's why autocomplete works perfectly.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 4: Explicit Typing -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-green-600 to-green-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-4"></i>
+                                                        <span>When to Use Explicit Typing</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-4">
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        Sometimes define types explicitly:
+                                                    </p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">let isDeveloper: boolean;
+isDeveloper = true;  // ✅
+isDeveloper = 1;     // ❌ Error</code></pre>
+                                                    </div>
+
+                                                    <h4 class="font-bold text-gray-900 mt-6 mb-3">When to type explicitly:</h4>
+                                                    <div class="space-y-3">
+                                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                            <p class="text-green-900 font-semibold">No initial value</p>
+                                                            <p class="text-green-800 text-sm">TypeScript can't infer without a starting value</p>
+                                                        </div>
+                                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                            <p class="text-green-900 font-semibold">Document intent</p>
+                                                            <p class="text-green-800 text-sm">Makes code clearer for other developers</p>
+                                                        </div>
+                                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                            <p class="text-green-900 font-semibold">Complex types</p>
+                                                            <p class="text-green-800 text-sm">Union types, object types, etc.</p>
+                                                        </div>
+                                                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                            <p class="text-green-900 font-semibold">Public APIs</p>
+                                                            <p class="text-green-800 text-sm">Functions and components used elsewhere</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 5: Primitive Types -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-yellow-600 to-yellow-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-5"></i>
+                                                        <span>The Seven Primitive Types</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-6">
+                                                    <!-- String -->
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2">1. String</h4>
+                                                        <div class="bg-[#1e1e1e] rounded-xl p-4 mb-3">
+                                                            <pre><code class="language-typescript">const city = "Madrid";
+const message = `Hello, ${city}!`;
+const empty = "";</code></pre>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Number -->
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2">2. Number</h4>
+                                                        <div class="bg-[#1e1e1e] rounded-xl p-4 mb-3">
+                                                            <pre><code class="language-typescript">const age = 30;              // Integer
+const price = 19.99;         // Float
+const hexColor = 0xfff;      // Hex
+const infinite = Infinity;   // Special</code></pre>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Boolean -->
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2">3. Boolean</h4>
+                                                        <div class="bg-[#1e1e1e] rounded-xl p-4 mb-3">
+                                                            <pre><code class="language-typescript">const isActive = true;
+const isLoading = false;</code></pre>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Null vs Undefined -->
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                                            <i class="fa-solid fa-warning text-yellow-600"></i>
+                                                            4. Null vs Undefined (CRITICAL)
+                                                        </h4>
+                                                        <div class="bg-red-50 border border-red-200 p-4 rounded-lg mb-3">
+                                                            <p class="text-red-900 font-semibold mb-3">They are NOT the same!</p>
+                                                            <div class="overflow-x-auto">
+                                                                <table class="w-full text-sm">
+                                                                    <thead>
+                                                                        <tr class="border-b border-red-300">
+                                                                            <th class="text-left p-2 text-red-800">Type</th>
+                                                                            <th class="text-left p-2 text-red-800">Meaning</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr class="border-b border-red-200">
+                                                                            <td class="p-2 text-red-900"><code>undefined</code></td>
+                                                                            <td class="p-2 text-red-900">Not assigned yet</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="p-2 text-red-900"><code>null</code></td>
+                                                                            <td class="p-2 text-red-900">Intentionally empty</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                                            <p class="text-blue-900 font-semibold mb-2">Why it matters:</p>
+                                                            <p class="text-blue-800"><code>null</code> from API means "no data". <code>undefined</code> in a form means "user hasn't touched it". Different meaning!</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- BigInt & Symbol -->
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2">6. BigInt | 7. Symbol</h4>
+                                                        <div class="bg-[#1e1e1e] rounded-xl p-4 mb-3">
+                                                            <pre><code class="language-typescript">const big: bigint = 9007199254740993n;
+const id: symbol = Symbol("id");</code></pre>
+                                                        </div>
+                                                        <p class="text-gray-700 text-sm">Advanced, rarely used in typical React.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 6: Union Types -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-6"></i>
+                                                        <span>Union Types: Multiple Possible Types</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-4">
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        A variable can be multiple types:
+                                                    </p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">let age: number | null = null;
+
+age = 30;   // ✅ OK
+age = null; // ✅ OK
+age = "30"; // ❌ Error</code></pre>
+                                                    </div>
+                                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                                        <p class="text-blue-900 font-semibold mb-2">Use cases:</p>
+                                                        <ul class="text-blue-800 space-y-1 ml-4">
+                                                            <li>• Form fields (value or empty)</li>
+                                                            <li>• API responses (data or null)</li>
+                                                            <li>• React state (different states)</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 7: Type Narrowing -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-pink-600 to-pink-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-7"></i>
+                                                        <span>Type Narrowing: Refining Union Types</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-4">
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        Narrow union types with conditionals:
+                                                    </p>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">function printAge(age: number | null) {
+  if (age === null) {
+    console.log("Not provided");
+    return;
+  }
+
+  // TypeScript KNOWS age is number here
+  console.log(age.toFixed(0)); // ✅ Safe
+}</code></pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 8: const vs let - THE KEY -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-amber-300">
+                                                <div class="bg-gradient-to-r from-amber-600 to-amber-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-8"></i>
+                                                        <span>⭐ const vs let: The Critical Difference</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-6">
+                                                    <p class="text-gray-700 leading-relaxed font-semibold">
+                                                        This is the #1 reason for "not assignable to" errors in React.
+                                                    </p>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-3">The Difference</h4>
+                                                        <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                            <pre><code class="language-typescript">const variant = "primary";
+// Type: "primary" (literal - EXACT value only)
+
+let variant = "primary";
+// Type: string (general - ANY string allowed)</code></pre>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-3">Why This Happens</h4>
+                                                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                                            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                                                                <p class="text-amber-900 font-semibold mb-2">const</p>
+                                                                <p class="text-amber-800 text-sm">Cannot be reassigned</p>
+                                                                <p class="text-amber-800 font-semibold mt-2">→ Locks to exact value</p>
+                                                            </div>
+                                                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                                                <p class="text-blue-900 font-semibold mb-2">let</p>
+                                                                <p class="text-blue-800 text-sm">Can be reassigned</p>
+                                                                <p class="text-blue-800 font-semibold mt-2">→ Must allow any value</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="bg-red-50 border-2 border-red-300 p-4 rounded-lg">
+                                                        <h4 class="font-bold text-red-900 mb-3 flex items-center gap-2">
+                                                            <i class="fa-solid fa-exclamation-circle"></i>
+                                                            Why This Breaks in React
+                                                        </h4>
+                                                        <div class="bg-white p-3 rounded mb-3">
+                                                            <pre class="text-sm"><code class="language-typescript">type ButtonProps = {
+  variant: "primary" | "secondary";
+};</code></pre>
+                                                        </div>
+
+                                                        <div class="space-y-3">
+                                                            <div class="bg-green-50 border-l-4 border-green-500 p-3 rounded-r-lg">
+                                                                <p class="text-green-900 font-semibold text-sm mb-1">✅ Works:</p>
+                                                                <pre class="text-xs bg-white p-2 rounded"><code class="language-typescript">const variant = "primary";
+&lt;Button variant={variant} /&gt;</code></pre>
+                                                            </div>
+                                                            <div class="bg-red-100 border-l-4 border-red-600 p-3 rounded-r-lg">
+                                                                <p class="text-red-900 font-semibold text-sm mb-1">❌ Fails:</p>
+                                                                <pre class="text-xs bg-white p-2 rounded"><code class="language-typescript">let variant = "primary";
+&lt;Button variant={variant} /&gt;
+// Error: string not assignable</code></pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                                                        <h4 class="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                                                            <i class="fa-solid fa-lightbulb"></i>
+                                                            🔑 The Key Insight
+                                                        </h4>
+                                                        <p class="text-blue-800 mb-3">
+                                                            <strong>It's not about the current value, it's about what it COULD become.</strong>
+                                                        </p>
+                                                        <ul class="text-blue-800 space-y-2 ml-4">
+                                                            <li>• <code>const variant = "primary"</code> → always "primary"</li>
+                                                            <li>• <code>let variant = "primary"</code> → could be "danger", "hello", anything!</li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="bg-white border border-amber-200 p-4 rounded-lg">
+                                                        <h4 class="font-bold text-amber-900 mb-3">How to Fix</h4>
+                                                        <div class="space-y-3 text-sm">
+                                                            <div>
+                                                                <p class="text-amber-800 font-semibold mb-1">Option 1: Type the variable</p>
+                                                                <pre class="text-xs bg-gray-100 p-2 rounded"><code class="language-typescript">let variant: "primary" | "secondary" = "primary";</code></pre>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-amber-800 font-semibold mb-1">Option 2: Use <code>as const</code></p>
+                                                                <pre class="text-xs bg-gray-100 p-2 rounded"><code class="language-typescript">const config = { variant: "primary" } as const;</code></pre>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-amber-800 font-semibold mb-1">Option 3: Prefer <code>const</code></p>
+                                                                <pre class="text-xs bg-gray-100 p-2 rounded"><code class="language-typescript">const variant = "primary"; // ✅ Works!</code></pre>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Section 9: Real React -->
+                                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                                                <div class="bg-gradient-to-r from-teal-600 to-teal-700 px-6 py-4">
+                                                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                                                        <i class="fa-solid fa-9"></i>
+                                                        <span>Real React Integration</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="p-6 space-y-6">
+                                                    <h4 class="font-bold text-gray-900 mb-3">Case 1: Discriminated Unions with useState</h4>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">type State =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: User[] }
+  | { status: "error"; message: string };
+
+const [state, setState] = useState&lt;State&gt;({ status: "idle" });</code></pre>
+                                                    </div>
+
+                                                    <h4 class="font-bold text-gray-900 mb-3">Case 2: null vs undefined in Forms</h4>
+                                                    <div class="bg-[#1e1e1e] rounded-xl p-4 mb-4">
+                                                        <pre><code class="language-typescript">type Profile = { age: number | null };  // Backend
+type FormState = { age?: number };       // Frontend</code></pre>
+                                                    </div>
+                                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                                        <p class="text-green-900 font-semibold mb-2">Why:</p>
+                                                        <ul class="text-green-800 space-y-1 ml-4">
+                                                            <li>• <code>null</code> = backend has no value</li>
+                                                            <li>• <code>undefined</code> = user hasn't touched field</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Best Practices -->
+                                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl">
+                                                <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                                    <i class="fa-solid fa-star"></i> Best Practices
+                                                </h3>
+                                                <div class="grid md:grid-cols-2 gap-4">
+                                                    <div class="flex items-start gap-3">
+                                                        <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                                        <span class="text-green-900">Use inference when obvious</span>
+                                                    </div>
+                                                    <div class="flex items-start gap-3">
+                                                        <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                                        <span class="text-green-900">Type public APIs</span>
+                                                    </div>
+                                                    <div class="flex items-start gap-3">
+                                                        <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                                        <span class="text-green-900">Enable <code>"strict": true</code></span>
+                                                    </div>
+                                                    <div class="flex items-start gap-3">
+                                                        <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                                        <span class="text-green-900">Avoid <code>any</code></span>
+                                                    </div>
+                                                    <div class="flex items-start gap-3">
+                                                        <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                                        <span class="text-green-900">Use union types for states</span>
+                                                    </div>
+                                                    <div class="flex items-start gap-3">
+                                                        <i class="fa-solid fa-check-circle text-green-600 mt-1"></i>
+                                                        <span class="text-green-900">Prefer <code>const</code> for literals</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Exercises -->
+                                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-300 rounded-2xl p-8">
+                                                <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                                    <i class="fa-solid fa-dumbbell text-purple-600"></i> Practical Exercises
+                                                </h3>
+                                                <div class="space-y-4">
+                                                    <div class="bg-white p-4 rounded-lg border border-purple-200">
+                                                        <p class="font-semibold text-gray-900 mb-2">Exercise 1: Union Type + Narrowing</p>
+                                                        <p class="text-gray-700 text-sm">Create a variable that can be string, null, or undefined. Write a function that narrows and handles each case.</p>
+                                                    </div>
+                                                    <div class="bg-white p-4 rounded-lg border border-purple-200">
+                                                        <p class="font-semibold text-gray-900 mb-2">Exercise 2: HTTP State Model</p>
+                                                        <p class="text-gray-700 text-sm">Model HTTP request state using discriminated union. No separate loading/error/success booleans.</p>
+                                                    </div>
+                                                    <div class="bg-white p-4 rounded-lg border border-purple-200">
+                                                        <p class="font-semibold text-gray-900 mb-2">Exercise 3: const vs let Props</p>
+                                                        <p class="text-gray-700 text-sm">Create React component with "variant" prop. Try with <code>let</code> (fails), then fix using all three methods.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Summary -->
+                                            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl p-8">
+                                                <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                                                    <i class="fa-solid fa-star"></i> Summary
+                                                </h3>
+                                                <div class="space-y-3 text-white">
+                                                    <p class="leading-relaxed">
+                                                        <strong>TypeScript fundamentals enable:</strong>
+                                                    </p>
+                                                    <ul class="space-y-2 ml-4">
+                                                        <li>✨ Immediate feedback (errors before running)</li>
+                                                        <li>🧠 Smart autocomplete</li>
+                                                        <li>🛡️ Bug prevention (especially union types + narrowing)</li>
+                                                        <li>📚 Self-documenting code</li>
+                                                        <li>🔄 Safe refactoring</li>
+                                                    </ul>
+                                                    <p class="mt-4 italic leading-relaxed">
+                                                        Mastering <strong>const literal types vs let widened types</strong> solves 80% of React prop errors.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- References -->
+                                <div class="border-t-4 border-gray-600 pt-12 mt-12">
+                                    <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
+                                        <h2 class="text-3xl font-extrabold mb-4 flex items-center gap-3">
+                                            <i class="fa-solid fa-bookmark text-yellow-400 text-3xl"></i>
+                                            Additional References & Resources
+                                        </h2>
+                                        <p class="text-gray-300 mb-6">
+                                            Deepen your understanding with these resources:
+                                        </p>
+                                        <div class="grid gap-4">
+                                            <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                                <div class="bg-blue-500 rounded-lg p-3">
+                                                    <i class="fa-solid fa-book text-white text-2xl"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h3 class="font-bold text-lg text-white group-hover:text-blue-300 transition-colors">TypeScript Handbook - Everyday Types</h3>
+                                                    <p class="text-gray-400 text-sm">Official documentation on common TypeScript types</p>
+                                                </div>
+                                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                            </a>
+                                            <a href="https://chatgpt.com/c/67aaa78d-f600-8008-bf7b-6de9b97278be" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                                <div class="bg-green-500 rounded-lg p-3">
+                                                    <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h3 class="font-bold text-lg text-white group-hover:text-green-300 transition-colors">TypeScript Conversation</h3>
+                                                    <p class="text-gray-400 text-sm">Interactive guide with practical examples</p>
+                                                </div>
+                                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                            </a>
+                                            <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/69840549-429c-8391-b388-7faaf60f62d3" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                                <div class="bg-purple-500 rounded-lg p-3">
+                                                    <i class="fa-solid fa-robot text-white text-2xl"></i>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">TypeScript GPT</h3>
+                                                    <p class="text-gray-400 text-sm">Specialized TypeScript assistant</p>
+                                                </div>
+                                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+</body>
+</html>

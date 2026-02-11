@@ -1075,6 +1075,353 @@ function TodoList() {
                   </div>
                 </div>
 
+                <!-- Guía Extendida: Arrays -->
+                <div class="border-t-4 border-indigo-600 pt-12 mt-12">
+                  <button
+                    onclick="toggleSection('tutorial-arrays-extended')"
+                    class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="p-4 bg-gradient-to-br from-indigo-600 to-blue-600 text-white rounded-2xl shadow-lg"
+                      >
+                        <i class="fa-solid fa-book-open text-3xl"></i>
+                      </div>
+                      <div class="text-left">
+                        <h2 class="text-3xl font-extrabold text-gray-900">
+                          📘 Guía Extendida de Arrays
+                        </h2>
+                        <p class="text-gray-600 mt-1">
+                          Desde lo básico hasta casos reales
+                        </p>
+                      </div>
+                    </div>
+                    <i
+                      id="icon-tutorial-arrays-extended"
+                      class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"
+                    ></i>
+                  </button>
+
+                  <div id="list-tutorial-arrays-extended" class="hidden">
+                  <div
+                    class="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl mb-8"
+                  >
+                    <h2
+                      class="text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-3"
+                    >
+                      <i class="fa-solid fa-book text-indigo-600"></i>
+                      📘 Arrays en TypeScript — Guía Completa (Desde lo Básico
+                      hasta Casos Reales)
+                    </h2>
+                    <p class="text-gray-700 mb-3">
+                      Hasta ahora hemos visto los tipos primitivos. Ahora
+                      entramos en el siguiente nivel fundamental en TypeScript:
+                      <strong>los Arrays</strong>.
+                    </p>
+                    <p class="text-gray-700">
+                      En TypeScript, los arrays tienen una sintaxis especial y
+                      tenemos dos formas de tiparlos.
+                    </p>
+                  </div>
+
+                  <div
+                    class="bg-green-50 border-2 border-green-200 rounded-2xl p-6 mb-8"
+                  >
+                    <h3
+                      class="text-green-900 font-bold text-xl mb-4 flex items-center gap-2"
+                    >
+                      <i class="fa-solid fa-list-check"></i> ✅ Checklist
+                      Rápido
+                    </h3>
+                    <ul class="text-green-900 space-y-2">
+                      <li>• Hay dos sintaxis para arrays en TypeScript.</li>
+                      <li>• <code>const</code> NO hace el array inmutable.</li>
+                      <li>
+                        • La inferencia funciona, pero cuidado con arrays
+                        vacíos.
+                      </li>
+                      <li>• <code>any</code> es una señal de alerta.</li>
+                      <li>• Puedes tener arrays mixtos usando uniones.</li>
+                      <li>
+                        • Las tuplas definen longitud y tipos por posición.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="grid gap-6">
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        1️⃣ Sintaxis 1: <code>number[]</code> (la más común)
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const numbers: number[] = [10, 20, 30];
+
+numbers.push(40);   // ✅ Correcto
+numbers.push("hi"); // ❌ Error</code></pre>
+                      <p class="text-gray-700 mb-3">
+                        <code>number[]</code> significa “array de números”.
+                        Solo permite números.
+                      </p>
+                      <div
+                        class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg"
+                      >
+                        <p class="text-amber-900 font-semibold mb-2">
+                          🔎 Importante: ¿por qué sigue siendo mutable con
+                          <code>const</code>?
+                        </p>
+                        <pre class="text-sm bg-white p-3 rounded"><code class="language-typescript">const numbers = [10, 20, 30];
+
+numbers.push(40); // ✅ permitido
+numbers[0] = 99;  // ✅ permitido
+// numbers = [1, 2, 3]; ❌ no permitido</code></pre>
+                        <p class="text-amber-800 mt-2">
+                          Conclusión: <code>const</code> protege la referencia,
+                          no el contenido.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        2️⃣ Sintaxis 2: <code>Array&lt;number&gt;</code>
+                        (genéricos)
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const numbers: Array&lt;number&gt; = [10, 20, 30];
+
+// Equivalente a:
+const same: number[] = [10, 20, 30];</code></pre>
+                      <ul class="text-gray-700 space-y-2">
+                        <li>
+                          • Para arrays simples:
+                          <code>number[]</code> suele ser más conciso.
+                        </li>
+                        <li>
+                          • Para tipos más complejos,
+                          <code>Array&lt;T&gt;</code> puede leerse mejor.
+                        </li>
+                        <li>• Lo clave es mantener consistencia en el equipo.</li>
+                      </ul>
+                    </div>
+
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        3️⃣ Inferencia de tipos en arrays
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const numbers = [10, 20, 30]; // number[] inferido</code></pre>
+                      <p class="text-gray-700 mb-3">
+                        El problema aparece con arrays vacíos:
+                      </p>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const empty = []; // any[]</code></pre>
+                      <div
+                        class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-4"
+                      >
+                        <p class="text-red-900 font-semibold mb-2">
+                          🚨 ¿Qué significa <code>any</code>?
+                        </p>
+                        <p class="text-red-800">
+                          TypeScript deja pasar todo. Es casi como apagar el
+                          tipado.
+                        </p>
+                      </div>
+                      <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">const names: string[] = [];
+// o
+const namesAlt: Array&lt;string&gt; = [];</code></pre>
+                      <p class="text-gray-700 mt-3">
+                        👉 Siempre tipa arrays vacíos explícitamente.
+                      </p>
+                    </div>
+
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        4️⃣ Funciones y el problema del <code>any</code>
+                        implícito
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">function sum(a, b) {
+  return a + b;
+}
+// Error: Parameter 'a' implicitly has an 'any' type.</code></pre>
+                      <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">function sum(a: number, b: number): number {
+  return a + b;
+}</code></pre>
+                      <p class="text-gray-700 mt-3">
+                        No desactives <code>noImplicitAny</code>.
+                      </p>
+                    </div>
+
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        5️⃣ Arrays mixtos (Union Types)
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const ids: (string | number)[] = ["a1", 2, "b3"];
+const userIds: (string | number)[] = [1, "2", 3];
+const names: (string | undefined)[] = ["Ana", undefined, "Luis"];
+
+const cleanNames = names.filter(name => name !== undefined);</code></pre>
+                      <p class="text-gray-700">
+                        Si mezclas demasiados tipos, suele ser señal de que
+                        necesitas objetos.
+                      </p>
+                    </div>
+
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        6️⃣ Tuplas (arrays con estructura fija)
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const hero: [string, number] = ["Doctor Strange", 100];
+
+hero[0] = "Iron Man"; // ✅
+hero[1] = 200;        // ✅
+hero[2] = "extra";    // ❌ Error</code></pre>
+                      <p class="text-gray-700 mb-3">
+                        Úsalas cuando el orden y la longitud sean fijos.
+                      </p>
+                      <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">type Hero = {
+  name: string;
+  power: number;
+};</code></pre>
+                      <p class="text-gray-700 mt-3">
+                        En UI (React), normalmente los objetos son más legibles
+                        que las tuplas.
+                      </p>
+                    </div>
+
+                    <div
+                      class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                    >
+                      <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        7️⃣ Inmutabilidad real (extra profesional)
+                      </h3>
+                      <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">const numbers: readonly number[] = [10, 20, 30];
+numbers.push(40); // ❌ Error
+
+const fruits = ["apple", "banana"] as const;</code></pre>
+                    </div>
+                  </div>
+
+                  <div
+                    class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm mt-8"
+                  >
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                      🧠 Resumen mental final
+                    </h3>
+                    <div class="overflow-x-auto">
+                      <table class="w-full text-sm">
+                        <thead>
+                          <tr class="border-b border-gray-200">
+                            <th class="text-left py-2 text-gray-700">
+                              Concepto
+                            </th>
+                            <th class="text-left py-2 text-gray-700">
+                              Qué significa
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                          <tr class="border-b border-gray-100">
+                            <td class="py-2"><code>number[]</code></td>
+                            <td class="py-2">Array de números</td>
+                          </tr>
+                          <tr class="border-b border-gray-100">
+                            <td class="py-2">
+                              <code>Array&lt;number&gt;</code>
+                            </td>
+                            <td class="py-2">Lo mismo, usando genéricos</td>
+                          </tr>
+                          <tr class="border-b border-gray-100">
+                            <td class="py-2"><code>const</code></td>
+                            <td class="py-2">No protege el contenido</td>
+                          </tr>
+                          <tr class="border-b border-gray-100">
+                            <td class="py-2"><code>any</code></td>
+                            <td class="py-2">Desactiva TypeScript</td>
+                          </tr>
+                          <tr class="border-b border-gray-100">
+                            <td class="py-2">
+                              <code>(string | number)[]</code>
+                            </td>
+                            <td class="py-2">Array mixto</td>
+                          </tr>
+                          <tr>
+                            <td class="py-2">Tupla</td>
+                            <td class="py-2">Longitud + tipo por posición</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div
+                    class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl mt-8"
+                  >
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                      🎯 Buenas prácticas profesionales
+                    </h3>
+                    <ul class="text-green-900 space-y-2">
+                      <li>• Siempre tipa arrays vacíos.</li>
+                      <li>• Nunca ignores <code>any</code>.</li>
+                      <li>• Activa <code>strict</code> en tsconfig.</li>
+                      <li>• Usa uniones con moderación.</li>
+                      <li>• Prefiere objetos sobre tuplas en UI.</li>
+                      <li>• Mantén consistencia en la sintaxis.</li>
+                    </ul>
+                  </div>
+
+                  <div
+                    class="bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-300 rounded-2xl p-8 mt-8"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2"
+                    >
+                      <i class="fa-brands fa-react text-cyan-600"></i> 🚀
+                      Conexión con React (uso real)
+                    </h3>
+                    <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">type User = {
+  id: string;
+  name: string;
+};
+
+const [users, setUsers] = useState&lt;User[]&gt;([]);</code></pre>
+                    <p class="text-gray-700">
+                      Aquí aplicas lo aprendido: array tipado, inicialización
+                      vacía y cero <code>any</code>.
+                    </p>
+                  </div>
+
+                  <div
+                    class="bg-indigo-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl mt-8"
+                  >
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                      🏁 Conclusión
+                    </h3>
+                    <p class="text-gray-700 mb-3">
+                      Los arrays en TypeScript no son complicados, pero la
+                      inferencia puede engañarte, <code>any</code> puede
+                      aparecer en silencio y <code>const</code> no hace lo que
+                      muchos creen.
+                    </p>
+                    <p class="text-gray-700">
+                      Si quieres, el siguiente tutorial natural es:
+                      <strong
+                        >Objetos en TypeScript (tipado estructural,
+                        propiedades opcionales, readonly, index signatures y
+                        patrones reales en React)</strong
+                      >.
+                    </p>
+                  </div>
+                  </div>
+                </div>
+
                 <!-- Referencias y Recursos Adicionales -->
                 <div
                   class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mt-8 shadow-2xl"

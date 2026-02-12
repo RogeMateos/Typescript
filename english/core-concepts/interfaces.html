@@ -93,11 +93,306 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- New section: Interfaces vs Types -->
+                    <div class="border-t-4 border-purple-600 pt-12 mt-12">
+                        <button onclick="toggleSection('interfaces-vs-types')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                                <div class="p-4 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-2xl shadow-lg">
+                                    <i class="fa-solid fa-code-compare text-3xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h2 class="text-3xl font-extrabold text-gray-900">⚖️ Interfaces vs Types in TypeScript</h2>
+                                    <p class="text-gray-600 mt-1">Which to use and when? Professional decisions based on context</p>
+                                </div>
+                            </div>
+                            <i id="icon-interfaces-vs-types" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                        </button>
+
+                        <div id="list-interfaces-vs-types" class="hidden space-y-6">
+                            <!-- Introduction and goals -->
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-8 rounded-r-2xl">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">🎯 Objective of this lesson</h3>
+                                <p class="text-gray-700 mb-3">Understand and distinguish two fundamental concepts in TypeScript:</p>
+                                <ul class="text-gray-700 space-y-2 ml-4">
+                                    <li>✅ What is an interface</li>
+                                    <li>✅ What is a type</li>
+                                    <li>✅ How they are similar</li>
+                                    <li>✅ How they really differ</li>
+                                    <li>✅ When to use each in real projects (React + APIs)</li>
+                                </ul>
+                            </div>
+
+                            <!-- 1️⃣ What is an Interface -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                                    What is an Interface
+                                </h3>
+                                <p class="text-gray-700 mb-4">An interface defines the contract that an object must follow.</p>
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">interface User {
+  name: string;
+  age: number;
+  readonly id: string;
+  login(): boolean;
+}</code></pre>
+                                <p class="text-gray-700 mb-4">This means:</p>
+                                <ul class="text-gray-700 space-y-2 ml-4">
+                                    <li>✓ The object must have <code class="bg-white px-2 py-1 rounded">name</code></li>
+                                    <li>✓ It must have <code class="bg-white px-2 py-1 rounded">age</code></li>
+                                    <li>✓ <code class="bg-white px-2 py-1 rounded">id</code> cannot be modified</li>
+                                    <li>✓ It must implement a <code class="bg-white px-2 py-1 rounded">login</code> method</li>
+                                </ul>
+                            </div>
+
+                            <!-- 2️⃣ What is a Type -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                                    What is a Type
+                                </h3>
+                                <p class="text-gray-700 mb-4">A type can also define the shape of an object:</p>
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">type User = {
+  name: string;
+  age: number;
+  readonly id: string;
+  login(): boolean;
+};</code></pre>
+                                <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                                    <p class="text-amber-900 font-semibold">⚠️ So far… they look identical.</p>
+                                    <p class="text-amber-800 mt-2">And they do. In this case they work the same way.</p>
+                                    <p class="text-amber-800 font-semibold mt-2">So… what's the actual difference?</p>
+                                </div>
+                            </div>
+
+                            <!-- 3️⃣ Real Differences -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                                    The real differences (what matters)
+                                </h3>
+
+                                <div class="space-y-6">
+                                    <div class="bg-pink-50 border-l-4 border-pink-500 p-4 rounded-r-lg">
+                                        <p class="text-pink-900 font-bold mb-2">🔹 Union Types (only with type)</p>
+                                        <p class="text-pink-800 mb-3">With type you can do:</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-pink-200 mb-3"><code class="language-typescript">type UserOrNull = User | null;
+type Role = "admin" | "user" | "guest";</code></pre>
+                                        <p class="text-pink-800">👉 You can't define this directly with interface.</p>
+                                    </div>
+
+                                    <div class="bg-cyan-50 border-l-4 border-cyan-500 p-4 rounded-r-lg">
+                                        <p class="text-cyan-900 font-bold mb-2">🔹 Tuples (only with type)</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-cyan-200 mb-3"><code class="language-typescript">type UserTuple = [string, number];
+type UseToggle = [boolean, () => void];</code></pre>
+                                        <p class="text-cyan-800">Interfaces cannot define tuples.</p>
+                                    </div>
+
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                        <p class="text-green-900 font-bold mb-2">🔹 Advanced types (mapped, conditional, template literals)</p>
+                                        <p class="text-green-800 mb-3">Only type allows things like:</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-green-200"><code class="language-typescript">type Nullable&lt;T&gt; = T | null;
+type Id = `user-${number}`;</code></pre>
+                                    </div>
+
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                        <p class="text-blue-900 font-bold mb-2">🔹 Declaration Merging (only interfaces)</p>
+                                        <p class="text-blue-800 mb-3">If you declare an interface twice, they merge:</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-blue-200 mb-3"><code class="language-typescript">interface Hero {
+  name: string;
+}
+
+interface Hero {
+  power: string;
+}
+// Now Hero has both properties</code></pre>
+                                        <p class="text-blue-800">⚠️ This can be dangerous if you don't know it's happening.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4️⃣ Interfaces and Classes -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                                    Interfaces and Classes (where they shine)
+                                </h3>
+                                <p class="text-gray-700 mb-4">This is where interfaces feel natural:</p>
+                                <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">interface MediaPlayer {
+  play(): void;
+  pause(): void;
+  stop(): void;
+}
+
+class VideoPlayer implements MediaPlayer {
+  play() {}
+  pause() {}
+  stop() {}
+}
+// If you don't implement a method → TypeScript forces you</code></pre>
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                    <p class="text-green-900 font-semibold">This is contract-oriented design.</p>
+                                    <p class="text-green-800 mt-2">With type you can't use <code class="bg-white px-1 rounded">implements</code>.</p>
+                                </div>
+                            </div>
+
+                            <!-- 5️⃣ Real cases in React + APIs -->
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                                    Real cases in React + APIs
+                                </h3>
+
+                                <div class="space-y-4">
+                                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                        <p class="text-green-900 font-bold mb-2">✅ Case 1: API DTO (use interface)</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-green-200"><code class="language-typescript">interface ApiUserDto {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface User {
+  id: string;
+  displayName: string;
+}
+
+const mapUser = (dto: ApiUserDto): User => ({
+  id: dto.id,
+  displayName: dto.name,
+});</code></pre>
+                                    </div>
+
+                                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                                        <p class="text-blue-900 font-bold mb-2">✅ Case 2: Loading state (use type)</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-blue-200"><code class="language-typescript">type UserState =
+  | { status: "loading" }
+  | { status: "success"; data: User[] }
+  | { status: "error"; message: string };
+
+const [state, setState] = useState&lt;UserState&gt;({
+  status: "loading"
+});</code></pre>
+                                        <p class="text-blue-800 mt-2">👉 Type is clearly better here.</p>
+                                    </div>
+
+                                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg">
+                                        <p class="text-purple-900 font-bold mb-2">✅ Case 3: Component Props</p>
+                                        <p class="text-purple-800 mb-2">Both work. The decision is team convention.</p>
+                                        <pre class="text-sm leading-relaxed bg-white p-3 rounded border border-purple-200"><code class="language-typescript">interface ButtonProps {
+  variant?: "primary" | "secondary";
+  onClick: () => void;
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 6️⃣ Simple practical rule -->
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-8 rounded-r-2xl">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                                    <span class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                                    Simple practical rule (to keep it uncomplicated)
+                                </h3>
+
+                                <div class="mb-6">
+                                    <p class="text-green-900 font-bold mb-3">✅ Use Interface when:</p>
+                                    <ul class="text-green-800 space-y-2 ml-4">
+                                        <li>• Defining domain models (User, Product, Order)</li>
+                                        <li>• Defining contracts for classes</li>
+                                        <li>• Need clear extension with <code class="bg-white px-1 rounded">extends</code></li>
+                                        <li>• Need declaration merging</li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <p class="text-green-900 font-bold mb-3">✅ Use Type when:</p>
+                                    <ul class="text-green-800 space-y-2 ml-4">
+                                        <li>• Need unions</li>
+                                        <li>• Need tuples</li>
+                                        <li>• Need advanced types</li>
+                                        <li>• Creating generic utilities</li>
+                                        <li>• Modeling complex states</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 7️⃣ Common junior mistake -->
+                            <div class="bg-amber-50 border-l-4 border-amber-600 p-8 rounded-r-xl">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">⚠️ Common junior mistake</h3>
+                                <p class="text-amber-900 font-semibold mb-3">Thinking:</p>
+                                <ul class="text-amber-800 space-y-2 ml-4 mb-4">
+                                    <li>❌ "Interfaces are better"</li>
+                                    <li>❌ "Types are more modern"</li>
+                                </ul>
+                                <p class="text-amber-900 font-semibold mb-2">No.</p>
+                                <p class="text-amber-800">Both are different tools.</p>
+                                <p class="text-amber-800">A senior doesn't choose by trend.</p>
+                                <p class="text-amber-800 font-semibold">They choose by context.</p>
+                            </div>
+
+                            <!-- 8️⃣ Mini exercises -->
+                            <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-8">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">🧪 Practical mini exercises</h3>
+                                <ol class="text-gray-800 space-y-3 list-decimal ml-5">
+                                    <li>Create an interface <code class="bg-white px-2 py-1 rounded">ApiProductDto</code></li>
+                                    <li>Create a type <code class="bg-white px-2 py-1 rounded">RequestState&lt;T&gt;</code> with success/error/loading</li>
+                                    <li>Create a hook <code class="bg-white px-2 py-1 rounded">useToggle()</code> typing the tuple correctly</li>
+                                    <li>Create a class that implements a <code class="bg-white px-2 py-1 rounded">StorageService</code> interface</li>
+                                </ol>
+                            </div>
+
+                            <!-- Conclusion Senior -->
+                            <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-4">🧠 Final Conclusion</h3>
+                                <p class="text-gray-700 mb-4">It's not about choosing one and using it always.</p>
+                                <p class="text-gray-700 mb-3">It's about understanding:</p>
+                                <ul class="text-gray-700 space-y-2 ml-4 mb-4">
+                                    <li>• <strong>Interface</strong> → structural contract, objects, classes</li>
+                                    <li>• <strong>Type</strong> → advanced composition, states, type logic</li>
+                                </ul>
+                                <p class="text-gray-700 font-semibold">In a professional React project you'll use both. And that's completely normal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- References and Additional Resources -->
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mt-8 shadow-2xl">
+                        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-book-bookmark text-3xl text-blue-400"></i>
+                            References and Additional Resources
+                        </h2>
+                        <p class="text-gray-300 mb-6">
+                            Expand your knowledge on Interfaces vs Types in TypeScript:
+                        </p>
+                        <div class="grid gap-4">
+                            <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/699099f4-4f36-8399-8d75-0e41d06fd25f" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                <div class="bg-cyan-500 rounded-lg p-3">
+                                    <i class="fa-solid fa-comments text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-cyan-300 transition-colors">TypeScript Assistant - Interfaces vs Types</h3>
+                                    <p class="text-gray-400 text-sm">Specialized conversation on when to use each one</p>
+                                </div>
+                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                            </a>
+                            <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/698e03ec-4938-8395-82b8-77a9340c4ff0" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                                <div class="bg-purple-500 rounded-lg p-3">
+                                    <i class="fa-solid fa-lightbulb text-white text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">TypeScript Assistant - Advanced Interfaces</h3>
+                                    <p class="text-gray-400 text-sm">Advanced patterns and professional use cases</p>
+                                </div>
+                                <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../../js/main.js"></script>
 </body>
 </html>

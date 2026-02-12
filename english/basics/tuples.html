@@ -612,6 +612,201 @@ if (result[0]) {
                             </div>
                         </div>
                         </div>
+
+                        <!-- New Section: Complete Guide Tuples in TypeScript -->
+                        <div class="border-t-4 border-cyan-600 pt-12 mt-12">
+                          <button onclick="toggleSection('tuples-complete-guide')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                            <div class="flex items-center gap-4">
+                              <div class="p-4 bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-2xl shadow-lg">
+                                <i class="fa-solid fa-layer-group text-3xl"></i>
+                              </div>
+                              <div class="text-left">
+                                <h2 class="text-3xl font-extrabold text-gray-900">🧩 Complete Guide: Tuples in TypeScript with React</h2>
+                                <p class="text-gray-600 mt-1">Practical and comprehensive patterns for production code</p>
+                              </div>
+                            </div>
+                            <i id="icon-tuples-complete-guide" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                          </button>
+
+                          <div id="list-tuples-complete-guide" class="hidden space-y-6">
+                            <div class="bg-cyan-50 border-l-4 border-cyan-600 p-6 rounded-r-xl">
+                              <h3 class="text-cyan-900 font-bold text-xl mb-4">✅ Quick Checklist</h3>
+                              <ul class="text-cyan-900 space-y-2">
+                                <li>• Use tuples for related values with fixed order</li>
+                                <li>• Prefer objects when you have more than 3 elements</li>
+                                <li>• Always use readonly for immutability</li>
+                                <li>• Label tuple elements for clarity</li>
+                                <li>• Common in React hooks (useState, useReducer)</li>
+                              </ul>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">1️⃣ When to Use Tuples vs Objects</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// ✅ Tuples - when order has semantic meaning
+const position: [lat: number, lng: number] = [40.7128, -74.0060];
+const [x, y] = position;
+
+// ✅ Objects - when you have named properties
+type Location = { latitude: number; longitude: number };
+const place: Location = { latitude: 40.7128, longitude: -74.0060 };</code></pre>
+                              <p class="text-gray-700">Rule: If you're accessing by index and order matters → tuples. If you're accessing by name → objects.</p>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">2️⃣ Destructuring Tuples</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// Simple destructuring
+const [name, age] = ["Alice", 30];
+
+// Skipping elements
+const [first, , third] = [1, 2, 3];
+
+// Rest elements
+const [head, ...tail] = [1, 2, 3, 4];
+// head = 1, tail = [2, 3, 4]</code></pre>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">3️⃣ Tuples with React useState</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">function Counter() {
+  const [count, setCount] = React.useState(0);
+  // count is number, setCount is (value: number) => void
+
+  const handleClick = () => {
+    setCount(prev => prev + 1);
+  };
+
+  return &lt;button onClick={handleClick}&gt;{count}&lt;/button&gt;;
+}</code></pre>
+                              <p class="text-gray-700">useState returns a tuple: [state, setState]. This is perfect for destructuring.</p>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">4️⃣ Labeled Tuples for Clarity</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// Without labels - unclear what each position means
+type RGB = [number, number, number];
+
+// With labels - clear documentation
+type RGB = [red: number, green: number, blue: number];
+
+const color: RGB = [255, 128, 0]; // Which is which?</code></pre>
+                              <p class="text-gray-700">Labels don't affect runtime but provide excellent IDE support and documentation.</p>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">5️⃣ Readonly Tuples</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// Mutable - allows push, pop, etc
+const mutable: [string, number] = ["Alice", 30];
+mutable.push(true); // ❌ Silently breaks type contract
+
+// Immutable - prevents mutations
+const immutable: readonly [string, number] = ["Bob", 25];
+immutable.push(true); // ✅ Error at compile time</code></pre>
+                              <p class="text-gray-700">Always use readonly for function returns to prevent accidental mutations.</p>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">6️⃣ Tuples in API Responses</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// Result pattern: [success, data/error]
+type Result&lt;T&gt; =
+  | [ok: true, data: T]
+  | [ok: false, error: string];
+
+async function fetchUser(id: number): Promise&lt;Result&lt;User&gt;&gt; {
+  try {
+    const res = await fetch(`/api/users/${id}`);
+    const data = await res.json();
+    return [true, data];
+  } catch (err) {
+    return [false, (err as Error).message];
+  }
+}</code></pre>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">7️⃣ Custom Hook with Tuple Return</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">function useFetch&lt;T&gt;(url: string): [data: T | null, loading: boolean, error: string | null] {
+  const [data, setData] = React.useState&lt;T | null&gt;(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState&lt;string | null&gt;(null);
+
+  React.useEffect(() => {
+    fetch(url)
+      .then(r => r.json())
+      .then(setData)
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [url]);
+
+  return [data, loading, error];
+}
+
+// Usage
+const [user, loading, error] = useFetch&lt;User&gt;('/api/user');</code></pre>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">8️⃣ Error Handling with Tuples</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// Go-style error handling
+function divide(a: number, b: number): [result: number | null, error: string | null] {
+  if (b === 0) {
+    return [null, "Division by zero"];
+  }
+  return [a / b, null];
+}
+
+// Usage
+const [result, error] = divide(10, 2);
+if (error) {
+  console.error(error);
+} else {
+  console.log(result);
+}</code></pre>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">9️⃣ Variable-Length Tuples with Rest</h3>
+                              <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// At least 2 elements
+type StringNumberPair = [string, number, ...string[]];
+
+const arr1: StringNumberPair = ["a", 1];
+const arr2: StringNumberPair = ["a", 1, "b"];
+const arr3: StringNumberPair = ["a", 1, "b", "c", "d"];</code></pre>
+                            </div>
+
+                            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">🔟 Best Practices Summary</h3>
+                              <div class="space-y-4">
+                                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                  <p class="text-green-900 font-bold mb-2">✅ DO:</p>
+                                  <ul class="text-green-800 space-y-1 ml-4">
+                                    <li>• Use readonly for tuple returns</li>
+                                    <li>• Label elements for readability</li>
+                                    <li>• Keep tuples to 2-3 elements</li>
+                                    <li>• Use for [value, setter] patterns (React)</li>
+                                  </ul>
+                                </div>
+                                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                  <p class="text-red-900 font-bold mb-2">❌ DON'T:</p>
+                                  <ul class="text-red-800 space-y-1 ml-4">
+                                    <li>• Mix types unnecessarily</li>
+                                    <li>• Use for complex data structures</li>
+                                    <li>• Rely on push/pop (use readonly)</li>
+                                    <li>• Forget labels on complex tuples</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-8">
+                              <h3 class="text-2xl font-bold text-gray-900 mb-4">🧪 Exercises</h3>
+                              <ol class="text-gray-800 space-y-3 list-decimal ml-5">
+                                <li>Create a useAsync hook that returns [status, data, error] as a labeled tuple</li>
+                                <li>Implement a parse function that returns [success: boolean, value: T | string]</li>
+                                <li>Build a custom form hook with tuple return: [formData, handleChange, errors]</li>
+                              </ol>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </div>
 

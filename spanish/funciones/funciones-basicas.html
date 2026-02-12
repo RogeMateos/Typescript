@@ -833,6 +833,279 @@ function maybeNumber(x: string): number | undefined {
                       </div>
                     </div>
 
+                    <!-- Nueva sección: Funciones en TypeScript - Tipado, Contratos y Type Narrowing -->
+                    <div class="border-t-4 border-indigo-600 pt-12 mt-12">
+                      <button onclick="toggleSection('funciones-avanzadas')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                        <div class="flex items-center gap-4">
+                          <div class="p-4 bg-gradient-to-br from-indigo-600 to-blue-600 text-white rounded-2xl shadow-lg">
+                            <i class="fa-solid fa-function text-3xl"></i>
+                          </div>
+                          <div class="text-left">
+                            <h2 class="text-3xl font-extrabold text-gray-900">🧠 Funciones en TypeScript — Tipado, Contratos y Type Narrowing</h2>
+                            <p class="text-gray-600 mt-1">De JavaScript básico a arquitectura profesional</p>
+                          </div>
+                        </div>
+                        <i id="icon-funciones-avanzadas" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                      </button>
+
+                      <div id="list-funciones-avanzadas" class="hidden space-y-6">
+                        <!-- Introducción -->
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-8 rounded-r-2xl">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4">📌 Introducción</h3>
+                          <p class="text-gray-700 mb-4">Las funciones en TypeScript son casi iguales a JavaScript… pero con superpoderes de tipado.</p>
+                          <p class="text-gray-700 mb-4">En esta guía vamos a ver:</p>
+                          <ul class="text-gray-700 space-y-2 ml-4 mb-4">
+                            <li>• Tipar parámetros y retorno</li>
+                            <li>• Inferencia vs contrato explícito</li>
+                            <li>• Parámetros opcionales y valores por defecto</li>
+                            <li>• Rest parameters</li>
+                            <li>• Function types (contratos reutilizables)</li>
+                            <li>• Type narrowing (estrechamiento de tipos)</li>
+                            <li>• Aplicación real en React + APIs</li>
+                          </ul>
+                        </div>
+
+                        <!-- 1️⃣ Tipar parámetros y retorno -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">1</span>
+                            Tipar parámetros y retorno
+                          </h3>
+                          <p class="text-gray-700 mb-4">En TypeScript los parámetros se tipan con : tipo.</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function sumar(a: number, b: number): number {
+  return a + b;
+}</code></pre>
+
+                          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                            <p class="text-yellow-900 font-semibold mb-2">¿Por qué debemos tipar los parámetros?</p>
+                            <p class="text-yellow-800 mb-2">Porque TypeScript no puede inferirlos siempre.</p>
+                            <p class="text-yellow-800">El operador + funciona para: number + number y string + string</p>
+                            <p class="text-yellow-800 mt-2">Sin tipos, TS no sabe si es suma numérica o concatenación.</p>
+                          </div>
+                        </div>
+
+                        <!-- 2️⃣ Inferencia vs Retorno Explícito -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">2</span>
+                            Inferencia vs Retorno Explícito
+                          </h3>
+                          <p class="text-gray-700 mb-4">Si ya tipaste los parámetros, TS puede inferir el retorno:</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function sumar(a: number, b: number) {
+  return a + b; // inferido como number
+}</code></pre>
+
+                          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-4">
+                            <p class="text-blue-900 font-semibold mb-2">🧠 Recomendación senior</p>
+                            <table class="w-full mt-2 text-blue-800 text-sm">
+                              <tr class="border-b border-blue-200">
+                                <td class="py-1 font-semibold">Función pequeña privada</td>
+                                <td class="py-1">No obligatorio</td>
+                              </tr>
+                              <tr class="border-b border-blue-200">
+                                <td class="py-1 font-semibold">Función pública / helper</td>
+                                <td class="py-1">Sí</td>
+                              </tr>
+                              <tr>
+                                <td class="py-1 font-semibold">API / librería</td>
+                                <td class="py-1">Siempre</td>
+                              </tr>
+                            </table>
+                          </div>
+
+                          <p class="text-gray-700 mb-3">Ejemplo de bug evitado:</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">const sumar = (a: number, b: number): number => {
+  return a.toString(); // ❌ Error inmediato
+};</code></pre>
+                        </div>
+
+                        <!-- 3️⃣ Parámetros Opcionales -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">3</span>
+                            Parámetros Opcionales
+                          </h3>
+                          <p class="text-gray-700 mb-4">Se indican con ?</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function saludar(nombre: string, apellido?: string) {
+  return `Hola ${nombre} ${apellido ?? ""}`;
+}</code></pre>
+
+                          <p class="text-gray-700 mb-4">Internamente esto es: <code class="bg-gray-100 px-2 py-1 rounded">apellido: string | undefined</code></p>
+
+                          <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                            <p class="text-amber-900 font-semibold">⚠️ Diferencia importante</p>
+                            <ul class="text-amber-800 space-y-1 ml-4 mt-2">
+                              <li>• ? significa que puede no venir</li>
+                              <li>• Eso crea una unión con undefined</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <!-- 4️⃣ Valores por Defecto -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">4</span>
+                            Valores por Defecto
+                          </h3>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function crearUsuario(nombre: string, rol: string = "admin") {
+  return { nombre, rol };
+}</code></pre>
+
+                          <p class="text-gray-700 mb-4">Aquí rol es opcional en la llamada:</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">crearUsuario("Roge"); // rol = "admin"</code></pre>
+
+                          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                            <p class="text-red-900 font-semibold">❗ No mezcles ? con valor por defecto</p>
+                            <p class="text-red-800 mt-2">Si tiene default → ya es opcional.</p>
+                          </div>
+                        </div>
+
+                        <!-- 5️⃣ Rest Parameters -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">5</span>
+                            Rest Parameters
+                          </h3>
+                          <p class="text-gray-700 mb-4">Cuando no sabes cuántos argumentos recibirás:</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function sumar(...numeros: number[]): number {
+  return numeros.reduce((acc, n) => acc + n, 0);
+}</code></pre>
+
+                          <p class="text-gray-700 mb-2">Siempre es un array:</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">sumar(1, 2);
+sumar(1, 2, 3, 4);</code></pre>
+                        </div>
+
+                        <!-- 6️⃣ Function Types -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">6</span>
+                            Function Types (Contratos Reutilizables)
+                          </h3>
+                          <p class="text-gray-700 mb-4">En lugar de repetir la firma en muchos lugares, extraemos el contrato:</p>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">type OperacionMatematica = (a: number, b: number) => number;
+
+const dividir: OperacionMatematica = (a, b) => a / b;
+const restar: OperacionMatematica = (a, b) => a - b;</code></pre>
+
+                          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                            <p class="text-green-900 font-semibold">🧠 Mentalidad senior</p>
+                            <p class="text-green-800 mt-2">Si el tipo representa una idea del dominio, extráelo.</p>
+                            <ul class="text-green-800 space-y-1 ml-4 mt-2">
+                              <li>• Comparator</li>
+                              <li>• Validator</li>
+                              <li>• Mapper</li>
+                              <li>• Handler</li>
+                              <li>• Fetcher</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <!-- 7️⃣ Type Narrowing -->
+                        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">7</span>
+                            Type Narrowing (Estrechamiento de Tipos)
+                          </h3>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">7.1 Narrowing con typeof</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function procesar(valor: number | string) {
+  if (typeof valor === "number") {
+    return valor * 2; // number
+  }
+  return valor.toUpperCase(); // string
+}</code></pre>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">7.2 Truthy Narrowing</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function imprimir(mensaje: string | null | undefined) {
+  if (!mensaje) return;
+
+  // Aquí ya es string
+  console.log(mensaje.toUpperCase());
+}</code></pre>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">7.3 Narrowing con "in"</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">type Pez = { nadar: () => void };
+type Pajaro = { volar: () => void };
+
+function mover(animal: Pez | Pajaro) {
+  if ("nadar" in animal) {
+    animal.nadar();
+  } else {
+    animal.volar();
+  }
+}</code></pre>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">7.4 Narrowing con instanceof</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"><code class="language-typescript">function formatear(value: string | Date): string {
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+  return new Date(value).toISOString();
+}</code></pre>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">7.5 User-Defined Type Guards (Nivel Pro)</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"><code class="language-typescript">type Usuario = {
+  id: number;
+  name: string;
+};
+
+function esUsuario(value: unknown): value is Usuario {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    "name" in value
+  );
+}</code></pre>
+                        </div>
+
+                        <!-- 8️⃣ Aplicación Real en React -->
+                        <div class="bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-300 rounded-2xl p-8 shadow-sm">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                            <i class="fa-brands fa-react text-pink-600 text-2xl"></i>
+                            Aplicación Real en React
+                          </h3>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">8.1 useState + Narrowing</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-white p-4 rounded-lg border border-pink-200 mb-4"><code class="language-typescript">const [user, setUser] = useState<string | null>(null);
+
+if (!user) return <Spinner />;
+
+return <div>{user.toUpperCase()}</div>;</code></pre>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">8.2 Tipar Callbacks</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-white p-4 rounded-lg border border-pink-200 mb-4"><code class="language-typescript">type OnSave = (data: { name: string; role: string }) => Promise<void>;
+
+function UserForm({ onSave }: { onSave: OnSave }) {
+  // ...
+}</code></pre>
+
+                          <h4 class="font-semibold text-gray-900 mb-3">8.3 API segura con unknown</h4>
+                          <pre class="text-sm md:text-base leading-relaxed bg-white p-4 rounded-lg border border-pink-200"><code class="language-typescript">async function fetchJson(url: string): Promise<unknown> {
+  const res = await fetch(url);
+  return res.json();
+}
+
+// Luego narrowing obligatorio</code></pre>
+                        </div>
+
+                        <!-- 🎯 Conclusión Senior -->
+                        <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl">
+                          <h3 class="text-2xl font-bold text-gray-900 mb-4">🎯 Mentalidad Senior Final</h3>
+                          <p class="text-gray-700 mb-4">TypeScript no está para decorar código. Está para:</p>
+                          <ul class="text-gray-700 space-y-2 ml-4 mb-4">
+                            <li>• Definir contratos</li>
+                            <li>• Reducir incertidumbre</li>
+                            <li>• Detectar errores antes de runtime</li>
+                            <li>• Documentar intención</li>
+                            <li>• Escalar equipos</li>
+                          </ul>
+                          <p class="text-gray-700 font-semibold">Cuando entiendes funciones + narrowing + contratos… Ya estás pensando como arquitecto de tipos.</p>
+                        </div>
+                      </div>
+                    </div>
+
                     <!-- Referencias Adicionales -->
                     <div class="border-t-4 border-gray-600 pt-12 mt-12">
                       <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white rounded-2xl p-8 shadow-xl">
@@ -871,6 +1144,16 @@ function maybeNumber(x: string): number | undefined {
                             <div class="flex-1">
                               <h3 class="font-bold text-lg text-white group-hover:text-orange-300 transition-colors">ChatGPT - TypeScript GPT</h3>
                               <p class="text-gray-400 text-sm">Guía interactiva sobre funciones y casos de uso prácticos</p>
+                            </div>
+                            <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
+                          </a>
+                          <a href="https://chatgpt.com/g/g-p-697fcb34f3448191bc6d93933e660560-typescript/c/698e0046-1a6c-838a-b8b2-87b2853adb71" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-all flex items-center gap-4 group">
+                            <div class="bg-cyan-500 rounded-lg p-3">
+                              <i class="fa-solid fa-lightbulb text-white text-2xl"></i>
+                            </div>
+                            <div class="flex-1">
+                              <h3 class="font-bold text-lg text-white group-hover:text-cyan-300 transition-colors">Funciones Avanzadas - Type Narrowing</h3>
+                              <p class="text-gray-400 text-sm">Conversación sobre tipado, contratos y estrechamiento de tipos</p>
                             </div>
                             <i class="fa-solid fa-external-link-alt text-gray-400 group-hover:text-white transition-colors"></i>
                           </a>

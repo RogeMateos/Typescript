@@ -1029,6 +1029,584 @@ if (result[0]) {
 
                     </div>
                   </div>
+
+                  <!-- Nueva sección: Tuplas en TypeScript - Guía Completa y Práctica -->
+                  <div class="border-t-4 border-purple-600 pt-12 mt-12">
+                    <button
+                      onclick="toggleSection('tuplas-completa')"
+                      class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity"
+                    >
+                      <div class="flex items-center gap-4">
+                        <div
+                          class="p-4 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-2xl shadow-lg"
+                        >
+                          <i class="fa-solid fa-graduation-cap text-3xl"></i>
+                        </div>
+                        <div class="text-left">
+                          <h2 class="text-3xl font-extrabold text-gray-900">
+                            📚 Tuplas en TypeScript — Guía Completa y Práctica (con React)
+                          </h2>
+                          <p class="text-gray-600 mt-1">
+                            Domina tuplas desde lo básico hasta patrones avanzados
+                          </p>
+                        </div>
+                      </div>
+                      <i
+                        id="icon-tuplas-completa"
+                        class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"
+                      ></i>
+                    </button>
+
+                    <div id="list-tuplas-completa" class="hidden space-y-6">
+                      <!-- 1️⃣ ¿Qué es una tupla? -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >1</span
+                          >
+                          ¿Qué es una tupla?
+                        </h3>
+
+                        <p class="text-gray-700 mb-4">
+                          Una tupla en TypeScript es un array con:
+                        </p>
+
+                        <ul class="text-gray-700 space-y-2 mb-6 ml-4">
+                          <li>✔️ Número de posiciones conocido</li>
+                          <li>✔️ Tipo específico por posición</li>
+                          <li>✔️ Orden obligatorio</li>
+                        </ul>
+
+                        <p class="text-gray-700 mb-4">
+                          A diferencia de <code class="bg-gray-100 px-2 py-1 rounded">number[]</code>, donde pueden existir infinitos números, una tupla define exactamente qué hay en cada posición.
+                        </p>
+
+                        <h4 class="font-semibold text-gray-900 mb-3">Ejemplo básico</h4>
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type PersonTuple = [string, number];
+
+const person: PersonTuple = ["Roge", 30];</code></pre>
+
+                        <div
+                          class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg"
+                        >
+                          <p class="text-blue-900 font-semibold mb-2">
+                            Aquí TypeScript entiende que:
+                          </p>
+                          <ul class="text-blue-800 space-y-1 ml-4">
+                            <li>person[0] → string</li>
+                            <li>person[1] → number</li>
+                            <li><strong>El orden importa. Siempre.</strong></li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <!-- 2️⃣ Diferencia: Tupla vs Array -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >2</span
+                          >
+                          Diferencia clave: Tupla vs Array
+                        </h3>
+
+                        <h4 class="font-semibold text-gray-900 mb-3 text-red-700">
+                          ❌ Array normal:
+                        </h4>
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type Numbers = number[];
+const coords: Numbers = [40.4, -3.7, 10]; // válido</code></pre>
+                        <p class="text-gray-700 mb-6">No hay control sobre la longitud.</p>
+
+                        <h4 class="font-semibold text-gray-900 mb-3 text-green-700">
+                          ✅ Tupla:
+                        </h4>
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"
+                        ><code class="language-typescript">type Coordinates = [number, number];
+const coords: Coordinates = [40.4, -3.7]; // correcto</code></pre>
+                        <p class="text-gray-700 mt-4">Aquí siempre habrá exactamente dos números.</p>
+                      </div>
+
+                      <!-- 3️⃣ Regla profesional: ¿Cuándo usar tupla y cuándo objeto? -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >3</span
+                          >
+                          Regla profesional: ¿Cuándo usar tupla y cuándo objeto?
+                        </h3>
+
+                        <div class="mb-6">
+                          <h4 class="font-semibold text-gray-900 mb-3 text-green-700">
+                            Usa tupla cuando:
+                          </h4>
+                          <ul class="text-gray-700 space-y-2 ml-4">
+                            <li>• El significado depende del orden.</li>
+                            <li>• Se desestructura inmediatamente.</li>
+                            <li>• Son pocos elementos (2–3 normalmente).</li>
+                            <li>• Siempre viajan juntos.</li>
+                          </ul>
+                          <p class="text-gray-700 mt-3 font-semibold">Ejemplos típicos:</p>
+                          <ul class="text-gray-700 space-y-1 ml-4">
+                            <li>• Coordenadas [lat, lng]</li>
+                            <li>• RGB [r, g, b]</li>
+                            <li>• useState en React</li>
+                          </ul>
+                        </div>
+
+                        <div class="mb-6">
+                          <h4 class="font-semibold text-gray-900 mb-3 text-blue-700">
+                            Usa objeto cuando:
+                          </h4>
+                          <ul class="text-gray-700 space-y-2 ml-4">
+                            <li>• Hay muchos campos.</li>
+                            <li>• Necesitas acceder por nombre.</li>
+                            <li>• Puede crecer en el futuro.</li>
+                            <li>• Hay opcionales.</li>
+                          </ul>
+                        </div>
+
+                        <h4 class="font-semibold text-gray-900 mb-3">
+                          Ejemplo correcto para persona:
+                        </h4>
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"
+                        ><code class="language-typescript">type Person = {
+  name: string;
+  age: number;
+};</code></pre>
+                        <p class="text-gray-700 mt-4"><strong>No uses tupla aquí. Sería mala práctica.</strong></p>
+                      </div>
+
+                      <!-- 4️⃣ Desestructuración -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >4</span
+                          >
+                          Desestructuración (donde brillan las tuplas)
+                        </h3>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type Coordinates = [number, number];
+
+const coords: Coordinates = [40.4, -3.7];
+
+const [lat, lng] = coords;</code></pre>
+
+                        <div
+                          class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg"
+                        >
+                          <p class="text-green-900">Ahora:</p>
+                          <ul class="text-green-800 space-y-1 mt-2 ml-4">
+                            <li>lat es number</li>
+                            <li>lng es number</li>
+                          </ul>
+                          <p class="text-green-800 mt-3"><strong>Limpio. Preciso. Seguro.</strong></p>
+                        </div>
+                      </div>
+
+                      <!-- 5️⃣ Caso Real: React y useState -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >5</span
+                          >
+                          Caso Real: React y useState
+                        </h3>
+
+                        <p class="text-gray-700 mb-4">
+                          <code class="bg-gray-100 px-2 py-1 rounded">useState</code> devuelve una tupla de 2 posiciones:
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">const [count, setCount] = useState(0);</code></pre>
+
+                        <p class="text-gray-700 mb-4">
+                          Internamente es algo parecido a:
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type UseStateReturn&lt;T&gt; = [T, (value: T) => void];</code></pre>
+
+                        <div
+                          class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg"
+                        >
+                          <p class="text-blue-900 font-semibold mb-2">¿Por qué tupla aquí?</p>
+                          <p class="text-blue-800">Porque:</p>
+                          <ul class="text-blue-800 space-y-1 mt-2 ml-4">
+                            <li>• Siempre devuelve exactamente dos cosas.</li>
+                            <li>• El orden está completamente definido.</li>
+                            <li>• Siempre se desestructura.</li>
+                            <li>• Es el caso de uso perfecto.</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <!-- 6️⃣ Tuplas con nombres (Labeled Tuples) -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >6</span
+                          >
+                          Tuplas con nombres (Labeled Tuples)
+                        </h3>
+
+                        <p class="text-gray-700 mb-4">
+                          Mejoran la documentación del código.
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type Coordinates = [lat: number, lng: number];</code></pre>
+
+                        <div
+                          class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg"
+                        >
+                          <p class="text-green-900 font-semibold mb-2">Esto:</p>
+                          <ul class="text-green-800 space-y-1 ml-4">
+                            <li>• No cambia el runtime.</li>
+                            <li>• No permite acceder como coord.lat.</li>
+                            <li>• Pero mejora el hover y la documentación.</li>
+                            <li>• Es una forma de hacer el tipo más autoexplicativo.</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <!-- 7️⃣ Casos de Uso Comunes -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >7</span
+                          >
+                          Casos de Uso Comunes
+                        </h3>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">📍 Coordenadas
+type Coordinates = [latitude: number, longitude: number];
+
+🎨 RGB
+type RGB = [red: number, green: number, blue: number];
+const color: RGB = [255, 0, 0];
+
+📊 Rangos
+type Range = [min: number, max: number];
+const ageRange: Range = [18, 65];</code></pre>
+                      </div>
+
+                      <!-- 8️⃣ Tuplas con Rest Elements -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >8</span
+                          >
+                          Tuplas con Rest Elements
+                        </h3>
+
+                        <p class="text-gray-700 mb-4">
+                          Puedes definir una estructura con primer elemento fijo y resto dinámico.
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type LogEvent = [message: string, ...tags: string[]];
+
+function log(...event: LogEvent) {
+  const [message, ...tags] = event;
+  console.log(message, tags);
+}
+
+log("User logged in", "auth", "info");</code></pre>
+
+                        <div
+                          class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg"
+                        >
+                          <p class="text-blue-900 font-semibold mb-2">Muy útil en:</p>
+                          <ul class="text-blue-800 space-y-1 ml-4">
+                            <li>• Logs</li>
+                            <li>• Eventos</li>
+                            <li>• Configuración flexible</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <!-- 9️⃣ Tuplas readonly -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >9</span
+                          >
+                          Tuplas readonly
+                        </h3>
+
+                        <p class="text-gray-700 mb-4">
+                          Evitan mutaciones accidentales.
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type Config = readonly [host: string, port: number, useSSL: boolean];
+
+const config: Config = ["localhost", 5432, true];
+
+// config[0] = "prod"; ❌ Error</code></pre>
+
+                        <div class="mt-6">
+                          <h4 class="font-semibold text-gray-900 mb-3">
+                            Uso avanzado con as const
+                          </h4>
+                          <pre
+                            class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"
+                          ><code class="language-typescript">const roles = ["admin", "user", "guest"] as const;
+
+type Role = (typeof roles)[number];
+// "admin" | "user" | "guest"</code></pre>
+                          <p class="text-gray-700 mt-4">
+                            <strong>Esto es extremadamente útil en React + TypeScript.</strong>
+                          </p>
+                        </div>
+                      </div>
+
+                      <!-- 🔟 Error común: archivo no es módulo -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >🔟</span
+                          >
+                          Error común: archivo no es módulo
+                        </h3>
+
+                        <p class="text-gray-700 mb-4">
+                          Si ves errores tipo:
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">Cannot redeclare block-scoped variable</code></pre>
+
+                        <p class="text-gray-700 mb-4">
+                          Añade al final del archivo:
+                        </p>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200"
+                        ><code class="language-typescript">export {};</code></pre>
+
+                        <p class="text-gray-700 mt-4">Así TypeScript lo trata como módulo y no como script global.</p>
+                      </div>
+
+                      <!-- 1️⃣1️⃣ Errores Comunes con Tuplas -->
+                      <div
+                        class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r-xl shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >1️⃣1️⃣</span
+                          >
+                          Errores Comunes con Tuplas
+                        </h3>
+
+                        <h4 class="font-semibold text-red-900 mb-3">
+                          ❌ Confundir array con tupla
+                        </h4>
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-white p-4 rounded-lg border border-red-200 mb-4"
+                        ><code class="language-typescript">type Bad = number[];</code></pre>
+                        <p class="text-red-800 mb-4">Esto no limita longitud.</p>
+
+                        <h4 class="font-semibold text-red-900 mb-3">
+                          ❌ Usar demasiados elementos
+                        </h4>
+                        <p class="text-red-800 mb-4">
+                          Si una tupla tiene 4+ elementos, probablemente debería ser un objeto.
+                        </p>
+
+                        <h4 class="font-semibold text-red-900 mb-3">
+                          ❌ Mutaciones inesperadas
+                        </h4>
+                        <p class="text-red-800">
+                          Sin <code class="bg-white px-1 rounded">readonly</code>, podrías modificar la estructura accidentalmente.
+                        </p>
+                      </div>
+
+                      <!-- 1️⃣2️⃣ Patrón Real: Custom Hook con Tupla -->
+                      <div
+                        class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >1️⃣2️⃣</span
+                          >
+                          Patrón Real: Custom Hook con Tupla
+                        </h3>
+
+                        <pre
+                          class="text-sm md:text-base leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4"
+                        ><code class="language-typescript">type UseToggleReturn = [
+  value: boolean,
+  toggle: () => void,
+  set: (v: boolean) => void
+];
+
+function useToggle(initial = false): UseToggleReturn {
+  const [value, setValue] = useState(initial);
+
+  const toggle = () => setValue(v => !v);
+
+  return [value, toggle, setValue];
+}
+
+const [isOpen, toggleOpen, setOpen] = useToggle();</code></pre>
+
+                        <div
+                          class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg"
+                        >
+                          <p class="text-green-900 font-semibold mb-2">Aquí la tupla tiene sentido porque:</p>
+                          <ul class="text-green-800 space-y-1 ml-4">
+                            <li>• Se desestructura.</li>
+                            <li>• El orden está definido.</li>
+                            <li>• Son pocas piezas.</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <!-- 1️⃣3️⃣ Buenas Prácticas Profesionales -->
+                      <div
+                        class="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-600 p-6 rounded-r-xl shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >1️⃣3️⃣</span
+                          >
+                          Buenas Prácticas Profesionales
+                        </h3>
+
+                        <ul class="text-green-900 space-y-2 ml-4">
+                          <li>✔️ Usa tuplas solo cuando el orden tenga significado real</li>
+                          <li>✔️ No abuses de más de 3 elementos</li>
+                          <li>✔️ Usa labeled tuples para documentar</li>
+                          <li>✔️ Usa readonly cuando la estructura no debe cambiar</li>
+                          <li>✔️ En hooks → tupla suele ser buena elección</li>
+                          <li>✔️ En APIs complejas → objeto suele ser mejor</li>
+                        </ul>
+                      </div>
+
+                      <!-- 1️⃣4️⃣ Ejercicios para dominarlo -->
+                      <div
+                        class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-8 shadow-sm"
+                      >
+                        <h3
+                          class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3"
+                        >
+                          <span
+                            class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold"
+                            >1️⃣4️⃣</span
+                          >
+                          Ejercicios para dominarlo
+                        </h3>
+
+                        <ol class="text-gray-800 space-y-3 list-decimal ml-5">
+                          <li>Crea una función <code class="bg-white px-2 py-1 rounded">clamp(value: number, range: [number, number])</code></li>
+                          <li>Implementa <code class="bg-white px-2 py-1 rounded">useCounter()</code> que devuelva <code class="bg-white px-2 py-1 rounded">[count, inc, dec, reset]</code></li>
+                          <li>Define <code class="bg-white px-2 py-1 rounded">type HTTPStatus = [code: number, message: string]</code></li>
+                        </ol>
+                      </div>
+
+                      <!-- Conclusión Senior -->
+                      <div
+                        class="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl"
+                      >
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                          🎯 Conclusión Senior
+                        </h3>
+                        <p class="text-gray-700 mb-3">
+                          Las tuplas no son "arrays con glamour".
+                        </p>
+                        <p class="text-gray-700 mb-3">
+                          Son herramientas para:
+                        </p>
+                        <ul class="text-gray-700 space-y-2 ml-4 mb-4">
+                          <li>• Modelar pares ordenados</li>
+                          <li>• Crear contratos estrictos</li>
+                          <li>• Mejorar la documentación</li>
+                          <li>• Diseñar APIs limpias (especialmente en React)</li>
+                        </ul>
+                        <p class="text-gray-700 mb-3">
+                          Pero si empiezas a añadir demasiada semántica… cambia a objeto.
+                        </p>
+                        <p class="text-gray-700 font-semibold">
+                          Esa es la diferencia entre escribir TypeScript… y diseñar bien con TypeScript.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Referencias y Recursos Adicionales -->

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objects and Data Modeling - TypeScript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <link rel="stylesheet" href="../../css/styles.css" />
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <div class="flex h-screen overflow-hidden">
+      <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-8">
+            <a href="../../index.html" class="flex items-center gap-2 text-blue-600 hover:text-blue-700">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span class="font-semibold">Back</span>
+            </a>
+            <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700">
+              <i class="fa-solid fa-times text-xl"></i>
+            </button>
+          </div>
+
+          <nav class="space-y-6">
+            <div>
+              <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Core Concepts</h3>
+              <ul class="space-y-1">
+                <li><a href="../core-concepts/typing.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-shield-halved w-5"></i><span>Typing</span></a></li>
+                <li><a href="../core-concepts/primitives-and-inference.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-book w-5"></i><span>Primitives and Inference</span></a></li>
+                <li><a href="../core-concepts/interfaces.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-file-contract w-5"></i><span>Interfaces</span></a></li>
+                <li><a href="../core-concepts/ts-vs-js.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-code-compare w-5"></i><span>TS vs JS</span></a></li>
+                <li><a href="../core-concepts/union-types.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-layer-group w-5"></i><span>Union Types</span></a></li>
+              </ul>
+            </div>
+
+            <div>
+              <button onclick="toggleSidebarSection('basics')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                <span>Basic Types</span>
+                <i id="icon-basics" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+              </button>
+              <ul id="list-basics" class="space-y-1">
+                <li><a href="../basics/type-inference.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-lightbulb w-5"></i><span>Type Inference</span></a></li>
+                <li><a href="../basics/strings.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-quote-left w-5"></i><span>Strings</span></a></li>
+                <li><a href="../basics/type-any.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-exclamation-triangle w-5"></i><span>Any Type</span></a></li>
+                <li><a href="../basics/arrays.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-list w-5"></i><span>Arrays</span></a></li>
+                <li><a href="../basics/tuples.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-layer-group w-5"></i><span>Tuples</span></a></li>
+                <li><a href="../basics/type-void.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-ban w-5"></i><span>Void Type</span></a></li>
+                <li><a href="../basics/type-never.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-infinity w-5"></i><span>Never Type</span></a></li>
+                <li><a href="../basics/null-undefined.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-question w-5"></i><span>Null vs Undefined</span></a></li>
+              </ul>
+            </div>
+
+            <div>
+              <button onclick="toggleSidebarSection('functions-objects')" class="w-full flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 hover:text-gray-700 transition-colors">
+                <span>Functions and Objects</span>
+                <i id="icon-functions-objects" class="fa-solid fa-chevron-down text-xs transition-transform duration-300"></i>
+              </button>
+              <ul id="list-functions-objects" class="space-y-1">
+                <li><a href="basic-functions.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-function w-5"></i><span>Basic Functions</span></a></li>
+                <li><a href="required-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-exclamation-circle w-5"></i><span>Required Parameters</span></a></li>
+                <li><a href="optional-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-question-circle w-5"></i><span>Optional Parameters</span></a></li>
+                <li><a href="default-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-equals w-5"></i><span>Default Parameters</span></a></li>
+                <li><a href="rest-parameters.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-ellipsis-h w-5"></i><span>Rest Parameters</span></a></li>
+                <li><a href="function-type.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-code w-5"></i><span>Function Type</span></a></li>
+                <li><a href="type-test.html" class="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100"><i class="fa-solid fa-flask w-5"></i><span>Type Test</span></a></li>
+                <li><a href="objects-data-modeling.html" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-50 text-blue-700"><i class="fa-solid fa-box-archive w-5"></i><span>Objects and Modeling</span></a></li>
+              </ul>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-200">
+              <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Language</p>
+              <div class="flex gap-2">
+                <a href="objects-data-modeling.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm"><span>🇬🇧</span><span>English</span></a>
+                <a href="../../spanish/funciones/objetos-modelado-datos.html" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"><span>🇪🇸</span><span>Español</span></a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="flex-1 flex flex-col h-screen overflow-hidden lg:ml-64">
+        <div class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+          <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700"><i class="fa-solid fa-bars text-xl"></i></button>
+          <a href="../../index.html" class="text-sm text-blue-600 hover:text-blue-700 font-medium">Back to home</a>
+        </div>
+
+        <div class="flex-1 overflow-y-auto">
+          <div class="min-h-screen p-6 md:p-12">
+            <div class="max-w-4xl mx-auto">
+              <div class="animate-in">
+                <div class="flex items-center gap-4 mb-8">
+                  <div class="p-4 bg-blue-600 text-white rounded-2xl shadow-lg">
+                    <i class="fa-solid fa-box-archive text-3xl"></i>
+                  </div>
+                  <h1 class="text-4xl font-extrabold text-gray-900">📦 TypeScript – Objects and Data Modeling</h1>
+                </div>
+
+                <div class="grid gap-8">
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                      <h3 class="text-red-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Problem</h3>
+                      <p class="text-red-900">Weak object modeling creates technical debt: duplicated shapes, fragile integrations, and inconsistent UI/API contracts.</p>
+                    </div>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-xl">
+                      <h3 class="text-green-800 font-bold uppercase text-xs tracking-widest mb-2 flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> Solution</h3>
+                      <p class="text-green-900">Model objects with reusable, immutable, and explicit contracts, and separate API DTOs from UI models.</p>
+                    </div>
+                  </div>
+
+                  <div class="bg-blue-50 border border-blue-100 p-8 rounded-2xl">
+                    <p class="text-blue-900 text-lg"><strong>Level:</strong> Solid foundations with real React + API focus</p>
+                    <p class="text-blue-800 mt-2"><strong>Goal:</strong> Learn to model objects correctly and avoid future technical debt.</p>
+                  </div>
+
+                  <div class="bg-amber-50 border-2 border-amber-200 border-dashed p-8 rounded-3xl">
+                    <h3 class="text-amber-800 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2"><i class="fa-solid fa-microphone-lines"></i> Interview Question</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-6">Q: Why should you separate DTO types from UI model types?</p>
+                    <button onclick="toggleAnswer()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-xl transition-all active:scale-95 shadow-lg shadow-amber-200">Show Answer</button>
+                    <div id="answer" class="hidden bg-white p-6 rounded-2xl border border-amber-100 text-gray-700 shadow-sm mt-4">
+                      <span class="font-black text-amber-500">A: </span>TypeScript only protects compile-time assumptions. API payloads can still be invalid at runtime, so you should validate/transform DTOs before using them in the UI.
+                    </div>
+                  </div>
+
+                  <div class="border-t-4 border-blue-600 pt-12 mt-12">
+                    <button onclick="toggleSection('objects-modeling-deep')" class="w-full flex items-center justify-between gap-4 mb-8 hover:opacity-80 transition-opacity">
+                      <div class="flex items-center gap-4">
+                        <div class="p-4 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-2xl shadow-lg">
+                          <i class="fa-solid fa-layer-group text-3xl"></i>
+                        </div>
+                        <div class="text-left">
+                          <h2 class="text-3xl font-extrabold text-gray-900">📘 Complete Guide: Objects and Data Modeling</h2>
+                          <p class="text-gray-600 mt-1">Solid foundations with real React + APIs focus</p>
+                        </div>
+                      </div>
+                      <i id="icon-objects-modeling-deep" class="fa-solid fa-chevron-down text-2xl text-gray-500 transition-transform duration-300"></i>
+                    </button>
+
+                    <div id="list-objects-modeling-deep" class="hidden space-y-6">
+                      <div class="bg-green-50 border-l-4 border-green-600 p-6 rounded-r-xl">
+                        <h3 class="text-green-900 font-bold text-xl mb-4">✅ Quick Checklist</h3>
+                        <ul class="text-green-900 space-y-2">
+                          <li>• Avoid repeated inline object shapes.</li>
+                          <li>• Use reusable type aliases.</li>
+                          <li>• Prefer unknown over any.</li>
+                          <li>• Separate API DTO and UI model.</li>
+                          <li>• Use literal types for safe roles.</li>
+                          <li>• Use readonly to prevent mutations.</li>
+                        </ul>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">1️⃣ Type objects the scalable way</h3>
+                        <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">// ❌ Not scalable
+const user: { name: string; age: number } = {
+  name: "Miguel",
+  age: 30
+};
+
+// ✅ Recommended
+export type User = {
+  name: string;
+  age: number;
+};</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">2️⃣ Optional properties</h3>
+                        <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">export type User = {
+  name: string;
+  age: number;
+  email?: string;
+};
+
+// Difference:
+// email?: string             -> can be missing
+// email: string | undefined  -> property always exists</code></pre>
+                        <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">type UserCardProps = { user: User };
+
+export function UserCard({ user }: UserCardProps) {
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{user.name}&lt;/p&gt;
+      {user.email && &lt;p&gt;{user.email}&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+}</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">3️⃣ readonly and immutability</h3>
+                        <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">export type User = {
+  readonly id: string;
+  name: string;
+};
+
+// user.id = "new-id"; // ❌ Error
+
+const updatedUser = { ...user, name: "New name" };</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">4️⃣ Nested types</h3>
+                        <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">export type Company = {
+  name: string;
+  address: string;
+};
+
+export type User = {
+  name: string;
+  company?: Company;
+};</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">5️⃣ Literal types for safe roles</h3>
+                        <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">export type Role = "admin" | "user" | "editor";
+
+export const ROLES = ["admin", "user", "editor"] as const;
+export type Role2 = (typeof ROLES)[number];</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">6️⃣ Intersection types</h3>
+                        <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">type UserBase = { name: string };
+type WithId = { id: string };
+
+type UserEntity = UserBase &amp; WithId;</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">7️⃣ Index signatures and Record</h3>
+                        <pre class="text-sm md:text-base leading-relaxed mb-4"><code class="language-typescript">type Dictionary = Record&lt;string, string&gt;;
+
+type Translations = Record&lt;string, string&gt;;
+
+const es: Translations = {
+  "home.title": "Home",
+  "home.cta": "Start"
+};</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">8️⃣ Compile time vs runtime</h3>
+                        <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">type UserDto = {
+  id: number;
+  name: string;
+};
+
+type User = {
+  id: string;
+  name: string;
+};
+
+function mapUser(dto: UserDto): User {
+  return {
+    id: String(dto.id),
+    name: dto.name
+  };
+}</code></pre>
+                        <p class="text-gray-700 mt-3">Recommended flow: DTO -> validate -> map -> use in UI.</p>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">9️⃣ Discriminated unions</h3>
+                        <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">type Admin = {
+  role: "admin";
+  permissions: string[];
+};
+
+type RegularUser = {
+  role: "user";
+};
+
+type User = Admin | RegularUser;
+
+function renderUser(user: User) {
+  if (user.role === "admin") {
+    return user.permissions.join(",");
+  }
+  return "Regular user";
+}</code></pre>
+                      </div>
+
+                      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">🔟 any vs unknown</h3>
+                        <pre class="text-sm md:text-base leading-relaxed"><code class="language-typescript">let data: unknown; // ✅
+// let data: any;   // ❌ avoid
+
+function promote(user: User): User {
+  return { ...user, role: "admin" };
+}</code></pre>
+                      </div>
+
+                      <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r-xl">
+                        <h3 class="text-red-900 font-bold text-xl mb-4">🚨 Common mistakes</h3>
+                        <ul class="text-red-900 space-y-2">
+                          <li>• Repeating inline shapes.</li>
+                          <li>• Using any.</li>
+                          <li>• Mutating objects.</li>
+                          <li>• Not separating DTO from UI model.</li>
+                          <li>• Not using literal types for roles.</li>
+                        </ul>
+                      </div>
+
+                      <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">🧪 Exercises</h3>
+                        <ol class="text-gray-800 space-y-2 list-decimal ml-5">
+                          <li>Create a Product type with readonly <code>id</code>, <code>name</code>, <code>price</code>, and category literal type (<code>"food" | "tech" | "clothing"</code>).</li>
+                          <li>Create <code>ApiProductDto</code> and a transform function to Product.</li>
+                          <li>Create Translations with <code>Record&lt;string, string&gt;</code>.</li>
+                        </ol>
+                      </div>
+
+                      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">⌨️ VS Code Tips</h3>
+                        <ul class="text-gray-700 space-y-2">
+                          <li>• Ctrl + Space -> literal type autocomplete.</li>
+                          <li>• F12 -> go to definition.</li>
+                          <li>• Ctrl + . -> quick fix.</li>
+                          <li>• Shift + F12 -> find references.</li>
+                          <li>• Alt + Shift + F -> format document.</li>
+                        </ul>
+                      </div>
+
+                      <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">🧠 Senior Conclusion</h3>
+                        <p class="text-gray-700 mb-3">Good object modeling in TypeScript is not just about adding types, it is about designing contracts that are clear, reusable, and safe.</p>
+                        <p class="text-gray-700">Primary target: clarity, reuse, safety, immutability, and DTO/UI separation.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="../../js/main.js"></script>
+  </body>
+</html>
